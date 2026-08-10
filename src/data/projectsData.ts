@@ -1,0 +1,126 @@
+import { Project } from "@/types";
+
+export const projectsData: Project[] = [
+  {
+    id: "dipannita",
+    title: "Dipannita",
+    subtitle: "AI-Powered Embedded IoT Companion Device",
+    tagline: "Autonomous sensor intelligence with BLE, MQTT & OLED real-time UI",
+    description:
+      "Dipannita is an advanced AI-powered ESP32 companion ecosystem. It combines low-latency sensor ingestion, local telemetry processing, Bluetooth Low Energy (BLE) provisioning, MQTT broker sync, and Over-The-Air (OTA) firmware update capabilities with a sleek OLED visual interface.",
+    category: "IoT",
+    featured: true,
+    image: "/assets/projects/dipannita.jpg",
+    techStack: ["ESP32", "C++", "MQTT", "BLE", "FreeRTOS", "OLED Driver", "Sensors", "OTA Update"],
+    features: [
+      "Real-time sensor telemetry & local anomaly classification",
+      "Bluetooth Low Energy (BLE) mobile provisioning pipeline",
+      "Robust MQTT communication over TLS",
+      "Automatic OTA wireless firmware update engine",
+      "Custom double-buffered OLED graphical user interface",
+    ],
+    architecture: {
+      hardware: "ESP32-WROOM-32D Dual-Core MCU (240MHz)",
+      protocol: "MQTT over WebSockets / TLS 1.3",
+      frontend: "Jetpack Compose Mobile Dashboard",
+      backend: "Node.js / Mosquitto MQTT Broker",
+    },
+    githubUrl: "https://github.com/Xentoryx/Dipannita-IoT",
+    liveUrl: "https://xentoryx.com/labs/dipannita",
+    stats: [
+      { label: "Latency", value: "< 12ms" },
+      { label: "Uptime", value: "99.98%" },
+      { label: "Sensor Sampling", value: "100 Hz" },
+    ],
+  },
+  {
+    id: "expensey",
+    title: "Expensey",
+    subtitle: "Offline-First Personal Finance Platform",
+    tagline: "High-performance native Android app with syncable Node.js API",
+    description:
+      "Expensey is a comprehensive personal finance tracking suite engineered with Jetpack Compose, Room DB, and Ktor Client on Android, backed by a Node.js & PostgreSQL backend. Built on offline-first principles, it guarantees zero transaction lag and seamless encrypted cloud synchronization.",
+    category: "Android",
+    featured: true,
+    image: "/assets/projects/expensey.jpg",
+    techStack: ["Kotlin", "Jetpack Compose", "Room DB", "Coroutines", "Node.js", "PostgreSQL", "JWT", "Docker"],
+    features: [
+      "Offline-first local transaction caching via Room Database",
+      "Jetpack Compose declarative reactive UI with smooth micro-animations",
+      "Background periodic sync using Android WorkManager",
+      "Encrypted API auth using JWT & OAuth2 integration",
+      "Automated monthly budget telemetry & insight graphs",
+    ],
+    architecture: {
+      frontend: "Android Native (Kotlin, Jetpack Compose, Hilt DI)",
+      backend: "Node.js / Express microservice cluster",
+      database: "PostgreSQL with Prisma ORM & Redis cache",
+    },
+    githubUrl: "https://github.com/Xentoryx/Expensey-Android",
+    liveUrl: "https://expensey.xentoryx.com",
+    stats: [
+      { label: "App Size", value: "< 14 MB" },
+      { label: "Sync Speed", value: "240ms" },
+      { label: "Offline Mode", value: "100% Reliable" },
+    ],
+  },
+  {
+    id: "reelo",
+    title: "Reelo",
+    subtitle: "Creator-Focused Media Engine & Platform",
+    tagline: "Ultra-responsive video distribution architecture",
+    description:
+      "Reelo is a modern, high-throughput video platform tailored for media creators and technology brands. Features instant HLS video streaming, dynamic CDN edge caching, rich analytics, and an elegant glassmorphism web interface.",
+    category: "Fullstack",
+    featured: true,
+    image: "/assets/projects/reelo.jpg",
+    techStack: ["Next.js 15", "TypeScript", "Tailwind CSS", "Framer Motion", "Node.js", "Redis", "FFmpeg", "AWS S3"],
+    features: [
+      "Adaptive HLS video transcoding & streaming pipeline",
+      "Creator dashboard with real-time watch telemetry analytics",
+      "Minimalist dark glassmorphism design system",
+      "Global CDN edge asset delivery and Redis caching layer",
+    ],
+    architecture: {
+      frontend: "Next.js 15 App Router + Framer Motion",
+      backend: "Node.js API + FFmpeg video encoder worker cluster",
+      database: "MongoDB Atlas + Redis cluster",
+    },
+    githubUrl: "https://github.com/Xentoryx/Reelo-Platform",
+    liveUrl: "https://reelo.xentoryx.com",
+    stats: [
+      { label: "Stream Startup", value: "0.4s" },
+      { label: "Transcode Rate", value: "60 FPS" },
+      { label: "CDN Hit Ratio", value: "98.5%" },
+    ],
+  },
+  {
+    id: "xentoryx-os",
+    title: "Xentoryx Telemetry Dashboard",
+    subtitle: "Real-time Industrial IoT Control Plane",
+    tagline: "Centralized hardware monitoring & control center",
+    description:
+      "An industrial-grade IoT control plane designed by Xentoryx Labs to monitor hundreds of remote sensor nodes, visualize real-time MQTT metrics, trigger remote OTA hardware updates, and manage device security certificates.",
+    category: "IoT",
+    featured: false,
+    image: "/assets/projects/telemetry.jpg",
+    techStack: ["React", "TypeScript", "WebSockets", "MQTT.js", "Chart.js", "Tailwind CSS", "Docker"],
+    features: [
+      "Live WebSocket telemetry streaming dashboard",
+      "Interactive node topology graph visualizer",
+      "Remote OTA firmware release management",
+      "Instant alarm triggers & SMS/Webhook alert webhooks",
+    ],
+    architecture: {
+      frontend: "React + WebSockets + Tailwind CSS",
+      backend: "Go MQTT Broker & Telemetry Ingestion Worker",
+      database: "TimescaleDB for high-frequency metric storage",
+    },
+    githubUrl: "https://github.com/Xentoryx/Telemetry-Control-Plane",
+    liveUrl: "https://xentoryx.com/labs/telemetry",
+    stats: [
+      { label: "Throughput", value: "10k msg/sec" },
+      { label: "Nodes Connected", value: "500+" },
+    ],
+  },
+];
