@@ -1,123 +1,153 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { timelineData } from "@/data/timelineData";
-import { Smartphone, Cpu, CreditCard, Bot, Rocket, Calendar, CheckCircle } from "lucide-react";
+import { Briefcase, Rocket, Code, Cpu, Calendar, CheckCircle2, Trophy } from "lucide-react";
+
+interface TimelineItem {
+  year: string;
+  period: string;
+  role: string;
+  organization: string;
+  description: string;
+  highlights: string[];
+  tech: string[];
+  icon: typeof Briefcase;
+}
 
 export default function JourneyTimeline() {
-  const getIcon = (iconName: string) => {
-    switch (iconName) {
-      case "Smartphone":
-        return <Smartphone className="w-5 h-5 text-emerald-400" />;
-      case "Cpu":
-        return <Cpu className="w-5 h-5 text-amber-400" />;
-      case "CreditCard":
-        return <CreditCard className="w-5 h-5 text-purple-400" />;
-      case "Bot":
-        return <Bot className="w-5 h-5 text-brand-red animate-pulse" />;
-      case "Rocket":
-        return <Rocket className="w-5 h-5 text-cyan-400" />;
-      default:
-        return <Calendar className="w-5 h-5 text-brand-red" />;
-    }
-  };
+  const items: TimelineItem[] = [
+    {
+      year: "2024 - Present",
+      period: "Present Era",
+      role: "Founder & Lead Architect",
+      organization: "Xentoryx Labs",
+      description:
+        "Established Xentoryx Labs as an R&D software & hardware engineering studio building native Android apps, IoT telemetry infrastructure, and modern web platforms.",
+      highlights: [
+        "Built Dipannita Android Blood Donation Network",
+        "Engineered Wireless ESP32 MQTT Firmware Engine",
+        "Architected Next.js 15 Fullstack Web Applications",
+      ],
+      tech: ["Kotlin", "ESP32", "Next.js", "MongoDB", "MQTT"],
+      icon: Rocket,
+    },
+    {
+      year: "2023 - 2024",
+      period: "System Architecture Era",
+      role: "Senior IoT & Backend Specialist",
+      organization: "Autonomous Client Systems",
+      description:
+        "Designed high-throughput REST microservices, offline-first SQLite synchronization engines, and low-latency Bluetooth Low Energy hardware provisioning.",
+      highlights: [
+        "Implemented WorkManager Background Data Sync",
+        "Designed Redis Pub/Sub Caching Layers",
+        "Configured TLS-Encrypted Hardware Communication",
+      ],
+      tech: ["Node.js", "PostgreSQL", "Redis", "BLE", "Docker"],
+      icon: Cpu,
+    },
+    {
+      year: "2021 - 2023",
+      period: "Foundational Era",
+      role: "Native Android Software Developer",
+      organization: "Mobile & Systems Engineering",
+      description:
+        "Mastered Kotlin Coroutines, Jetpack Compose declarative UI, Room local database persistence, and Clean Architecture pattern implementation.",
+      highlights: [
+        "Developed Enterprise Mobile Applications",
+        "Reduced App Cold Start Latency by 40%",
+        "Maintained 99.9% Crash-free Session Rate",
+      ],
+      tech: ["Kotlin", "Jetpack Compose", "Room DB", "MVVM"],
+      icon: Code,
+    },
+  ];
 
   return (
-    <section id="journey" className="py-24 bg-[#0F1115] relative overflow-hidden">
-      {/* Background glowing vertical line */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+    <section id="experience" className="py-24 bg-[#0B0D11] dark:bg-[#07090C] text-white relative border-t border-white/5">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center max-w-3xl mx-auto mb-16 space-y-4">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full glass-panel-red text-xs font-mono text-brand-red font-semibold uppercase tracking-wider">
-            MILESTONES & EVOLUTION
+            CAREER & MILESTONES
           </div>
           <h2 className="font-display text-4xl sm:text-5xl font-extrabold text-white tracking-tight">
-            Asif's Engineering <span className="text-gradient-red">Journey & Milestones</span>
+            Engineering <span className="text-gradient-red">Experience Timeline</span>
           </h2>
           <p className="text-base text-brand-muted leading-relaxed">
-            From writing native Android apps to designing custom hardware IoT devices and founding Xentoryx Labs.
+            A chronological timeline of technical leadership, mobile application engineering, hardware IoT research, and founding Xentoryx Labs.
           </p>
         </div>
 
-        {/* Timeline Grid */}
-        <div className="relative border-l-2 border-brand-red/30 ml-4 md:ml-32 space-y-12 pl-6 md:pl-10">
-          {timelineData.map((milestone, idx) => (
-            <motion.div
-              key={milestone.year}
-              initial={{ opacity: 0, x: -30 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: idx * 0.1 }}
-              className="relative group"
-            >
-              {/* Timeline Node Point with Red Energy Ring */}
-              <div className="absolute -left-[31px] md:-left-[47px] top-1.5 w-6 h-6 rounded-full bg-[#0F1115] border-2 border-brand-red flex items-center justify-center shadow-[0_0_15px_#DB4338] group-hover:scale-125 transition-transform">
-                <div className="w-2 h-2 rounded-full bg-brand-red" />
-              </div>
-
-              {/* Year Pill on Left Desktop */}
-              <div className="hidden md:block absolute -left-36 top-1 text-right w-24">
-                <div className="font-display text-xl font-extrabold text-brand-red font-mono">
-                  {milestone.year}
+        {/* Timeline Items */}
+        <div className="relative border-l-2 border-brand-red/30 ml-4 sm:ml-32 space-y-12">
+          {items.map((item, idx) => {
+            const IconComponent = item.icon;
+            return (
+              <motion.div
+                key={idx}
+                initial={{ opacity: 0, x: -20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: idx * 0.1 }}
+                className="relative pl-8 sm:pl-12"
+              >
+                {/* Timeline Dot Marker */}
+                <div className="absolute -left-[17px] top-1.5 w-8 h-8 rounded-full bg-[#0A0C10] border-2 border-brand-red text-brand-red flex items-center justify-center shadow-glow-red">
+                  <IconComponent className="w-4 h-4" />
                 </div>
-                <div className="text-[10px] text-brand-muted font-mono uppercase">
-                  {milestone.period}
-                </div>
-              </div>
 
-              {/* Card Container */}
-              <div className="glass-panel p-6 sm:p-8 rounded-3xl border border-white/10 hover:border-brand-red/40 transition-all space-y-4">
-                <div className="flex flex-wrap items-center justify-between gap-2 border-b border-white/10 pb-4">
-                  <div className="flex items-center gap-3">
-                    <div className="p-2.5 rounded-xl bg-surface border border-white/10">
-                      {getIcon(milestone.icon)}
-                    </div>
+                {/* Left Year Label (for larger screens) */}
+                <div className="hidden sm:block absolute -left-36 top-2 text-right w-28">
+                  <span className="text-xs font-mono font-bold text-brand-red bg-brand-red/10 px-2 py-1 rounded border border-brand-red/30">
+                    {item.year}
+                  </span>
+                </div>
+
+                {/* Content Card */}
+                <div className="glass-panel p-6 sm:p-8 rounded-3xl border border-white/10 space-y-4 hover:border-brand-red/40 transition-all">
+                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-white/10 pb-4">
                     <div>
-                      <div className="md:hidden text-xs font-mono text-brand-red font-bold">
-                        {milestone.year} • {milestone.period}
-                      </div>
-                      <h3 className="font-display text-xl sm:text-2xl font-bold text-white group-hover:text-brand-red transition-colors">
-                        {milestone.title}
+                      <span className="sm:hidden inline-block text-[10px] font-mono text-brand-red font-bold mb-1">
+                        {item.year}
+                      </span>
+                      <h3 className="font-display text-xl font-bold text-white">
+                        {item.role}
                       </h3>
-                      <div className="text-xs text-brand-muted font-mono">
-                        {milestone.companyRole}
-                      </div>
+                      <p className="text-xs font-mono text-brand-red">
+                        {item.organization} • {item.period}
+                      </p>
                     </div>
                   </div>
-                </div>
 
-                <p className="text-sm text-gray-300 leading-relaxed">
-                  {milestone.description}
-                </p>
+                  <p className="text-xs text-gray-300 leading-relaxed font-mono">
+                    {item.description}
+                  </p>
 
-                {/* Key Highlights */}
-                <div className="space-y-2 pt-2">
-                  <div className="text-xs font-mono text-brand-red uppercase tracking-wider font-semibold">
-                    Key Achievements:
-                  </div>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                    {milestone.highlights.map((item) => (
-                      <div key={item} className="flex items-center gap-2 text-xs text-brand-muted">
-                        <CheckCircle className="w-3.5 h-3.5 text-brand-red shrink-0" />
-                        <span>{item}</span>
+                  {/* Highlights List */}
+                  <div className="space-y-2 pt-2">
+                    {item.highlights.map((h, hIdx) => (
+                      <div key={hIdx} className="flex items-center gap-2 text-xs font-mono text-gray-400">
+                        <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
+                        <span>{h}</span>
                       </div>
                     ))}
                   </div>
-                </div>
 
-                {/* Tech Tags */}
-                <div className="flex flex-wrap gap-2 pt-2 border-t border-white/10">
-                  {milestone.technologies.map((tech) => (
-                    <span
-                      key={tech}
-                      className="px-2.5 py-1 rounded-md text-[11px] font-mono bg-surface border border-white/10 text-gray-300"
-                    >
-                      {tech}
-                    </span>
-                  ))}
+                  {/* Tech Badges */}
+                  <div className="flex flex-wrap gap-1.5 pt-2">
+                    {item.tech.map((t) => (
+                      <span
+                        key={t}
+                        className="px-2.5 py-0.5 rounded text-[10px] font-mono bg-surface border border-white/10 text-cyan-400 font-bold"
+                      >
+                        {t}
+                      </span>
+                    ))}
+                  </div>
                 </div>
-              </div>
-            </motion.div>
-          ))}
+              </motion.div>
+            );
+          })}
         </div>
       </div>
     </section>

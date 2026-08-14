@@ -6,27 +6,28 @@ import { motion } from "framer-motion";
 export default function CustomCursor() {
   const [mousePosition, setMousePosition] = useState({ x: -100, y: -100 });
   const [isHovered, setIsHovered] = useState(false);
-  const [isVisible, setIsVisible] = useState(false);
+  const [isTouchDevice, setIsTouchDevice] = useState(false);
 
   useEffect(() => {
-    // Hide cursor on touch devices
-    if (window.matchMedia("(pointer: coarse)").matches) {
-      return;
-    }
+    // Check if device is touch screen (Mobile Fallback)
+    const checkTouch = () => {
+      if ("ontouchstart" in window || navigator.maxTouchPoints > 0) {
+        setIsTouchDevice(true);
+      }
+    };
+    checkTouch();
 
-    setIsVisible(true);
-
-    const onMouseMove = (e: MouseEvent) => {
+    const updateMousePosition = (e: MouseEvent) => {
       setMousePosition({ x: e.clientX, y: e.clientY });
+    };
 
+    const handleMouseOver = (e: MouseEvent) => {
       const target = e.target as HTMLElement;
       if (
-        target &&
-        (target.tagName === "BUTTON" ||
-          target.tagName === "A" ||
-          target.closest("button") ||
-          target.closest("a") ||
-          target.getAttribute("data-cursor") === "pointer")
+        target.tagName === "BUTTON" ||
+        target.tagName === "A" ||
+        target.closest("button") ||
+        target.closest("a")
       ) {
         setIsHovered(true);
       } else {
@@ -34,46 +35,37 @@ export default function CustomCursor() {
       }
     };
 
-    const onMouseLeave = () => setIsVisible(false);
-    const onMouseEnter = () => setIsVisible(true);
-
-    window.addEventListener("mousemove", onMouseMove);
-    document.addEventListener("mouseleave", onMouseLeave);
-    document.addEventListener("mouseenter", onMouseEnter);
+    window.addEventListener("mousemove", updateMousePosition);
+    window.addEventListener("mouseover", handleMouseOver);
 
     return () => {
-      window.removeEventListener("mousemove", onMouseMove);
-      document.removeEventListener("mouseleave", onMouseLeave);
-      document.removeEventListener("mouseenter", onMouseEnter);
+      window.removeEventListener("mousemove", updateMousePosition);
+      window.removeEventListener("mouseover", handleMouseOver);
     };
   }, []);
 
-  if (!isVisible) return null;
+  // Mobile Fallback: Disable custom cursor on touch devices to prioritize performance & native feel
+  if (isTouchDevice) return null;
 
   return (
     <>
-      {/* Small Glowing Red Center Dot */}
       <motion.div
-        className="fixed top-0 left-0 w-2.5 h-2.5 bg-brand-red rounded-full pointer-events-none z-[9999] shadow-[0_0_12px_#DB4338]"
+        className="fixed top-0 left-0 w-4 h-4 bg-brand-red rounded-full pointer-events-none z-50 mix-blend-difference"
         animate={{
-          x: mousePosition.x - 5,
-          y: mousePosition.y - 5,
-          scale: isHovered ? 0.4 : 1,
+          x: mousePosition.x - 8,
+          y: mousePosition.y - 8,
+          scale: isHovered ? 2 : 1,
         }}
-        transition={{ type: "spring", stiffness: 1000, damping: 50, mass: 0.1 }}
+        transition={{ type: "spring", stiffness: 500, damping: 28, mass: 0.5 }}
       />
-
-      {/* Expanded Red Energy Ring */}
       <motion.div
-        className="fixed top-0 left-0 w-8 h-8 rounded-full border border-brand-red/60 pointer-events-none z-[9998] shadow-[0_0_20px_rgba(219,67,56,0.3)]"
+        className="fixed top-0 left-0 w-8 h-8 border border-brand-red/60 rounded-full pointer-events-none z-50"
         animate={{
           x: mousePosition.x - 16,
           y: mousePosition.y - 16,
-          scale: isHovered ? 2.2 : 1,
-          borderColor: isHovered ? "rgba(219, 67, 56, 1)" : "rgba(219, 67, 56, 0.4)",
-          backgroundColor: isHovered ? "rgba(219, 67, 56, 0.15)" : "rgba(219, 67, 56, 0)",
+          scale: isHovered ? 1.5 : 1,
         }}
-        transition={{ type: "spring", stiffness: 400, damping: 28 }}
+        transition={{ type: "spring", stiffness: 250, damping: 20, mass: 0.8 }}
       />
     </>
   );

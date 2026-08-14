@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter, Space_Grotesk } from "next/font/google";
 import "./globals.css";
 import ClientLayoutWrapper from "./ClientLayoutWrapper";
+import { ThemeProvider } from "@/components/layout/ThemeProvider";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -66,7 +67,45 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${inter.variable} ${spaceGrotesk.variable} dark`}>
       <body className="bg-[#0F1115] text-[#F5F5F5] antialiased selection:bg-brand-red selection:text-white">
-        <ClientLayoutWrapper>{children}</ClientLayoutWrapper>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="dark"
+          enableSystem
+          disableTransitionOnChange
+        >
+          {/* JSON-LD Structured Data Schema for SEO */}
+          <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{
+              __html: JSON.stringify({
+                "@context": "https://schema.org",
+                "@type": "Person",
+                name: "Asif",
+                jobTitle: "Founder & Principal Engineer",
+                worksFor: {
+                  "@type": "Organization",
+                  name: "Xentoryx Labs",
+                  url: "https://xentoryx-labs.com",
+                },
+                url: "https://xentoryx-labs.com",
+                sameAs: [
+                  "https://github.com/mohammadasifulislam8899",
+                  "https://linkedin.com",
+                ],
+                knowsAbout: [
+                  "Android Software Engineering",
+                  "Kotlin",
+                  "Jetpack Compose",
+                  "IoT Systems",
+                  "ESP32 C++",
+                  "Next.js",
+                  "Backend Architecture",
+                ],
+              }),
+            }}
+          />
+          <ClientLayoutWrapper>{children}</ClientLayoutWrapper>
+        </ThemeProvider>
       </body>
     </html>
   );

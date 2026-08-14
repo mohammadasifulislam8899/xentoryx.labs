@@ -1,11 +1,9 @@
 "use client";
 
-import { useState } from "react";
-import Preloader from "@/components/sections/Preloader";
 import FounderHero from "@/components/hero/FounderHero";
 import PhilosophySection from "@/components/sections/PhilosophySection";
 import JourneyTimeline from "@/components/sections/JourneyTimeline";
-import SkillsSection from "@/components/sections/SkillsSection";
+import SkillsGalaxySection from "@/components/sections/SkillsGalaxySection";
 import FeaturedProjectsSection from "@/components/sections/FeaturedProjectsSection";
 import ServicesSection from "@/components/sections/ServicesSection";
 import TechWallSection from "@/components/sections/TechWallSection";
@@ -13,30 +11,33 @@ import CompanySection from "@/components/sections/CompanySection";
 import ContactSection from "@/components/sections/ContactSection";
 
 export default function Home() {
-  const [loaded, setLoaded] = useState(false);
-
   return (
-    <main className="relative min-h-screen bg-[#0F1115] text-white">
-      {!loaded && <Preloader onComplete={() => setLoaded(true)} />}
+    <main className="min-h-screen bg-[#0A0C10] text-white selection:bg-brand-red selection:text-white">
+      {/* 1. Founder Hero Section */}
+      <FounderHero />
 
-      <FounderHero onOpenAi={() => {
-        document.dispatchEvent(new CustomEvent("open-ai-assistant"));
-      }} />
-
+      {/* 2. Engineering Philosophy */}
       <PhilosophySection />
 
+      {/* 3. Experience Timeline */}
       <JourneyTimeline />
 
-      <SkillsSection />
+      {/* 4. Interactive Tech Stack Galaxy */}
+      <SkillsGalaxySection />
 
+      {/* 5. Featured Projects Showcase */}
       <FeaturedProjectsSection />
 
+      {/* 6. Technology Wall Marquee */}
       <TechWallSection />
 
+      {/* 7. Services & Solutions */}
       <ServicesSection />
 
+      {/* 8. Company Vision */}
       <CompanySection />
 
+      {/* 9. Contact & Scope Selector */}
       <ContactSection />
     </main>
   );
