@@ -52,7 +52,7 @@ export default function ClientLayoutWrapper({ children }: { children: React.Reac
       <CustomCursor />
       <ParticleGridCanvas />
 
-      <div className="relative z-0 flex flex-col min-h-screen">
+      <div className="relative z-10 flex flex-col min-h-screen">
         <Navbar
           onOpenCmdk={() => setCmdkOpen(true)}
           onOpenAi={() => setAiOpen(true)}

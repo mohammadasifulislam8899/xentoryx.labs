@@ -233,7 +233,7 @@ export default function ThreeGalaxyCanvas() {
   return (
     <div
       ref={containerRef}
-      className="fixed inset-0 pointer-events-none z-[1] opacity-90 dark:opacity-95 transition-opacity duration-500"
+      className="fixed inset-0 pointer-events-none z-[-1] opacity-85 dark:opacity-90 transition-opacity duration-500"
     />
   );
 }
