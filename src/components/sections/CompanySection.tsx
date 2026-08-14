@@ -20,21 +20,21 @@ export default function CompanySection() {
   };
 
   return (
-    <section id="company" className="py-24 bg-[#0F1115] relative overflow-hidden">
+    <section id="company" className="py-24 bg-slate-50 dark:bg-[#0F1115] text-slate-900 dark:text-white relative overflow-hidden transition-colors duration-300">
       {/* Red ambient core */}
       <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-brand-red/10 rounded-full blur-3xl pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="text-center max-w-4xl mx-auto space-y-6 mb-20">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full glass-panel-red text-xs font-mono text-brand-red font-semibold uppercase tracking-wider">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full glass-panel-red text-xs font-mono text-brand-red font-semibold uppercase tracking-wider">
             ABOUT {companyName.toUpperCase()}
           </div>
 
-          <h2 className="font-display text-4xl sm:text-6xl font-extrabold text-white tracking-tight leading-tight">
+          <h2 className="font-display text-4xl sm:text-6xl font-extrabold text-slate-900 dark:text-white tracking-tight leading-tight">
             {compData.headline}
           </h2>
 
-          <p className="text-lg text-brand-muted leading-relaxed max-w-2xl mx-auto">
+          <p className="text-base sm:text-lg text-slate-600 dark:text-slate-400 leading-relaxed max-w-2xl mx-auto font-sans">
             {compData.description}
           </p>
         </div>
@@ -50,8 +50,8 @@ export default function CompanySection() {
             <div className="w-12 h-12 rounded-2xl bg-brand-red/20 border border-brand-red/40 flex items-center justify-center text-brand-red">
               <Target className="w-6 h-6" />
             </div>
-            <h3 className="font-display text-2xl font-bold text-white">Our Mission</h3>
-            <p className="text-sm text-gray-300 leading-relaxed">
+            <h3 className="font-display text-2xl font-bold text-slate-900 dark:text-white">Our Mission</h3>
+            <p className="text-xs font-mono text-slate-700 dark:text-slate-300 leading-relaxed">
               {compData.mission}
             </p>
           </motion.div>
@@ -60,13 +60,13 @@ export default function CompanySection() {
             initial={{ opacity: 0, x: 30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            className="glass-panel p-8 sm:p-10 rounded-3xl border border-white/10 space-y-4"
+            className="glass-panel p-8 sm:p-10 rounded-3xl border border-slate-200 dark:border-white/10 space-y-4"
           >
-            <div className="w-12 h-12 rounded-2xl bg-surface border border-white/10 flex items-center justify-center text-cyan-400">
+            <div className="w-12 h-12 rounded-2xl bg-slate-100 dark:bg-surface border border-slate-200 dark:border-white/10 flex items-center justify-center text-cyan-600 dark:text-cyan-400">
               <Compass className="w-6 h-6" />
             </div>
-            <h3 className="font-display text-2xl font-bold text-white">Our Vision</h3>
-            <p className="text-sm text-gray-300 leading-relaxed">
+            <h3 className="font-display text-2xl font-bold text-slate-900 dark:text-white">Our Vision</h3>
+            <p className="text-xs font-mono text-slate-700 dark:text-slate-300 leading-relaxed">
               {compData.vision}
             </p>
           </motion.div>
@@ -78,10 +78,10 @@ export default function CompanySection() {
             const icons = [ShieldCheck, Zap, Compass];
             const IconComp = icons[idx % icons.length];
             return (
-              <div key={val.title} className="glass-panel p-6 rounded-2xl border border-white/10 space-y-3">
+              <div key={val.title} className="glass-panel p-6 rounded-2xl border border-slate-200 dark:border-white/10 space-y-3">
                 <IconComp className="w-5 h-5 text-brand-red" />
-                <h4 className="font-display text-lg font-bold text-white">{val.title}</h4>
-                <p className="text-xs text-brand-muted leading-relaxed">{val.description}</p>
+                <h4 className="font-display text-lg font-bold text-slate-900 dark:text-white">{val.title}</h4>
+                <p className="text-xs font-mono text-slate-600 dark:text-slate-400 leading-relaxed">{val.description}</p>
               </div>
             );
           })}
