@@ -48,13 +48,13 @@ export default function ClientLayoutWrapper({ children }: { children: React.Reac
 
       <Footer />
 
-      {/* Floating Ask Asif AI Assistant Button Badge */}
+      {/* Floating Gemini AI Assistant Button Badge */}
       <button
         onClick={() => setAiOpen(true)}
         className="fixed bottom-6 right-6 z-[999] px-4 py-3 rounded-full bg-gradient-to-r from-brand-red to-[#FF5E50] text-white text-xs font-bold font-mono shadow-glow-red hover:shadow-glow-red-lg transition-all flex items-center gap-2 hover:scale-105 active:scale-95 group"
       >
         <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-ping" />
-        <span>Ask Asif AI</span>
+        <span>Gemini AI</span>
       </button>
 
       {/* Modals */}

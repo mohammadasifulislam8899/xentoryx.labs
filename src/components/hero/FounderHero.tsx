@@ -129,7 +129,7 @@ export default function FounderHero({ onOpenAi }: { onOpenAi: () => void }) {
                 className="px-4 py-3.5 rounded-xl glass-panel text-brand-red border border-brand-red/30 hover:bg-brand-red/10 text-xs font-semibold font-mono flex items-center gap-2 transition-colors"
               >
                 <Bot className="w-4 h-4 animate-bounce" />
-                <span>Ask AI Assistant</span>
+                <span>Gemini AI Assistant</span>
               </button>
             </div>
 

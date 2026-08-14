@@ -141,14 +141,14 @@ export default function Navbar({ onOpenCmdk, onOpenAi, onTriggerConsole }: Props
             <span className="font-mono text-[11px]">Ctrl+K</span>
           </button>
 
-          {/* Ask Asif AI Button */}
+          {/* Gemini AI Button */}
           <button
             onClick={onOpenAi}
             className="relative group px-3.5 py-1.5 rounded-full bg-gradient-to-r from-brand-red to-[#FF5E50] text-white text-xs font-semibold shadow-glow-red hover:shadow-glow-red-lg transition-all flex items-center gap-2 overflow-hidden"
           >
             <span className="absolute inset-0 w-full h-full bg-white/20 transform -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-700" />
             <Bot className="w-3.5 h-3.5 text-white animate-pulse" />
-            <span>Ask Asif AI</span>
+            <span>Gemini AI</span>
           </button>
 
           {/* Mobile Menu Toggle Button */}
