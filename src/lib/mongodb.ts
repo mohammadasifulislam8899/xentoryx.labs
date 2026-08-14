@@ -1,8 +1,6 @@
 import { MongoClient } from "mongodb";
 
-const MONGODB_URI =
-  process.env.MONGODB_URI ||
-  "mongodb+srv://mohammadasifulislam8899_db_user:FYMMVuHjTyhxs7GE@cluster0.heeuhzy.mongodb.net/?appName=Cluster0";
+const MONGODB_URI = process.env.MONGODB_URI;
 
 let client: MongoClient;
 let clientPromise: Promise<MongoClient>;
@@ -12,19 +10,29 @@ declare global {
 }
 
 const options = {
-  connectTimeoutMS: 3000,
-  serverSelectionTimeoutMS: 3000,
+  connectTimeoutMS: 5000,
+  serverSelectionTimeoutMS: 5000,
 };
 
+if (!MONGODB_URI) {
+  console.warn(
+    "MONGODB_URI environment variable is missing in .env.local. Falling back to local store until configured."
+  );
+}
+
 if (process.env.NODE_ENV === "development") {
-  if (!global._mongoClientPromise) {
+  if (!global._mongoClientPromise && MONGODB_URI) {
     client = new MongoClient(MONGODB_URI, options);
     global._mongoClientPromise = client.connect();
   }
-  clientPromise = global._mongoClientPromise;
+  clientPromise = global._mongoClientPromise || (Promise.resolve() as any);
 } else {
-  client = new MongoClient(MONGODB_URI, options);
-  clientPromise = client.connect();
+  if (MONGODB_URI) {
+    client = new MongoClient(MONGODB_URI, options);
+    clientPromise = client.connect();
+  } else {
+    clientPromise = Promise.resolve() as any;
+  }
 }
 
 export default clientPromise;
