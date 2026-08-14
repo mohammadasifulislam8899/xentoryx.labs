@@ -1,65 +1,81 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { projectsData } from "@/data/projectsData";
-import { Project } from "@/types";
+import { ArrowLeft, ExternalLink, Github, Layers, Search } from "lucide-react";
+import { useCMS } from "@/hooks/useCMS";
 import ProjectModal from "@/components/ui/ProjectModal";
-import { ArrowLeft, ExternalLink, Github, Sparkles, Filter } from "lucide-react";
+import { Project } from "@/types";
+
+import { projectsData } from "@/data/projectsData";
 
 export default function ProjectsPage() {
-  const [categoryFilter, setCategoryFilter] = useState<string>("All");
+  const { data } = useCMS();
+  const projects = data?.projects || projectsData;
+  const [activeCategory, setActiveCategory] = useState("All");
+  const [searchQuery, setSearchQuery] = useState("");
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
 
-  const filteredProjects =
-    categoryFilter === "All"
-      ? projectsData
-      : projectsData.filter((p) => p.category === categoryFilter);
+  const categories = ["All", "Android", "Web", "Backend", "IoT"];
 
-  const categories = ["All", "Android", "IoT", "Fullstack"];
+  const filteredProjects = projects.filter((p) => {
+    const matchesCategory = activeCategory === "All" || p.category === activeCategory;
+    const matchesSearch =
+      p.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      p.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      p.techStack.some((t) => t.toLowerCase().includes(searchQuery.toLowerCase()));
+    return matchesCategory && matchesSearch;
+  });
 
   return (
-    <div className="min-h-screen pt-28 pb-20 bg-[#0F1115] text-white relative">
-      {/* Background ambient glow */}
-      <div className="absolute top-20 right-10 w-96 h-96 bg-brand-red/10 rounded-full blur-3xl pointer-events-none" />
-
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 space-y-12">
-        {/* Header Navigation */}
-        <div className="flex items-center justify-between">
+    <div className="min-h-screen bg-slate-50 dark:bg-[#07090C] text-slate-900 dark:text-white pt-28 pb-20 transition-colors duration-300">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
+        {/* Header */}
+        <div className="space-y-4">
           <Link
             href="/"
-            className="px-4 py-2 rounded-full glass-panel text-xs font-mono text-brand-muted hover:text-white flex items-center gap-2 transition-colors"
+            className="inline-flex items-center gap-2 text-xs font-mono text-slate-600 dark:text-slate-400 hover:text-brand-red transition-colors"
           >
-            <ArrowLeft className="w-4 h-4 text-brand-red" />
-            <span>Back to Overview</span>
+            <ArrowLeft className="w-4 h-4" />
+            <span>Return to Home Overview</span>
           </Link>
-        </div>
 
-        {/* Page Title */}
-        <div className="max-w-3xl space-y-4">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full glass-panel-red text-xs font-mono text-brand-red font-semibold uppercase tracking-wider">
-            PROJECT CATALOG & CASE STUDIES
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 border-b border-slate-200 dark:border-white/10 pb-8">
+            <div className="space-y-2">
+              <span className="text-xs font-mono text-brand-red font-bold uppercase tracking-wider">
+                ENGINEERING PORTFOLIO
+              </span>
+              <h1 className="font-display text-4xl sm:text-5xl font-extrabold text-slate-900 dark:text-white tracking-tight">
+                All Projects & <span className="text-gradient-red">Applications</span>
+              </h1>
+            </div>
+
+            {/* Search Input */}
+            <div className="relative w-full md:w-72">
+              <Search className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
+              <input
+                type="text"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                placeholder="Search projects or tech..."
+                className="w-full bg-white dark:bg-surface px-4 py-2.5 pl-10 rounded-xl text-xs text-slate-900 dark:text-white border border-slate-200 dark:border-white/10 focus:border-brand-red focus:outline-none font-mono"
+              />
+            </div>
           </div>
-          <h1 className="font-display text-4xl sm:text-6xl font-extrabold text-white tracking-tight">
-            Engineering <span className="text-gradient-red">Showcase</span>
-          </h1>
-          <p className="text-base text-brand-muted leading-relaxed">
-            Detailed breakdown of production software applications, native Android platforms, and embedded IoT hardware companion devices engineered by Asif.
-          </p>
         </div>
 
         {/* Category Filters */}
-        <div className="flex flex-wrap items-center gap-2 border-b border-white/10 pb-6">
-          <Filter className="w-4 h-4 text-brand-red mr-2" />
+        <div className="flex flex-wrap gap-2">
           {categories.map((cat) => (
             <button
               key={cat}
-              onClick={() => setCategoryFilter(cat)}
+              onClick={() => setActiveCategory(cat)}
               className={`px-4 py-2 rounded-full text-xs font-mono font-bold transition-all ${
-                categoryFilter === cat
+                activeCategory === cat
                   ? "bg-brand-red text-white shadow-glow-red"
-                  : "glass-panel text-brand-muted hover:text-white"
+                  : "glass-panel text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white"
               }`}
             >
               {cat}
@@ -68,93 +84,99 @@ export default function ProjectsPage() {
         </div>
 
         {/* Projects Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          {filteredProjects.map((project, idx) => (
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {filteredProjects.map((proj, idx) => (
             <motion.div
-              key={project.id}
+              key={proj.id}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.4, delay: idx * 0.1 }}
-              className="glass-panel p-8 rounded-3xl border border-white/10 hover:border-brand-red/40 transition-all flex flex-col justify-between group"
+              transition={{ duration: 0.3, delay: idx * 0.05 }}
+              className="glass-panel rounded-3xl overflow-hidden space-y-5 hover:border-brand-red/40 transition-all flex flex-col justify-between p-6"
             >
               <div className="space-y-4">
-                <div className="flex items-center justify-between">
-                  <span className="px-3 py-1 rounded-full text-[10px] font-mono font-bold uppercase tracking-wider bg-brand-red/20 text-brand-red border border-brand-red/40">
-                    {project.category}
-                  </span>
-                  <span className="text-xs font-mono text-brand-muted">
-                    {project.stats[0]?.label}: {project.stats[0]?.value}
+                <div className="relative w-full h-48 rounded-2xl overflow-hidden border border-slate-200 dark:border-white/10">
+                  <Image
+                    src={proj.image}
+                    alt={proj.title}
+                    fill
+                    className="object-cover group-hover:scale-105 transition-transform duration-500"
+                  />
+                  <span className="absolute top-3 left-3 px-2.5 py-0.5 rounded-full text-[10px] font-mono font-bold bg-brand-red text-white uppercase shadow">
+                    {proj.category}
                   </span>
                 </div>
 
-                <h2 className="font-display text-3xl font-bold text-white group-hover:text-brand-red transition-colors">
-                  {project.title}
-                </h2>
-                <div className="text-xs font-mono text-brand-red font-semibold">
-                  {project.subtitle}
+                <div className="space-y-1">
+                  <h3 className="font-display text-xl font-bold text-slate-900 dark:text-white">
+                    {proj.title}
+                  </h3>
+                  <p className="text-xs font-mono text-brand-red font-bold">
+                    {proj.subtitle}
+                  </p>
                 </div>
 
-                <p className="text-sm text-gray-300 leading-relaxed">
-                  {project.description}
+                <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed font-mono line-clamp-3">
+                  {proj.description}
                 </p>
+              </div>
 
-                {/* Tech Stack */}
-                <div className="flex flex-wrap gap-2 pt-2">
-                  {project.techStack.map((tech) => (
+              <div className="space-y-3 pt-3 border-t border-slate-200 dark:border-white/10">
+                <div className="flex flex-wrap gap-1">
+                  {proj.techStack.map((t) => (
                     <span
-                      key={tech}
-                      className="px-3 py-1 rounded-lg text-xs font-mono bg-surface border border-white/10 text-gray-300"
+                      key={t}
+                      className="px-2 py-0.5 rounded text-[9px] font-mono bg-slate-100 dark:bg-surface border border-slate-200 dark:border-white/10 text-slate-700 dark:text-cyan-400 font-bold"
                     >
-                      {tech}
+                      {t}
                     </span>
                   ))}
                 </div>
-              </div>
 
-              {/* Action Buttons */}
-              <div className="pt-6 mt-6 border-t border-white/10 flex items-center justify-between">
-                <button
-                  onClick={() => setSelectedProject(project)}
-                  className="text-xs font-mono font-bold text-white hover:text-brand-red flex items-center gap-2 transition-colors"
-                >
-                  <Sparkles className="w-4 h-4 text-brand-red" />
-                  <span>Inspect Architecture</span>
-                </button>
+                <div className="flex items-center justify-between pt-2">
+                  <button
+                    onClick={() => setSelectedProject(proj)}
+                    className="px-3.5 py-1.5 rounded-xl glass-panel text-xs font-mono text-slate-900 dark:text-white hover:text-brand-red font-bold transition-colors flex items-center gap-1.5"
+                  >
+                    <span>Blueprint</span>
+                    <Layers className="w-3.5 h-3.5 text-brand-red" />
+                  </button>
 
-                <div className="flex items-center gap-3">
-                  {project.githubUrl && (
-                    <a
-                      href={project.githubUrl}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="p-2.5 rounded-xl glass-panel text-white hover:text-brand-red transition-colors"
-                      aria-label="GitHub"
-                    >
-                      <Github className="w-4 h-4" />
-                    </a>
-                  )}
-                  {project.liveUrl && (
-                    <a
-                      href={project.liveUrl}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="p-2.5 rounded-xl bg-brand-red text-white hover:shadow-glow-red transition-all"
-                      aria-label="Live Demo"
-                    >
-                      <ExternalLink className="w-4 h-4" />
-                    </a>
-                  )}
+                  <div className="flex items-center gap-2">
+                    {proj.githubUrl && (
+                      <a
+                        href={proj.githubUrl}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="p-2 rounded-xl glass-panel text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white"
+                      >
+                        <Github className="w-4 h-4" />
+                      </a>
+                    )}
+                    {proj.liveUrl && (
+                      <a
+                        href={proj.liveUrl}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="p-2 rounded-xl glass-panel text-brand-red hover:text-brand-red"
+                      >
+                        <ExternalLink className="w-4 h-4" />
+                      </a>
+                    )}
+                  </div>
                 </div>
               </div>
             </motion.div>
           ))}
         </div>
-      </div>
 
-      <ProjectModal
-        project={selectedProject}
-        onClose={() => setSelectedProject(null)}
-      />
+        {/* Project Modal */}
+        {selectedProject && (
+          <ProjectModal
+            project={selectedProject}
+            onClose={() => setSelectedProject(null)}
+          />
+        )}
+      </div>
     </div>
   );
 }

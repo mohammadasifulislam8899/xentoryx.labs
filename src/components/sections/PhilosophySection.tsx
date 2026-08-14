@@ -1,108 +1,97 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Zap, Layers, HeartHandshake, Bot, CheckCircle2 } from "lucide-react";
+import { Zap, ShieldCheck, Compass, RefreshCw, CheckCircle2 } from "lucide-react";
 import { useCMS } from "@/hooks/useCMS";
 
 export default function PhilosophySection() {
-  const { settings, companyName } = useCMS();
-
-  const icons = [Zap, Layers, HeartHandshake, Bot];
-  const colors = ["text-amber-400", "text-brand-red", "text-purple-400", "text-emerald-400"];
-  const borderColors = ["border-amber-500/30", "border-brand-red/40", "border-purple-500/30", "border-emerald-500/30"];
-
+  const { settings } = useCMS();
   const pillars = settings?.philosophy || [
     {
       title: "Build Fast",
       subtitle: "Rapid Prototyping to Production",
-      description:
-        "Moving swiftly from initial architectural concept to clean, production-ready code without cutting engineering corners.",
+      description: "Moving swiftly from initial architectural concept to clean, production-ready code without cutting engineering corners.",
       points: ["Modular Clean Architecture", "Iterative Sprint Deployment", "Zero Tech Debt Strategy"],
     },
     {
       title: "Think Scalable",
       subtitle: "Enterprise-Grade Performance",
-      description:
-        "Architecting software microservices and IoT hardware pipelines designed to effortlessly handle exponential user & data growth.",
+      description: "Architecting software microservices and IoT hardware pipelines designed to effortlessly handle exponential user & data growth.",
       points: ["Offline-First Android Data Caching", "High-Throughput MQTT Brokers", "Database Indexing & Micro-caching"],
     },
     {
       title: "Design for Humans",
       subtitle: "Apple & Linear Level Polish",
-      description:
-        "Crafting intuitive user interfaces, buttery smooth animations, and ergonomic software designs that wow users at first glance.",
+      description: "Crafting intuitive user interfaces, buttery smooth animations, and ergonomic software designs that wow users at first glance.",
       points: ["Declarative Jetpack Compose & React 19", "Micro-interactions & Smooth Scroll", "Accessible & Dark Mode First"],
     },
     {
       title: "Automate Everything",
       subtitle: "Continuous Telemetry & OTA",
-      description:
-        "Automating build pipelines, hardware Over-The-Air (OTA) updates, cloud container deployments, and background monitoring.",
+      description: "Automating build pipelines, hardware Over-The-Air (OTA) updates, cloud container deployments, and background monitoring.",
       points: ["OTA Wireless ESP32 Updating", "Dockerized Container Workflows", "Automated System Diagnostics"],
     },
   ];
 
-  return (
-    <section className="py-24 bg-[#0D0F14] relative overflow-hidden border-t border-white/5">
-      {/* Subtle Red Core Background Element */}
-      <div className="absolute top-1/2 left-0 w-80 h-80 bg-brand-red/10 rounded-full blur-3xl pointer-events-none" />
+  const icons = [Zap, ShieldCheck, Compass, RefreshCw];
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+  return (
+    <section id="philosophy" className="py-24 bg-slate-50 dark:bg-[#07090C] text-slate-900 dark:text-white relative border-t border-slate-200 dark:border-white/5 transition-colors duration-300">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center max-w-3xl mx-auto mb-16 space-y-4">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full glass-panel-red text-xs font-mono text-brand-red font-semibold uppercase tracking-wider">
-            PHILOSOPHY & STANDARDS
+            ENGINEERING PHILOSOPHY
           </div>
-          <h2 className="font-display text-4xl sm:text-5xl font-extrabold text-white tracking-tight">
-            Engineering Principles That Drive <span className="text-gradient-red">Xentoryx Labs</span>
+          <h2 className="font-display text-4xl sm:text-5xl font-extrabold text-slate-900 dark:text-white tracking-tight">
+            How We <span className="text-gradient-red">Architect Systems</span>
           </h2>
-          <p className="text-base text-brand-muted leading-relaxed">
-            Every product, Android application, IoT firmware driver, and web interface is built around four uncompromising core tenets.
+          <p className="text-base text-slate-600 dark:text-slate-400 leading-relaxed font-sans">
+            Core engineering principles guiding every software application, microservices API, and hardware IoT prototype built by Founder Asif at Xentoryx Labs.
           </p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {pillars.map((pillar, idx) => {
-            const IconComp = icons[idx % icons.length];
-            const colorClass = colors[idx % colors.length];
-            const borderClass = borderColors[idx % borderColors.length];
-
+            const IconComponent = icons[idx % icons.length];
             return (
               <motion.div
                 key={pillar.title}
-                initial={{ opacity: 0, y: 30 }}
+                initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: idx * 0.1 }}
-                className={`glass-panel p-8 rounded-3xl border ${borderClass} hover:border-brand-red/50 transition-all group relative overflow-hidden`}
+                className="glass-panel p-8 sm:p-10 rounded-3xl space-y-5 hover:border-brand-red/40 transition-all"
               >
-                <div className="absolute top-0 right-0 w-32 h-32 bg-white/5 rounded-bl-full pointer-events-none group-hover:bg-brand-red/10 transition-colors" />
-
-                <div className="flex items-center gap-4 mb-6">
-                  <div className={`w-14 h-14 rounded-2xl bg-surface border border-white/10 flex items-center justify-center ${colorClass} shadow-lg group-hover:scale-110 transition-transform`}>
-                    <IconComp className="w-7 h-7" />
+                <div className="flex items-center justify-between">
+                  <div className="w-12 h-12 rounded-2xl bg-brand-red/10 border border-brand-red/30 text-brand-red flex items-center justify-center">
+                    <IconComponent className="w-6 h-6" />
                   </div>
-                  <div>
-                    <h3 className="font-display text-2xl font-bold text-white group-hover:text-brand-red transition-colors">
-                      {pillar.title}
-                    </h3>
-                    <div className="text-xs font-mono text-brand-muted uppercase tracking-wider">
-                      {pillar.subtitle}
-                    </div>
-                  </div>
+                  <span className="text-xs font-mono font-bold text-brand-red uppercase tracking-widest">
+                    PILLAR 0{idx + 1}
+                  </span>
                 </div>
 
-                <p className="text-sm text-gray-300 leading-relaxed mb-6">
+                <div className="space-y-1">
+                  <h3 className="font-display text-2xl font-bold text-slate-900 dark:text-white">
+                    {pillar.title}
+                  </h3>
+                  <p className="text-xs font-mono text-brand-red font-bold">
+                    {pillar.subtitle}
+                  </p>
+                </div>
+
+                <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed font-mono">
                   {pillar.description}
                 </p>
 
-                <ul className="space-y-2 border-t border-white/10 pt-4">
-                  {pillar.points.map((point) => (
-                    <li key={point} className="flex items-center gap-2 text-xs text-brand-muted">
-                      <CheckCircle2 className="w-3.5 h-3.5 text-brand-red shrink-0" />
-                      <span>{point}</span>
-                    </li>
+                <div className="space-y-2 pt-2 border-t border-slate-200 dark:border-white/10">
+                  {pillar.points.map((pt, pIdx) => (
+                    <div key={pIdx} className="flex items-center gap-2 text-xs font-mono text-slate-700 dark:text-slate-300">
+                      <CheckCircle2 className="w-3.5 h-3.5 text-emerald-500 shrink-0" />
+                      <span>{pt}</span>
+                    </div>
                   ))}
-                </ul>
+                </div>
               </motion.div>
             );
           })}
