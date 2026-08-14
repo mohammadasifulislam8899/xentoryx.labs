@@ -1,9 +1,9 @@
 import { NextResponse } from "next/server";
-import { getCMSData, saveCMSData, CMSData } from "@/lib/cms/store";
+import { fetchMongoCMSData, saveMongoCMSData, CMSData } from "@/lib/cms/store";
 
 export async function GET() {
   try {
-    const data = getCMSData();
+    const data = await fetchMongoCMSData();
     return NextResponse.json(data);
   } catch (error) {
     return NextResponse.json({ error: "Failed to fetch CMS data" }, { status: 500 });
@@ -13,7 +13,7 @@ export async function GET() {
 export async function POST(req: Request) {
   try {
     const body = await req.json();
-    const current = getCMSData();
+    const current = await fetchMongoCMSData();
 
     if (body.type === "inquiry") {
       // New visitor inquiry from Contact Form
@@ -28,13 +28,13 @@ export async function POST(req: Request) {
         read: false,
       };
       current.inquiries.unshift(newInquiry);
-      saveCMSData(current);
+      await saveMongoCMSData(current);
       return NextResponse.json({ success: true, inquiry: newInquiry });
     }
 
     if (body.type === "updateAll") {
       const updated: CMSData = body.data;
-      saveCMSData(updated);
+      await saveMongoCMSData(updated);
       return NextResponse.json({ success: true, data: updated });
     }
 

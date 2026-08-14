@@ -1,5 +1,6 @@
 import fs from "fs";
 import path from "path";
+import clientPromise from "@/lib/mongodb";
 import { projectsData } from "@/data/projectsData";
 import { skillsData } from "@/data/skillsData";
 import { timelineData } from "@/data/timelineData";
@@ -75,7 +76,7 @@ export interface CMSData {
 
 const dataFilePath = path.join(process.cwd(), "src", "data", "cms-store.json");
 
-const initialData: CMSData = {
+export const initialData: CMSData = {
   settings: {
     founderName: "Asif",
     companyName: "Xentoryx Labs",
@@ -195,6 +196,47 @@ const initialData: CMSData = {
     },
   ],
 };
+
+export async function fetchMongoCMSData(): Promise<CMSData> {
+  try {
+    const client = await clientPromise;
+    const db = client.db("xentoryx_cms");
+    const doc = await db.collection("cms_store").findOne({ _id: "main_data" } as any);
+
+    if (doc && doc.data) {
+      return doc.data as CMSData;
+    }
+
+    // Seed database if empty
+    await db.collection("cms_store").updateOne(
+      { _id: "main_data" } as any,
+      { $set: { data: initialData, updatedAt: new Date() } },
+      { upsert: true }
+    );
+    return initialData;
+  } catch (err) {
+    console.warn("MongoDB fetch failed, falling back to local file store:", err);
+    return getCMSData();
+  }
+}
+
+export async function saveMongoCMSData(data: CMSData): Promise<boolean> {
+  try {
+    const client = await clientPromise;
+    const db = client.db("xentoryx_cms");
+    await db.collection("cms_store").updateOne(
+      { _id: "main_data" } as any,
+      { $set: { data: data, updatedAt: new Date() } },
+      { upsert: true }
+    );
+    // Also sync local file store
+    saveCMSData(data);
+    return true;
+  } catch (err) {
+    console.error("MongoDB save error, falling back to local file store:", err);
+    return saveCMSData(data);
+  }
+}
 
 export function getCMSData(): CMSData {
   try {
