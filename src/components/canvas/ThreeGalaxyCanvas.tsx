@@ -10,7 +10,7 @@ export default function ThreeGalaxyCanvas() {
     const container = containerRef.current;
     if (!container) return;
 
-    // 1. Scene & Camera
+    // 1. Scene & Camera Setup
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(
       60,
@@ -18,7 +18,8 @@ export default function ThreeGalaxyCanvas() {
       0.1,
       1000
     );
-    camera.position.z = 30;
+    camera.position.set(0, 12, 28);
+    camera.lookAt(0, 0, 0);
 
     // 2. WebGL Renderer
     const renderer = new THREE.WebGLRenderer({
@@ -30,99 +31,69 @@ export default function ThreeGalaxyCanvas() {
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     container.appendChild(renderer.domElement);
 
-    // 3. Create Floating 3D Geometric Polyhedra (Tech Orbs & Wireframes)
-    const shapesGroup = new THREE.Group();
-    scene.add(shapesGroup);
+    // 3. Create 3D Digital Wave Ribbons Grid
+    const numX = 90;
+    const numZ = 60;
+    const count = numX * numZ;
 
-    // Shape 1: Outer Wireframe Icosahedron
-    const geoIco = new THREE.IcosahedronGeometry(6, 1);
-    const matIco = new THREE.MeshBasicMaterial({
-      color: new THREE.Color("#DB4338"),
-      wireframe: true,
-      transparent: true,
-      opacity: 0.15,
-    });
-    const meshIco = new THREE.Mesh(geoIco, matIco);
-    meshIco.position.set(-12, 4, -5);
-    shapesGroup.add(meshIco);
+    const geometry = new THREE.BufferGeometry();
+    const positions = new Float32Array(count * 3);
+    const colors = new Float32Array(count * 3);
 
-    // Shape 2: Inner Core Ring
-    const geoTorus = new THREE.TorusGeometry(8, 0.08, 16, 100);
-    const matTorus = new THREE.MeshBasicMaterial({
-      color: new THREE.Color("#00F2FE"),
-      wireframe: true,
-      transparent: true,
-      opacity: 0.2,
-    });
-    const meshTorus = new THREE.Mesh(geoTorus, matTorus);
-    meshTorus.position.set(14, -6, -8);
-    meshTorus.rotation.x = Math.PI / 3;
-    shapesGroup.add(meshTorus);
+    const colorRed = new THREE.Color("#DB4338");
+    const colorCyan = new THREE.Color("#00F2FE");
+    const colorWhite = new THREE.Color("#FFFFFF");
 
-    // 4. Create Interactive 3D Neural Constellation Nodes & Mesh
-    const nodeCount = 120;
-    const nodeGeometry = new THREE.BufferGeometry();
-    const nodePositions = new Float32Array(nodeCount * 3);
-    const nodeVelocities: { x: number; y: number; z: number }[] = [];
+    let i = 0;
+    for (let ix = 0; ix < numX; ix++) {
+      for (let iz = 0; iz < numZ; iz++) {
+        const x = (ix - numX / 2) * 0.7;
+        const z = (iz - numZ / 2) * 0.7;
+        const y = 0;
 
-    for (let i = 0; i < nodeCount; i++) {
-      const i3 = i * 3;
-      nodePositions[i3] = (Math.random() - 0.5) * 60;
-      nodePositions[i3 + 1] = (Math.random() - 0.5) * 40;
-      nodePositions[i3 + 2] = (Math.random() - 0.5) * 30;
+        positions[i * 3] = x;
+        positions[i * 3 + 1] = y;
+        positions[i * 3 + 2] = z;
 
-      nodeVelocities.push({
-        x: (Math.random() - 0.5) * 0.02,
-        y: (Math.random() - 0.5) * 0.02,
-        z: (Math.random() - 0.5) * 0.01,
-      });
+        // Color interpolation
+        const mixRatio = ix / numX;
+        const c = colorRed.clone();
+        if (iz % 2 === 0) {
+          c.lerp(colorCyan, mixRatio);
+        } else {
+          c.lerp(colorWhite, mixRatio * 0.5);
+        }
+
+        colors[i * 3] = c.r;
+        colors[i * 3 + 1] = c.g;
+        colors[i * 3 + 2] = c.b;
+
+        i++;
+      }
     }
 
-    nodeGeometry.setAttribute(
+    geometry.setAttribute(
       "position",
-      new THREE.BufferAttribute(nodePositions, 3)
+      new THREE.BufferAttribute(positions, 3)
     );
+    geometry.setAttribute("color", new THREE.BufferAttribute(colors, 3));
 
-    const nodeMaterial = new THREE.PointsMaterial({
-      size: 0.35,
-      color: new THREE.Color("#DB4338"),
-      transparent: true,
-      opacity: 0.7,
-    });
-
-    const nodesPoints = new THREE.Points(nodeGeometry, nodeMaterial);
-    scene.add(nodesPoints);
-
-    // Dynamic Connecting Lines LinesGeometry
-    const maxConnections = 250;
-    const linePositions = new Float32Array(maxConnections * 6);
-    const lineColors = new Float32Array(maxConnections * 6);
-
-    const lineGeometry = new THREE.BufferGeometry();
-    lineGeometry.setAttribute(
-      "position",
-      new THREE.BufferAttribute(linePositions, 3)
-    );
-    lineGeometry.setAttribute(
-      "color",
-      new THREE.BufferAttribute(lineColors, 3)
-    );
-
-    const lineMaterial = new THREE.LineBasicMaterial({
+    const material = new THREE.PointsMaterial({
+      size: 0.22,
       vertexColors: true,
       transparent: true,
-      opacity: 0.35,
+      opacity: 0.75,
       blending: THREE.AdditiveBlending,
     });
 
-    const linesMesh = new THREE.LineSegments(lineGeometry, lineMaterial);
-    scene.add(linesMesh);
+    const wavePoints = new THREE.Points(geometry, material);
+    scene.add(wavePoints);
 
-    // 5. Mouse Parallax & Interactions
-    let mouseX = 0;
-    let mouseY = 0;
+    // 4. Mouse Interaction
     let targetMouseX = 0;
     let targetMouseY = 0;
+    let mouseX = 0;
+    let mouseY = 0;
 
     const handleMouseMove = (e: MouseEvent) => {
       targetMouseX = (e.clientX / window.innerWidth - 0.5) * 2;
@@ -138,91 +109,34 @@ export default function ThreeGalaxyCanvas() {
     window.addEventListener("mousemove", handleMouseMove);
     window.addEventListener("resize", handleResize);
 
-    // 6. Animation Loop
+    // 5. Animation Loop (Sine Wave Motion)
     let animationFrameId: number;
-    const clock = new THREE.Clock();
+    let countStep = 0;
 
     const animate = () => {
-      const elapsedTime = clock.getElapsedTime();
+      countStep += 0.03;
+      const posArr = geometry.attributes.position.array as Float32Array;
 
-      // Rotate geometric shapes slowly
-      meshIco.rotation.x = elapsedTime * 0.15;
-      meshIco.rotation.y = elapsedTime * 0.2;
-      meshTorus.rotation.z = elapsedTime * 0.1;
-      meshTorus.rotation.y = elapsedTime * 0.15;
-
-      // Update Node positions & bounds checking
-      const posArr = nodeGeometry.attributes.position.array as Float32Array;
-
-      for (let i = 0; i < nodeCount; i++) {
-        const i3 = i * 3;
-        posArr[i3] += nodeVelocities[i].x;
-        posArr[i3 + 1] += nodeVelocities[i].y;
-        posArr[i3 + 2] += nodeVelocities[i].z;
-
-        // Bounce back inside 3D volume
-        if (Math.abs(posArr[i3]) > 30) nodeVelocities[i].x *= -1;
-        if (Math.abs(posArr[i3 + 1]) > 20) nodeVelocities[i].y *= -1;
-        if (Math.abs(posArr[i3 + 2]) > 15) nodeVelocities[i].z *= -1;
-      }
-      nodeGeometry.attributes.position.needsUpdate = true;
-
-      // Update Connecting Neural Lines
-      let vertexIdx = 0;
-      let colorIdx = 0;
-      let connections = 0;
-
-      const cRed = new THREE.Color("#DB4338");
-      const cCyan = new THREE.Color("#00F2FE");
-
-      for (let i = 0; i < nodeCount; i++) {
-        for (let j = i + 1; j < nodeCount; j++) {
-          if (connections >= maxConnections) break;
-
-          const i3 = i * 3;
-          const j3 = j * 3;
-
-          const dx = posArr[i3] - posArr[j3];
-          const dy = posArr[i3 + 1] - posArr[j3 + 1];
-          const dz = posArr[i3 + 2] - posArr[j3 + 2];
-          const dist = Math.sqrt(dx * dx + dy * dy + dz * dz);
-
-          if (dist < 10) {
-            // Line Segment Position
-            linePositions[vertexIdx++] = posArr[i3];
-            linePositions[vertexIdx++] = posArr[i3 + 1];
-            linePositions[vertexIdx++] = posArr[i3 + 2];
-
-            linePositions[vertexIdx++] = posArr[j3];
-            linePositions[vertexIdx++] = posArr[j3 + 1];
-            linePositions[vertexIdx++] = posArr[j3 + 2];
-
-            // Distance-based color gradient
-            const alpha = 1 - dist / 10;
-            const mixColor = i % 2 === 0 ? cRed : cCyan;
-
-            lineColors[colorIdx++] = mixColor.r * alpha;
-            lineColors[colorIdx++] = mixColor.g * alpha;
-            lineColors[colorIdx++] = mixColor.b * alpha;
-
-            lineColors[colorIdx++] = mixColor.r * alpha;
-            lineColors[colorIdx++] = mixColor.g * alpha;
-            lineColors[colorIdx++] = mixColor.b * alpha;
-
-            connections++;
-          }
+      let idx = 0;
+      for (let ix = 0; ix < numX; ix++) {
+        for (let iz = 0; iz < numZ; iz++) {
+          // Undulating 3D Sine Wave Equation
+          const y =
+            Math.sin((ix + countStep) * 0.3) * 2.2 +
+            Math.sin((iz + countStep) * 0.5) * 2.2;
+          posArr[idx + 1] = y;
+          idx += 3;
         }
       }
 
-      lineGeometry.attributes.position.needsUpdate = true;
-      lineGeometry.attributes.color.needsUpdate = true;
+      geometry.attributes.position.needsUpdate = true;
 
-      // Smooth Mouse Parallax
+      // Mouse Parallax Reaction
       mouseX += (targetMouseX - mouseX) * 0.05;
       mouseY += (targetMouseY - mouseY) * 0.05;
 
-      camera.position.x = mouseX * 3;
-      camera.position.y = -mouseY * 3;
+      camera.position.x = mouseX * 6;
+      camera.position.y = 12 - mouseY * 4;
       camera.lookAt(0, 0, 0);
 
       renderer.render(scene, camera);
@@ -231,7 +145,7 @@ export default function ThreeGalaxyCanvas() {
 
     animate();
 
-    // 7. Cleanup
+    // 6. Cleanup
     return () => {
       window.removeEventListener("mousemove", handleMouseMove);
       window.removeEventListener("resize", handleResize);
@@ -239,14 +153,8 @@ export default function ThreeGalaxyCanvas() {
       if (container.contains(renderer.domElement)) {
         container.removeChild(renderer.domElement);
       }
-      geoIco.dispose();
-      matIco.dispose();
-      geoTorus.dispose();
-      matTorus.dispose();
-      nodeGeometry.dispose();
-      nodeMaterial.dispose();
-      lineGeometry.dispose();
-      lineMaterial.dispose();
+      geometry.dispose();
+      material.dispose();
       renderer.dispose();
     };
   }, []);
