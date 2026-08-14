@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { ArrowUp, Github, Linkedin, Mail, Heart } from "lucide-react";
 import { useCMS } from "@/hooks/useCMS";
@@ -15,10 +16,20 @@ export default function Footer() {
     <footer className="bg-slate-100 dark:bg-[#07090C] text-slate-900 dark:text-white border-t border-slate-200 dark:border-white/10 py-12 transition-colors duration-300">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col md:flex-row items-center justify-between gap-6 pb-8 border-b border-slate-200 dark:border-white/10">
-          <div className="space-y-1 text-center md:text-left">
-            <div className="font-display text-xl font-bold text-slate-900 dark:text-white flex items-center justify-center md:justify-start gap-2">
-              <span>{companyName || "Xentoryx Labs"}</span>
-              <span className="w-2 h-2 rounded-full bg-brand-red animate-pulse" />
+          <div className="space-y-2 text-center md:text-left">
+            <div className="relative h-10 w-48 mx-auto md:mx-0">
+              <Image
+                src="/assets/logo-dark.png"
+                alt="Xentoryx Labs Logo Dark"
+                fill
+                className="object-contain hidden dark:block"
+              />
+              <Image
+                src="/assets/logo-light.png"
+                alt="Xentoryx Labs Logo Light"
+                fill
+                className="object-contain block dark:hidden"
+              />
             </div>
             <p className="text-xs font-mono text-slate-600 dark:text-slate-400 max-w-md">
               {tagline || "Building Scalable Software, IoT Systems and Intelligent Technologies"}

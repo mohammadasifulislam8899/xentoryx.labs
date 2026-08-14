@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { Bot, Command as CommandIcon, Menu, X, Terminal, Search } from "lucide-react";
@@ -59,29 +60,28 @@ export default function Navbar({ onOpenCmdk, onOpenConsole, onTriggerConsole, on
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between">
-          {/* Logo */}
+          {/* Official Brand Logo */}
           <Link
             href="/"
             onClick={handleLogoClick}
             className="flex items-center gap-3 group focus:outline-none"
             title="Click 5 times for Developer Console"
           >
-            <div className="relative w-9 h-9 rounded-xl bg-gradient-to-br from-brand-red to-[#FF5E50] p-0.5 shadow-glow-red group-hover:scale-105 transition-transform">
-              <div className="w-full h-full bg-[#0A0C10] dark:bg-[#0A0C10] rounded-[10px] flex items-center justify-center">
-                <span className="font-display font-black text-brand-red text-sm tracking-tighter">
-                  XL
-                </span>
-              </div>
-            </div>
-
-            <div className="flex flex-col">
-              <span className="font-display text-base font-bold text-slate-900 dark:text-white tracking-tight flex items-center gap-1.5">
-                {companyName || "Xentoryx Labs"}
-                <span className="w-1.5 h-1.5 rounded-full bg-brand-red animate-pulse" />
-              </span>
-              <span className="text-[10px] font-mono text-slate-500 dark:text-slate-400 tracking-wider uppercase">
-                {founderName || "Asif"} // System Engine
-              </span>
+            <div className="relative h-10 w-44 sm:w-48 transition-transform group-hover:scale-105">
+              <Image
+                src="/assets/logo-dark.png"
+                alt="Xentoryx Labs Logo Dark"
+                fill
+                priority
+                className="object-contain hidden dark:block"
+              />
+              <Image
+                src="/assets/logo-light.png"
+                alt="Xentoryx Labs Logo Light"
+                fill
+                priority
+                className="object-contain block dark:hidden"
+              />
             </div>
           </Link>
 
