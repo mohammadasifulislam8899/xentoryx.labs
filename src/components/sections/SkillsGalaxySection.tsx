@@ -53,10 +53,10 @@ export default function SkillsGalaxySection() {
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full glass-panel-red text-xs font-mono text-brand-red font-semibold uppercase tracking-wider">
             INTERACTIVE TECH GALAXY
           </div>
-          <h2 className="font-display text-4xl sm:text-5xl font-extrabold dark:text-white text-gray-900 tracking-tight">
+          <h2 className="font-display text-4xl sm:text-5xl font-extrabold dark:text-white text-slate-900 tracking-tight">
             Engineering <span className="text-gradient-red">Stack Galaxy</span>
           </h2>
-          <p className="text-base text-brand-muted leading-relaxed">
+          <p className="text-base text-slate-600 dark:text-slate-400 leading-relaxed font-sans">
             Click any node in the galaxy to inspect mastery levels, real-world experience, and technical implementation details.
           </p>
         </div>
@@ -70,7 +70,7 @@ export default function SkillsGalaxySection() {
               className={`px-4 py-2 rounded-full text-xs font-mono font-bold transition-all ${
                 activeFilter === cat
                   ? "bg-brand-red text-white shadow-glow-red"
-                  : "glass-panel text-brand-muted hover:text-white"
+                  : "glass-panel text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white"
               }`}
             >
               {cat}
@@ -91,19 +91,19 @@ export default function SkillsGalaxySection() {
                 className={`p-5 rounded-2xl text-left transition-all relative overflow-hidden ${
                   isSelected
                     ? "glass-panel-red border-brand-red shadow-glow-red"
-                    : "glass-panel border-white/10 hover:border-brand-red/40"
+                    : "glass-panel hover:border-brand-red/40"
                 }`}
               >
                 <div className="flex items-center justify-between mb-3">
                   <span className={`text-xs font-mono font-bold ${node.color}`}>
                     {node.name}
                   </span>
-                  <span className="text-[10px] font-mono text-brand-muted">
+                  <span className="text-[10px] font-mono text-slate-500 dark:text-slate-400 font-bold">
                     {node.level}%
                   </span>
                 </div>
 
-                <div className="text-[10px] font-mono text-brand-muted uppercase">
+                <div className="text-[10px] font-mono text-slate-600 dark:text-slate-400 uppercase font-bold">
                   {node.category} • {node.experience}
                 </div>
 

@@ -2,10 +2,9 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
-import { Bot, Command as CommandIcon, Menu, X, Sparkles, Terminal, Search } from "lucide-react";
+import { Bot, Command as CommandIcon, Menu, X, Terminal, Search } from "lucide-react";
 import ThemeToggle from "./ThemeToggle";
 import { useCMS } from "@/hooks/useCMS";
 
@@ -54,7 +53,7 @@ export default function Navbar({ onOpenCmdk, onOpenConsole, onTriggerConsole, on
     <header
       className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 ${
         scrolled
-          ? "bg-[#0A0C10]/80 dark:bg-[#0A0C10]/80 backdrop-blur-xl border-b border-white/10 shadow-2xl py-3"
+          ? "bg-[#F8FAFC]/90 dark:bg-[#0A0C10]/80 backdrop-blur-xl border-b border-slate-200 dark:border-white/10 shadow-lg py-3"
           : "bg-transparent py-5"
       }`}
     >
@@ -68,7 +67,7 @@ export default function Navbar({ onOpenCmdk, onOpenConsole, onTriggerConsole, on
             title="Click 5 times for Developer Console"
           >
             <div className="relative w-9 h-9 rounded-xl bg-gradient-to-br from-brand-red to-[#FF5E50] p-0.5 shadow-glow-red group-hover:scale-105 transition-transform">
-              <div className="w-full h-full bg-[#0A0C10] rounded-[10px] flex items-center justify-center">
+              <div className="w-full h-full bg-[#0A0C10] dark:bg-[#0A0C10] rounded-[10px] flex items-center justify-center">
                 <span className="font-display font-black text-brand-red text-sm tracking-tighter">
                   XL
                 </span>
@@ -76,29 +75,31 @@ export default function Navbar({ onOpenCmdk, onOpenConsole, onTriggerConsole, on
             </div>
 
             <div className="flex flex-col">
-              <span className="font-display text-base font-bold text-white tracking-tight flex items-center gap-1.5">
+              <span className="font-display text-base font-bold text-slate-900 dark:text-white tracking-tight flex items-center gap-1.5">
                 {companyName || "Xentoryx Labs"}
                 <span className="w-1.5 h-1.5 rounded-full bg-brand-red animate-pulse" />
               </span>
-              <span className="text-[10px] font-mono text-brand-muted tracking-wider uppercase">
+              <span className="text-[10px] font-mono text-slate-500 dark:text-slate-400 tracking-wider uppercase">
                 {founderName || "Asif"} // System Engine
               </span>
             </div>
           </Link>
 
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center gap-6 text-xs font-mono text-brand-muted">
+          <nav className="hidden md:flex items-center gap-6 text-xs font-mono">
             {navLinks.map((link) => {
               const isActive = pathname === link.href;
               return (
                 <Link
                   key={link.label}
                   href={link.href}
-                  className={`hover:text-white transition-colors flex items-center gap-1.5 ${
-                    isActive ? "text-white font-bold" : ""
+                  className={`transition-colors flex items-center gap-1.5 ${
+                    isActive
+                      ? "text-brand-red font-bold"
+                      : "text-slate-600 hover:text-slate-900 dark:text-slate-300 dark:hover:text-white"
                   }`}
                 >
-                  {link.label === "Console" && <Terminal className="w-3.5 h-3.5 text-cyan-400" />}
+                  {link.label === "Console" && <Terminal className="w-3.5 h-3.5 text-cyan-600 dark:text-cyan-400" />}
                   <span>{link.label}</span>
                   {link.badge && (
                     <span className="px-1.5 py-0.2 rounded text-[9px] font-mono bg-brand-red/20 text-brand-red border border-brand-red/40">
@@ -116,12 +117,12 @@ export default function Navbar({ onOpenCmdk, onOpenConsole, onTriggerConsole, on
 
             <button
               onClick={onOpenCmdk}
-              className="px-3 py-1.5 rounded-xl glass-panel text-xs font-mono text-brand-muted hover:text-white flex items-center gap-2 border border-white/10"
+              className="px-3 py-1.5 rounded-xl glass-panel text-xs font-mono text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white flex items-center gap-2"
               title="Press Ctrl+K to open search"
             >
               <Search className="w-3.5 h-3.5 text-brand-red" />
               <span className="hidden sm:inline">Search</span>
-              <kbd className="hidden sm:inline-block px-1.5 py-0.5 rounded bg-surface border border-white/10 text-[10px] font-mono text-gray-400">
+              <kbd className="hidden sm:inline-block px-1.5 py-0.5 rounded bg-slate-100 dark:bg-surface border border-slate-300 dark:border-white/10 text-[10px] font-mono text-slate-600 dark:text-gray-400">
                 ⌘K
               </kbd>
             </button>
@@ -138,7 +139,7 @@ export default function Navbar({ onOpenCmdk, onOpenConsole, onTriggerConsole, on
             {/* Mobile Menu Button */}
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="md:hidden p-2 rounded-lg glass-panel text-white hover:text-brand-red transition-colors"
+              className="md:hidden p-2 rounded-lg glass-panel text-slate-900 dark:text-white hover:text-brand-red transition-colors"
               aria-label="Toggle menu"
             >
               {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
@@ -154,7 +155,7 @@ export default function Navbar({ onOpenCmdk, onOpenConsole, onTriggerConsole, on
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
-            className="md:hidden glass-panel border-b border-white/10 bg-[#0F1115]/95 backdrop-blur-2xl overflow-hidden"
+            className="md:hidden glass-panel border-b border-slate-200 dark:border-white/10 bg-white/95 dark:bg-[#0F1115]/95 backdrop-blur-2xl overflow-hidden"
           >
             <div className="px-6 py-6 space-y-4">
               <div className="flex flex-col space-y-3">
@@ -163,7 +164,7 @@ export default function Navbar({ onOpenCmdk, onOpenConsole, onTriggerConsole, on
                     key={link.label}
                     href={link.href}
                     onClick={() => setMobileMenuOpen(false)}
-                    className="text-sm font-mono text-brand-muted hover:text-white transition-colors flex items-center justify-between"
+                    className="text-sm font-mono text-slate-700 dark:text-slate-300 hover:text-brand-red transition-colors flex items-center justify-between"
                   >
                     <span>{link.label}</span>
                     {link.badge && (

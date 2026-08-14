@@ -77,7 +77,7 @@ export default function FounderHero() {
             </div>
 
             {/* Description Pitch */}
-            <p className="text-base sm:text-lg dark:text-gray-300 text-gray-700 max-w-2xl leading-relaxed font-sans font-normal">
+            <p className="text-base sm:text-lg dark:text-slate-300 text-slate-700 max-w-2xl leading-relaxed font-sans font-normal">
               {heroConfig.description || tagline}
             </p>
 
@@ -93,25 +93,25 @@ export default function FounderHero() {
 
               <Link
                 href="#contact"
-                className="px-6 py-3.5 rounded-2xl glass-panel border border-white/10 hover:border-brand-red/40 text-white text-xs font-mono font-bold uppercase tracking-wider flex items-center gap-2 transition-all"
+                className="px-6 py-3.5 rounded-2xl glass-panel text-slate-900 dark:text-white text-xs font-mono font-bold uppercase tracking-wider flex items-center gap-2 transition-all"
               >
                 <span>Initiate Contact</span>
               </Link>
             </div>
 
             {/* Minimal Metrics Row */}
-            <div className="grid grid-cols-3 gap-4 pt-6 border-t border-white/10 max-w-md">
+            <div className="grid grid-cols-3 gap-4 pt-6 border-t border-slate-200 dark:border-white/10 max-w-md">
               <div>
-                <div className="text-2xl font-display font-bold text-white">{heroConfig.yearsMetric}</div>
-                <div className="text-[10px] font-mono text-brand-muted uppercase">Experience</div>
+                <div className="text-2xl font-display font-bold text-slate-900 dark:text-white">{heroConfig.yearsMetric}</div>
+                <div className="text-[10px] font-mono text-slate-500 dark:text-slate-400 uppercase font-bold">Experience</div>
               </div>
               <div>
-                <div className="text-2xl font-display font-bold text-white">{heroConfig.techNodesMetric}</div>
-                <div className="text-[10px] font-mono text-brand-muted uppercase">Tech Stack Nodes</div>
+                <div className="text-2xl font-display font-bold text-slate-900 dark:text-white">{heroConfig.techNodesMetric}</div>
+                <div className="text-[10px] font-mono text-slate-500 dark:text-slate-400 uppercase font-bold">Tech Stack Nodes</div>
               </div>
               <div>
-                <div className="text-2xl font-display font-bold text-white">{heroConfig.uptimeMetric}</div>
-                <div className="text-[10px] font-mono text-brand-muted uppercase">Uptime Target</div>
+                <div className="text-2xl font-display font-bold text-slate-900 dark:text-white">{heroConfig.uptimeMetric}</div>
+                <div className="text-[10px] font-mono text-slate-500 dark:text-slate-400 uppercase font-bold">Uptime Target</div>
               </div>
             </div>
           </div>
