@@ -30,6 +30,7 @@ import {
   X,
 } from "lucide-react";
 import Link from "next/link";
+import ThemeToggle from "@/components/layout/ThemeToggle";
 
 export default function AdminDashboard() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -196,7 +197,7 @@ export default function AdminDashboard() {
   }
 
   return (
-    <div className="min-h-screen bg-[#07090C] text-white py-8">
+    <div className="min-h-screen bg-[var(--bg-primary)] text-[var(--text-primary)] py-8 transition-colors duration-300">
       {/* Standalone Admin Navbar Header */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-8">
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between p-6 rounded-3xl bg-[#0E1118] border border-white/10 shadow-2xl gap-4">
@@ -218,12 +219,14 @@ export default function AdminDashboard() {
           </div>
 
           <div className="flex items-center gap-3">
+            <ThemeToggle />
+
             <Link
               href="/"
               target="_blank"
-              className="px-4 py-2 rounded-xl glass-panel text-xs font-mono text-gray-300 hover:text-white flex items-center gap-2 transition-colors border-white/10"
+              className="px-4 py-2 rounded-xl glass-panel text-xs font-mono text-slate-700 dark:text-gray-300 hover:text-slate-900 dark:hover:text-white flex items-center gap-2 transition-colors border-slate-200 dark:border-white/10"
             >
-              <Eye className="w-3.5 h-3.5 text-cyan-400" />
+              <Eye className="w-3.5 h-3.5 text-cyan-500 dark:text-cyan-400" />
               <span>View Public Live Site</span>
             </Link>
 

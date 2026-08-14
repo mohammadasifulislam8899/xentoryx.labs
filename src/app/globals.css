@@ -3,6 +3,7 @@
 @tailwind utilities;
 
 @layer base {
+  /* 100% Pure Ceramic Light Mode */
   :root {
     --bg-primary: #F8FAFC;
     --bg-surface: #FFFFFF;
@@ -12,9 +13,10 @@
     --text-muted: #64748B;
     --border-color: rgba(15, 23, 42, 0.12);
     --border-hover: rgba(219, 67, 56, 0.4);
-    --glass-bg: rgba(255, 255, 255, 0.92);
+    --glass-bg: rgba(255, 255, 255, 0.95);
   }
 
+  /* 100% Deep Space Dark Mode */
   .dark {
     --bg-primary: #080A0E;
     --bg-surface: #0E1118;
@@ -24,7 +26,7 @@
     --text-muted: #94A3B8;
     --border-color: rgba(255, 255, 255, 0.1);
     --border-hover: rgba(219, 67, 56, 0.5);
-    --glass-bg: rgba(14, 17, 24, 0.88);
+    --glass-bg: rgba(14, 17, 24, 0.92);
   }
 
   body {
@@ -42,7 +44,6 @@
 }
 
 @layer utilities {
-  /* Apple/Linear Level Glass Card Styling */
   .glass-panel {
     background-color: var(--glass-bg);
     border: 1px solid var(--border-color);

@@ -39,7 +39,7 @@ export default function ClientLayoutWrapper({ children }: { children: React.Reac
   // Completely isolated Admin Page without any client/visitor navbar, footer, cursor, or canvas
   if (isAdminRoute) {
     return (
-      <div className="min-h-screen bg-[#0A0C10] text-white selection:bg-brand-red selection:text-white">
+      <div className="min-h-screen bg-[var(--bg-primary)] text-[var(--text-primary)] selection:bg-brand-red selection:text-white transition-colors duration-300">
         {children}
       </div>
     );
