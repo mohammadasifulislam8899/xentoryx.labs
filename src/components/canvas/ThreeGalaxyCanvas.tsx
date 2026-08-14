@@ -18,7 +18,7 @@ export default function ThreeGalaxyCanvas() {
       0.1,
       1000
     );
-    camera.position.z = 25;
+    camera.position.z = 24;
 
     // 2. WebGL Renderer
     const renderer = new THREE.WebGLRenderer({
@@ -39,62 +39,62 @@ export default function ThreeGalaxyCanvas() {
     scene.add(shapesGroup);
 
     // Shape 1: Outer Wireframe Icosahedron
-    const geoIco = new THREE.IcosahedronGeometry(7.5, 1);
+    const geoIco = new THREE.IcosahedronGeometry(7, 1);
     const matIco = new THREE.MeshBasicMaterial({
       color: cRed,
       wireframe: true,
       transparent: true,
-      opacity: 0.35,
+      opacity: 0.3,
     });
     const meshIco = new THREE.Mesh(geoIco, matIco);
     meshIco.position.set(-13, 4, -4);
     shapesGroup.add(meshIco);
 
     // Shape 2: Inner Core Torus Ring
-    const geoTorus = new THREE.TorusGeometry(9.5, 0.12, 16, 100);
+    const geoTorus = new THREE.TorusGeometry(9, 0.12, 16, 100);
     const matTorus = new THREE.MeshBasicMaterial({
       color: cCyan,
       wireframe: true,
       transparent: true,
-      opacity: 0.4,
+      opacity: 0.35,
     });
     const meshTorus = new THREE.Mesh(geoTorus, matTorus);
     meshTorus.position.set(15, -6, -6);
     meshTorus.rotation.x = Math.PI / 3;
     shapesGroup.add(meshTorus);
 
-    // 4. Create Interactive 3D Neural Constellation Nodes & Mesh Group
+    // 4. Create Dense Interactive 3D Neural Constellation Mesh Group
     const meshGroup = new THREE.Group();
     scene.add(meshGroup);
 
-    const nodeCount = 140;
+    const nodeCount = 90;
     const nodeGeo = new THREE.BufferGeometry();
     const nodePos = new Float32Array(nodeCount * 3);
     const vels: { x: number; y: number; z: number }[] = [];
 
     for (let i = 0; i < nodeCount; i++) {
-      nodePos[i * 3] = (Math.random() - 0.5) * 55;
-      nodePos[i * 3 + 1] = (Math.random() - 0.5) * 38;
-      nodePos[i * 3 + 2] = (Math.random() - 0.5) * 25;
+      nodePos[i * 3] = (Math.random() - 0.5) * 45;
+      nodePos[i * 3 + 1] = (Math.random() - 0.5) * 30;
+      nodePos[i * 3 + 2] = (Math.random() - 0.5) * 20;
       vels.push({
-        x: (Math.random() - 0.5) * 0.035,
-        y: (Math.random() - 0.5) * 0.035,
-        z: (Math.random() - 0.5) * 0.02,
+        x: (Math.random() - 0.5) * 0.03,
+        y: (Math.random() - 0.5) * 0.03,
+        z: (Math.random() - 0.5) * 0.015,
       });
     }
 
     nodeGeo.setAttribute("position", new THREE.BufferAttribute(nodePos, 3));
     const nodeMat = new THREE.PointsMaterial({
-      size: 0.6,
+      size: 0.45,
       color: cRed,
       transparent: true,
-      opacity: 0.9,
+      opacity: 0.95,
     });
     const nodePoints = new THREE.Points(nodeGeo, nodeMat);
     meshGroup.add(nodePoints);
 
-    // Dynamic Connecting Laser Lines
-    const maxConn = 400;
+    // Dynamic Connecting Laser Lines (Dense Mesh Buffer)
+    const maxConn = 800;
     const linePos = new Float32Array(maxConn * 6);
     const lineCols = new Float32Array(maxConn * 6);
     const lineGeo = new THREE.BufferGeometry();
@@ -103,7 +103,7 @@ export default function ThreeGalaxyCanvas() {
     const lineMat = new THREE.LineBasicMaterial({
       vertexColors: true,
       transparent: true,
-      opacity: 0.55,
+      opacity: 0.7,
       blending: THREE.AdditiveBlending,
     });
     const lines = new THREE.LineSegments(lineGeo, lineMat);
@@ -150,16 +150,18 @@ export default function ThreeGalaxyCanvas() {
         posArr[i3] += vels[i].x;
         posArr[i3 + 1] += vels[i].y;
         posArr[i3 + 2] += vels[i].z;
-        if (Math.abs(posArr[i3]) > 28) vels[i].x *= -1;
-        if (Math.abs(posArr[i3 + 1]) > 19) vels[i].y *= -1;
-        if (Math.abs(posArr[i3 + 2]) > 13) vels[i].z *= -1;
+        if (Math.abs(posArr[i3]) > 24) vels[i].x *= -1;
+        if (Math.abs(posArr[i3 + 1]) > 16) vels[i].y *= -1;
+        if (Math.abs(posArr[i3 + 2]) > 11) vels[i].z *= -1;
       }
       nodeGeo.attributes.position.needsUpdate = true;
 
-      // Update distance-based laser connections cleanly
+      // Update dense distance-based laser mesh connections
       let vIdx = 0;
       let cIdx = 0;
       let conns = 0;
+      const connectDist = 20;
+
       for (let i = 0; i < nodeCount; i++) {
         for (let j = i + 1; j < nodeCount; j++) {
           if (conns >= maxConn) break;
@@ -169,7 +171,8 @@ export default function ThreeGalaxyCanvas() {
           const dy = posArr[i3 + 1] - posArr[j3 + 1];
           const dz = posArr[i3 + 2] - posArr[j3 + 2];
           const dist = Math.sqrt(dx * dx + dy * dy + dz * dz);
-          if (dist < 12) {
+
+          if (dist < connectDist) {
             linePos[vIdx++] = posArr[i3];
             linePos[vIdx++] = posArr[i3 + 1];
             linePos[vIdx++] = posArr[i3 + 2];
@@ -177,14 +180,14 @@ export default function ThreeGalaxyCanvas() {
             linePos[vIdx++] = posArr[j3 + 1];
             linePos[vIdx++] = posArr[j3 + 2];
 
-            const a = 1 - dist / 12;
+            const alpha = 1 - dist / connectDist;
             const col = i % 2 === 0 ? cRed : cCyan;
-            lineCols[cIdx++] = col.r * a;
-            lineCols[cIdx++] = col.g * a;
-            lineCols[cIdx++] = col.b * a;
-            lineCols[cIdx++] = col.r * a;
-            lineCols[cIdx++] = col.g * a;
-            lineCols[cIdx++] = col.b * a;
+            lineCols[cIdx++] = col.r * alpha;
+            lineCols[cIdx++] = col.g * alpha;
+            lineCols[cIdx++] = col.b * alpha;
+            lineCols[cIdx++] = col.r * alpha;
+            lineCols[cIdx++] = col.g * alpha;
+            lineCols[cIdx++] = col.b * alpha;
             conns++;
           }
         }
