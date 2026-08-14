@@ -10,7 +10,7 @@ export default function ThreeGalaxyCanvas() {
     const container = containerRef.current;
     if (!container) return;
 
-    // 1. Scene & Camera Setup
+    // 1. Scene & Camera
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(
       60,
@@ -18,7 +18,7 @@ export default function ThreeGalaxyCanvas() {
       0.1,
       1000
     );
-    camera.position.z = 24;
+    camera.position.z = 30;
 
     // 2. WebGL Renderer
     const renderer = new THREE.WebGLRenderer({
@@ -30,93 +30,93 @@ export default function ThreeGalaxyCanvas() {
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     container.appendChild(renderer.domElement);
 
-    // Color Palette
-    const cRed = new THREE.Color("#DB4338");
-    const cCyan = new THREE.Color("#00F2FE");
-
     // 3. Create Floating 3D Geometric Polyhedra (Tech Orbs & Wireframes)
     const shapesGroup = new THREE.Group();
     scene.add(shapesGroup);
 
     // Shape 1: Outer Wireframe Icosahedron
-    const geoIco = new THREE.IcosahedronGeometry(7, 1);
+    const geoIco = new THREE.IcosahedronGeometry(6, 1);
     const matIco = new THREE.MeshBasicMaterial({
-      color: cRed,
+      color: new THREE.Color("#DB4338"),
       wireframe: true,
       transparent: true,
-      opacity: 0.4,
+      opacity: 0.15,
     });
     const meshIco = new THREE.Mesh(geoIco, matIco);
-    meshIco.position.set(-13, 4, -4);
+    meshIco.position.set(-12, 4, -5);
     shapesGroup.add(meshIco);
 
-    // Shape 2: Inner Core Torus Ring
-    const geoTorus = new THREE.TorusGeometry(9, 0.12, 16, 100);
+    // Shape 2: Inner Core Ring
+    const geoTorus = new THREE.TorusGeometry(8, 0.08, 16, 100);
     const matTorus = new THREE.MeshBasicMaterial({
-      color: cCyan,
+      color: new THREE.Color("#00F2FE"),
       wireframe: true,
       transparent: true,
-      opacity: 0.45,
+      opacity: 0.2,
     });
     const meshTorus = new THREE.Mesh(geoTorus, matTorus);
-    meshTorus.position.set(15, -6, -6);
+    meshTorus.position.set(14, -6, -8);
     meshTorus.rotation.x = Math.PI / 3;
     shapesGroup.add(meshTorus);
 
-    // 4. Create Dense Interactive 3D Neural Constellation Mesh Group
-    const meshGroup = new THREE.Group();
-    scene.add(meshGroup);
-
-    const nodeCount = 95;
-    const nodeGeo = new THREE.BufferGeometry();
-    const nodePos = new Float32Array(nodeCount * 3);
-    const vels: { x: number; y: number; z: number }[] = [];
+    // 4. Create Interactive 3D Neural Constellation Nodes & Mesh
+    const nodeCount = 120;
+    const nodeGeometry = new THREE.BufferGeometry();
+    const nodePositions = new Float32Array(nodeCount * 3);
+    const nodeVelocities: { x: number; y: number; z: number }[] = [];
 
     for (let i = 0; i < nodeCount; i++) {
-      nodePos[i * 3] = (Math.random() - 0.5) * 45;
-      nodePos[i * 3 + 1] = (Math.random() - 0.5) * 30;
-      nodePos[i * 3 + 2] = (Math.random() - 0.5) * 20;
-      vels.push({
-        x: (Math.random() - 0.5) * 0.03,
-        y: (Math.random() - 0.5) * 0.03,
-        z: (Math.random() - 0.5) * 0.015,
+      const i3 = i * 3;
+      nodePositions[i3] = (Math.random() - 0.5) * 60;
+      nodePositions[i3 + 1] = (Math.random() - 0.5) * 40;
+      nodePositions[i3 + 2] = (Math.random() - 0.5) * 30;
+
+      nodeVelocities.push({
+        x: (Math.random() - 0.5) * 0.02,
+        y: (Math.random() - 0.5) * 0.02,
+        z: (Math.random() - 0.5) * 0.01,
       });
     }
 
-    nodeGeo.setAttribute("position", new THREE.BufferAttribute(nodePos, 3));
-    const nodeMat = new THREE.PointsMaterial({
-      size: 0.55,
-      color: cRed,
-      transparent: true,
-      opacity: 0.95,
-    });
-    const nodePoints = new THREE.Points(nodeGeo, nodeMat);
-    meshGroup.add(nodePoints);
+    nodeGeometry.setAttribute(
+      "position",
+      new THREE.BufferAttribute(nodePositions, 3)
+    );
 
-    // Red Laser Neural Lines
-    const maxConn = 700;
-    const redLinePos = new Float32Array(maxConn * 6);
-    const redLineGeo = new THREE.BufferGeometry();
-    redLineGeo.setAttribute("position", new THREE.BufferAttribute(redLinePos, 3));
-    const redLineMat = new THREE.LineBasicMaterial({
-      color: cRed,
+    const nodeMaterial = new THREE.PointsMaterial({
+      size: 0.35,
+      color: new THREE.Color("#DB4338"),
       transparent: true,
-      opacity: 0.85,
+      opacity: 0.7,
     });
-    const redLines = new THREE.LineSegments(redLineGeo, redLineMat);
-    meshGroup.add(redLines);
 
-    // Cyan Cyber Neural Lines
-    const cyanLinePos = new Float32Array(maxConn * 6);
-    const cyanLineGeo = new THREE.BufferGeometry();
-    cyanLineGeo.setAttribute("position", new THREE.BufferAttribute(cyanLinePos, 3));
-    const cyanLineMat = new THREE.LineBasicMaterial({
-      color: cCyan,
+    const nodesPoints = new THREE.Points(nodeGeometry, nodeMaterial);
+    scene.add(nodesPoints);
+
+    // Dynamic Connecting Lines LinesGeometry
+    const maxConnections = 250;
+    const linePositions = new Float32Array(maxConnections * 6);
+    const lineColors = new Float32Array(maxConnections * 6);
+
+    const lineGeometry = new THREE.BufferGeometry();
+    lineGeometry.setAttribute(
+      "position",
+      new THREE.BufferAttribute(linePositions, 3)
+    );
+    lineGeometry.setAttribute(
+      "color",
+      new THREE.BufferAttribute(lineColors, 3)
+    );
+
+    const lineMaterial = new THREE.LineBasicMaterial({
+      vertexColors: true,
       transparent: true,
-      opacity: 0.8,
+      opacity: 0.35,
+      blending: THREE.AdditiveBlending,
     });
-    const cyanLines = new THREE.LineSegments(cyanLineGeo, cyanLineMat);
-    meshGroup.add(cyanLines);
+
+    const linesMesh = new THREE.LineSegments(lineGeometry, lineMaterial);
+    scene.add(linesMesh);
 
     // 5. Mouse Parallax & Interactions
     let mouseX = 0;
@@ -143,78 +143,86 @@ export default function ThreeGalaxyCanvas() {
     const clock = new THREE.Clock();
 
     const animate = () => {
-      const t = clock.getElapsedTime();
+      const elapsedTime = clock.getElapsedTime();
 
-      // Rotate 3D wireframe polyhedra & neural mesh
-      meshIco.rotation.x = t * 0.15;
-      meshIco.rotation.y = t * 0.2;
-      meshTorus.rotation.z = t * 0.1;
-      meshTorus.rotation.y = t * 0.15;
-      meshGroup.rotation.y = t * 0.03;
+      // Rotate geometric shapes slowly
+      meshIco.rotation.x = elapsedTime * 0.15;
+      meshIco.rotation.y = elapsedTime * 0.2;
+      meshTorus.rotation.z = elapsedTime * 0.1;
+      meshTorus.rotation.y = elapsedTime * 0.15;
 
-      // Update node positions inside 3D volume
-      const posArr = nodeGeo.attributes.position.array as Float32Array;
+      // Update Node positions & bounds checking
+      const posArr = nodeGeometry.attributes.position.array as Float32Array;
+
       for (let i = 0; i < nodeCount; i++) {
         const i3 = i * 3;
-        posArr[i3] += vels[i].x;
-        posArr[i3 + 1] += vels[i].y;
-        posArr[i3 + 2] += vels[i].z;
-        if (Math.abs(posArr[i3]) > 24) vels[i].x *= -1;
-        if (Math.abs(posArr[i3 + 1]) > 16) vels[i].y *= -1;
-        if (Math.abs(posArr[i3 + 2]) > 11) vels[i].z *= -1;
-      }
-      nodeGeo.attributes.position.needsUpdate = true;
+        posArr[i3] += nodeVelocities[i].x;
+        posArr[i3 + 1] += nodeVelocities[i].y;
+        posArr[i3 + 2] += nodeVelocities[i].z;
 
-      // Calculate 3D Laser Mesh Lines
-      let redIdx = 0;
-      let cyanIdx = 0;
-      let redConns = 0;
-      let cyanConns = 0;
-      const connectDist = 18;
+        // Bounce back inside 3D volume
+        if (Math.abs(posArr[i3]) > 30) nodeVelocities[i].x *= -1;
+        if (Math.abs(posArr[i3 + 1]) > 20) nodeVelocities[i].y *= -1;
+        if (Math.abs(posArr[i3 + 2]) > 15) nodeVelocities[i].z *= -1;
+      }
+      nodeGeometry.attributes.position.needsUpdate = true;
+
+      // Update Connecting Neural Lines
+      let vertexIdx = 0;
+      let colorIdx = 0;
+      let connections = 0;
+
+      const cRed = new THREE.Color("#DB4338");
+      const cCyan = new THREE.Color("#00F2FE");
 
       for (let i = 0; i < nodeCount; i++) {
         for (let j = i + 1; j < nodeCount; j++) {
+          if (connections >= maxConnections) break;
+
           const i3 = i * 3;
           const j3 = j * 3;
+
           const dx = posArr[i3] - posArr[j3];
           const dy = posArr[i3 + 1] - posArr[j3 + 1];
           const dz = posArr[i3 + 2] - posArr[j3 + 2];
           const dist = Math.sqrt(dx * dx + dy * dy + dz * dz);
 
-          if (dist < connectDist) {
-            if (i % 2 === 0 && redConns < maxConn) {
-              redLinePos[redIdx++] = posArr[i3];
-              redLinePos[redIdx++] = posArr[i3 + 1];
-              redLinePos[redIdx++] = posArr[i3 + 2];
-              redLinePos[redIdx++] = posArr[j3];
-              redLinePos[redIdx++] = posArr[j3 + 1];
-              redLinePos[redIdx++] = posArr[j3 + 2];
-              redConns++;
-            } else if (cyanConns < maxConn) {
-              cyanLinePos[cyanIdx++] = posArr[i3];
-              cyanLinePos[cyanIdx++] = posArr[i3 + 1];
-              cyanLinePos[cyanIdx++] = posArr[i3 + 2];
-              cyanLinePos[cyanIdx++] = posArr[j3];
-              cyanLinePos[cyanIdx++] = posArr[j3 + 1];
-              cyanLinePos[cyanIdx++] = posArr[j3 + 2];
-              cyanConns++;
-            }
+          if (dist < 10) {
+            // Line Segment Position
+            linePositions[vertexIdx++] = posArr[i3];
+            linePositions[vertexIdx++] = posArr[i3 + 1];
+            linePositions[vertexIdx++] = posArr[i3 + 2];
+
+            linePositions[vertexIdx++] = posArr[j3];
+            linePositions[vertexIdx++] = posArr[j3 + 1];
+            linePositions[vertexIdx++] = posArr[j3 + 2];
+
+            // Distance-based color gradient
+            const alpha = 1 - dist / 10;
+            const mixColor = i % 2 === 0 ? cRed : cCyan;
+
+            lineColors[colorIdx++] = mixColor.r * alpha;
+            lineColors[colorIdx++] = mixColor.g * alpha;
+            lineColors[colorIdx++] = mixColor.b * alpha;
+
+            lineColors[colorIdx++] = mixColor.r * alpha;
+            lineColors[colorIdx++] = mixColor.g * alpha;
+            lineColors[colorIdx++] = mixColor.b * alpha;
+
+            connections++;
           }
         }
       }
 
-      redLineGeo.setDrawRange(0, redConns * 2);
-      redLineGeo.attributes.position.needsUpdate = true;
+      lineGeometry.attributes.position.needsUpdate = true;
+      lineGeometry.attributes.color.needsUpdate = true;
 
-      cyanLineGeo.setDrawRange(0, cyanConns * 2);
-      cyanLineGeo.attributes.position.needsUpdate = true;
-
-      // Smooth Mouse Parallax Reaction
+      // Smooth Mouse Parallax
       mouseX += (targetMouseX - mouseX) * 0.05;
       mouseY += (targetMouseY - mouseY) * 0.05;
 
-      camera.position.x = mouseX * 4;
-      camera.position.y = -mouseY * 4;
+      camera.position.x = mouseX * 3;
+      camera.position.y = -mouseY * 3;
       camera.lookAt(0, 0, 0);
 
       renderer.render(scene, camera);
@@ -235,12 +243,10 @@ export default function ThreeGalaxyCanvas() {
       matIco.dispose();
       geoTorus.dispose();
       matTorus.dispose();
-      nodeGeo.dispose();
-      nodeMat.dispose();
-      redLineGeo.dispose();
-      redLineMat.dispose();
-      cyanLineGeo.dispose();
-      cyanLineMat.dispose();
+      nodeGeometry.dispose();
+      nodeMaterial.dispose();
+      lineGeometry.dispose();
+      lineMaterial.dispose();
       renderer.dispose();
     };
   }, []);
@@ -248,7 +254,7 @@ export default function ThreeGalaxyCanvas() {
   return (
     <div
       ref={containerRef}
-      className="fixed inset-0 pointer-events-none z-0 opacity-100 transition-opacity duration-500"
+      className="fixed inset-0 pointer-events-none z-[1] opacity-70 dark:opacity-85 transition-opacity duration-500"
     />
   );
 }
