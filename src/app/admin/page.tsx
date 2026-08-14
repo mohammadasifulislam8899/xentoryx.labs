@@ -624,35 +624,57 @@ export default function AdminDashboard() {
         {activeTab === "timeline" && (
           <div className="space-y-6">
             <div className="flex items-center justify-between">
-              <h2 className="text-xl font-bold font-display text-white">Manage Journey Milestones ({cmsData.timeline.length})</h2>
+              <h2 className="text-xl font-bold font-display text-slate-900 dark:text-white">
+                Manage Journey Milestones ({cmsData.timeline?.length || 0})
+              </h2>
               <button
                 onClick={() => {
                   const newM: Milestone = {
                     year: "2026",
-                    period: "Present",
-                    title: "New Achievement",
-                    companyRole: "Engineering Role",
-                    description: "Milestone description...",
-                    highlights: ["Achievement 1"],
-                    technologies: ["Kotlin", "ESP32"],
+                    period: "Future Era",
+                    title: "New Architectural Role",
+                    companyRole: "Founder & Lead Architect",
+                    description: "Milestone engineering description...",
+                    highlights: ["Achievement 1", "Achievement 2"],
+                    technologies: ["Kotlin", "ESP32", "Next.js"],
                     icon: "Rocket",
                   };
-                  const updated = { ...cmsData, timeline: [newM, ...cmsData.timeline] };
+                  const updated = { ...cmsData };
+                  if (!updated.timeline) updated.timeline = [];
+                  updated.timeline.unshift(newM);
                   setCmsData(updated);
                   handleSaveAll(updated);
                 }}
-                className="px-4 py-2 rounded-xl bg-surface border border-brand-red/40 hover:bg-brand-red/20 text-xs font-mono text-white flex items-center gap-2"
+                className="px-4 py-2 rounded-xl bg-surface border border-brand-red/40 hover:bg-brand-red/20 text-xs font-mono text-slate-900 dark:text-white flex items-center gap-2"
               >
                 <Plus className="w-4 h-4 text-brand-red" />
                 <span>Add Milestone</span>
               </button>
             </div>
 
-            <div className="space-y-4">
-              {cmsData.timeline.map((m, idx) => (
-                <div key={idx} className="glass-panel p-6 rounded-2xl border border-white/10 space-y-3">
+            <div className="space-y-6">
+              {cmsData.timeline?.map((m, idx) => (
+                <div key={idx} className="glass-panel p-6 rounded-2xl border border-slate-200 dark:border-white/10 space-y-4">
                   <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-3">
+                    <span className="px-2.5 py-1 rounded text-[10px] font-mono bg-brand-red/20 text-brand-red font-bold uppercase">
+                      Milestone #{idx + 1}
+                    </span>
+                    <button
+                      onClick={() => {
+                        const updated = { ...cmsData };
+                        updated.timeline.splice(idx, 1);
+                        setCmsData(updated);
+                        handleSaveAll(updated);
+                      }}
+                      className="p-1.5 rounded-lg text-slate-500 hover:text-brand-red"
+                    >
+                      <Trash2 className="w-4 h-4" />
+                    </button>
+                  </div>
+
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                    <div>
+                      <label className="text-[10px] font-mono text-slate-500 dark:text-slate-400 uppercase font-bold">Years / Duration</label>
                       <input
                         type="text"
                         value={m.year}
@@ -661,42 +683,88 @@ export default function AdminDashboard() {
                           updated.timeline[idx].year = e.target.value;
                           setCmsData(updated);
                         }}
-                        className="w-20 bg-surface px-2 py-1 rounded text-xs font-mono font-bold text-brand-red border border-white/10 text-center"
+                        placeholder="2024 - Present"
+                        className="w-full bg-slate-100 dark:bg-surface px-3 py-1.5 rounded-lg text-xs font-mono font-bold text-brand-red border border-slate-200 dark:border-white/10 focus:border-brand-red focus:outline-none"
                       />
+                    </div>
+
+                    <div>
+                      <label className="text-[10px] font-mono text-slate-500 dark:text-slate-400 uppercase font-bold">Role Title (e.g. Founder & Lead Architect)</label>
                       <input
                         type="text"
-                        value={m.title}
+                        value={m.companyRole || m.title}
                         onChange={(e) => {
                           const updated = { ...cmsData };
+                          updated.timeline[idx].companyRole = e.target.value;
                           updated.timeline[idx].title = e.target.value;
                           setCmsData(updated);
                         }}
-                        className="bg-transparent text-sm font-bold text-white border-b border-white/10 focus:border-brand-red focus:outline-none"
+                        placeholder="Founder & Lead Architect"
+                        className="w-full bg-slate-100 dark:bg-surface px-3 py-1.5 rounded-lg text-xs font-bold text-slate-900 dark:text-white border border-slate-200 dark:border-white/10 focus:border-brand-red focus:outline-none"
                       />
                     </div>
-                    <button
-                      onClick={() => {
-                        const updated = { ...cmsData };
-                        updated.timeline.splice(idx, 1);
-                        setCmsData(updated);
-                        handleSaveAll(updated);
-                      }}
-                      className="p-1.5 rounded-lg text-brand-muted hover:text-brand-red"
-                    >
-                      <Trash2 className="w-4 h-4" />
-                    </button>
+
+                    <div>
+                      <label className="text-[10px] font-mono text-slate-500 dark:text-slate-400 uppercase font-bold">Organization & Era</label>
+                      <input
+                        type="text"
+                        value={m.period}
+                        onChange={(e) => {
+                          const updated = { ...cmsData };
+                          updated.timeline[idx].period = e.target.value;
+                          setCmsData(updated);
+                        }}
+                        placeholder="Xentoryx Labs • Present Era"
+                        className="w-full bg-slate-100 dark:bg-surface px-3 py-1.5 rounded-lg text-xs font-mono text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-white/10 focus:border-brand-red focus:outline-none"
+                      />
+                    </div>
                   </div>
 
-                  <textarea
-                    rows={2}
-                    value={m.description}
-                    onChange={(e) => {
-                      const updated = { ...cmsData };
-                      updated.timeline[idx].description = e.target.value;
-                      setCmsData(updated);
-                    }}
-                    className="w-full bg-surface px-3 py-1.5 rounded-lg text-xs text-gray-300 border border-white/10 focus:border-brand-red focus:outline-none"
-                  />
+                  <div className="space-y-1">
+                    <label className="text-[10px] font-mono text-slate-500 dark:text-slate-400 uppercase font-bold">Milestone Description</label>
+                    <textarea
+                      rows={2}
+                      value={m.description}
+                      onChange={(e) => {
+                        const updated = { ...cmsData };
+                        updated.timeline[idx].description = e.target.value;
+                        setCmsData(updated);
+                      }}
+                      className="w-full bg-slate-100 dark:bg-surface px-3 py-1.5 rounded-lg text-xs text-slate-900 dark:text-gray-300 border border-slate-200 dark:border-white/10 focus:border-brand-red focus:outline-none"
+                    />
+                  </div>
+
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div className="space-y-1">
+                      <label className="text-[10px] font-mono text-slate-500 dark:text-slate-400 uppercase font-bold">Highlights Bullets (comma separated)</label>
+                      <input
+                        type="text"
+                        value={m.highlights?.join(", ") || ""}
+                        onChange={(e) => {
+                          const updated = { ...cmsData };
+                          updated.timeline[idx].highlights = e.target.value.split(",").map((h) => h.trim());
+                          setCmsData(updated);
+                        }}
+                        placeholder="Built Dipannita, Engineered Wireless ESP32..."
+                        className="w-full bg-slate-100 dark:bg-surface px-3 py-1.5 rounded-lg text-xs font-mono text-emerald-600 dark:text-emerald-400 border border-slate-200 dark:border-white/10 focus:border-brand-red focus:outline-none"
+                      />
+                    </div>
+
+                    <div className="space-y-1">
+                      <label className="text-[10px] font-mono text-slate-500 dark:text-slate-400 uppercase font-bold">Tech Stack Tags (comma separated)</label>
+                      <input
+                        type="text"
+                        value={m.technologies?.join(", ") || ""}
+                        onChange={(e) => {
+                          const updated = { ...cmsData };
+                          updated.timeline[idx].technologies = e.target.value.split(",").map((t) => t.trim());
+                          setCmsData(updated);
+                        }}
+                        placeholder="Kotlin, ESP32, Next.js, MongoDB..."
+                        className="w-full bg-slate-100 dark:bg-surface px-3 py-1.5 rounded-lg text-xs font-mono text-cyan-600 dark:text-cyan-400 border border-slate-200 dark:border-white/10 focus:border-brand-red focus:outline-none"
+                      />
+                    </div>
+                  </div>
                 </div>
               ))}
             </div>

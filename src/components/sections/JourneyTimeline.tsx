@@ -14,54 +14,23 @@ interface TimelineItem {
   icon: typeof Briefcase;
 }
 
+import { useCMS } from "@/hooks/useCMS";
+import { timelineData } from "@/data/timelineData";
+
 export default function JourneyTimeline() {
-  const items: TimelineItem[] = [
-    {
-      year: "2024 - Present",
-      period: "Present Era",
-      role: "Founder & Lead Architect",
-      organization: "Xentoryx Labs",
-      description:
-        "Established Xentoryx Labs as an R&D software & hardware engineering studio building native Android apps, IoT telemetry infrastructure, and modern web platforms.",
-      highlights: [
-        "Built Dipannita Android Blood Donation Network",
-        "Engineered Wireless ESP32 MQTT Firmware Engine",
-        "Architected Next.js 15 Fullstack Web Applications",
-      ],
-      tech: ["Kotlin", "ESP32", "Next.js", "MongoDB", "MQTT"],
-      icon: Rocket,
-    },
-    {
-      year: "2023 - 2024",
-      period: "System Architecture Era",
-      role: "Senior IoT & Backend Specialist",
-      organization: "Autonomous Client Systems",
-      description:
-        "Designed high-throughput REST microservices, offline-first SQLite synchronization engines, and low-latency Bluetooth Low Energy hardware provisioning.",
-      highlights: [
-        "Implemented WorkManager Background Data Sync",
-        "Designed Redis Pub/Sub Caching Layers",
-        "Configured TLS-Encrypted Hardware Communication",
-      ],
-      tech: ["Node.js", "PostgreSQL", "Redis", "BLE", "Docker"],
-      icon: Cpu,
-    },
-    {
-      year: "2021 - 2023",
-      period: "Foundational Era",
-      role: "Native Android Software Developer",
-      organization: "Mobile & Systems Engineering",
-      description:
-        "Mastered Kotlin Coroutines, Jetpack Compose declarative UI, Room local database persistence, and Clean Architecture pattern implementation.",
-      highlights: [
-        "Developed Enterprise Mobile Applications",
-        "Reduced App Cold Start Latency by 40%",
-        "Maintained 99.9% Crash-free Session Rate",
-      ],
-      tech: ["Kotlin", "Jetpack Compose", "Room DB", "MVVM"],
-      icon: Code,
-    },
-  ];
+  const { data } = useCMS();
+  const cmsTimeline = data?.timeline || timelineData;
+
+  const items = cmsTimeline.map((item) => ({
+    year: item.year,
+    period: item.period || "Engineering Era",
+    role: item.companyRole || item.title,
+    organization: item.title?.includes("Xentoryx") ? "Xentoryx Labs" : "Engineering Studio",
+    description: item.description,
+    highlights: item.highlights || [],
+    tech: item.technologies || [],
+    icon: Rocket,
+  }));
 
   return (
     <section id="experience" className="py-24 bg-slate-50 dark:bg-[#07090C] text-slate-900 dark:text-white relative border-t border-slate-200 dark:border-white/5 transition-colors duration-300">
