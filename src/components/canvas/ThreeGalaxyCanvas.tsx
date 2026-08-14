@@ -18,7 +18,7 @@ export default function ThreeGalaxyCanvas() {
       0.1,
       1000
     );
-    camera.position.z = 32;
+    camera.position.z = 25;
 
     // 2. WebGL Renderer
     const renderer = new THREE.WebGLRenderer({
@@ -39,27 +39,27 @@ export default function ThreeGalaxyCanvas() {
     scene.add(shapesGroup);
 
     // Shape 1: Outer Wireframe Icosahedron
-    const geoIco = new THREE.IcosahedronGeometry(7, 1);
+    const geoIco = new THREE.IcosahedronGeometry(7.5, 1);
     const matIco = new THREE.MeshBasicMaterial({
       color: cRed,
       wireframe: true,
       transparent: true,
-      opacity: 0.25,
+      opacity: 0.35,
     });
     const meshIco = new THREE.Mesh(geoIco, matIco);
-    meshIco.position.set(-14, 5, -5);
+    meshIco.position.set(-13, 4, -4);
     shapesGroup.add(meshIco);
 
     // Shape 2: Inner Core Torus Ring
-    const geoTorus = new THREE.TorusGeometry(9, 0.1, 16, 100);
+    const geoTorus = new THREE.TorusGeometry(9.5, 0.12, 16, 100);
     const matTorus = new THREE.MeshBasicMaterial({
       color: cCyan,
       wireframe: true,
       transparent: true,
-      opacity: 0.3,
+      opacity: 0.4,
     });
     const meshTorus = new THREE.Mesh(geoTorus, matTorus);
-    meshTorus.position.set(16, -7, -8);
+    meshTorus.position.set(15, -6, -6);
     meshTorus.rotation.x = Math.PI / 3;
     shapesGroup.add(meshTorus);
 
@@ -67,34 +67,34 @@ export default function ThreeGalaxyCanvas() {
     const meshGroup = new THREE.Group();
     scene.add(meshGroup);
 
-    const nodeCount = 130;
+    const nodeCount = 140;
     const nodeGeo = new THREE.BufferGeometry();
     const nodePos = new Float32Array(nodeCount * 3);
     const vels: { x: number; y: number; z: number }[] = [];
 
     for (let i = 0; i < nodeCount; i++) {
-      nodePos[i * 3] = (Math.random() - 0.5) * 60;
-      nodePos[i * 3 + 1] = (Math.random() - 0.5) * 40;
-      nodePos[i * 3 + 2] = (Math.random() - 0.5) * 30;
+      nodePos[i * 3] = (Math.random() - 0.5) * 55;
+      nodePos[i * 3 + 1] = (Math.random() - 0.5) * 38;
+      nodePos[i * 3 + 2] = (Math.random() - 0.5) * 25;
       vels.push({
-        x: (Math.random() - 0.5) * 0.03,
-        y: (Math.random() - 0.5) * 0.03,
-        z: (Math.random() - 0.5) * 0.015,
+        x: (Math.random() - 0.5) * 0.035,
+        y: (Math.random() - 0.5) * 0.035,
+        z: (Math.random() - 0.5) * 0.02,
       });
     }
 
     nodeGeo.setAttribute("position", new THREE.BufferAttribute(nodePos, 3));
     const nodeMat = new THREE.PointsMaterial({
-      size: 0.45,
+      size: 0.6,
       color: cRed,
       transparent: true,
-      opacity: 0.85,
+      opacity: 0.9,
     });
     const nodePoints = new THREE.Points(nodeGeo, nodeMat);
     meshGroup.add(nodePoints);
 
-    // Dynamic Connecting Lines
-    const maxConn = 350;
+    // Dynamic Connecting Laser Lines
+    const maxConn = 400;
     const linePos = new Float32Array(maxConn * 6);
     const lineCols = new Float32Array(maxConn * 6);
     const lineGeo = new THREE.BufferGeometry();
@@ -103,7 +103,7 @@ export default function ThreeGalaxyCanvas() {
     const lineMat = new THREE.LineBasicMaterial({
       vertexColors: true,
       transparent: true,
-      opacity: 0.45,
+      opacity: 0.55,
       blending: THREE.AdditiveBlending,
     });
     const lines = new THREE.LineSegments(lineGeo, lineMat);
@@ -150,9 +150,9 @@ export default function ThreeGalaxyCanvas() {
         posArr[i3] += vels[i].x;
         posArr[i3 + 1] += vels[i].y;
         posArr[i3 + 2] += vels[i].z;
-        if (Math.abs(posArr[i3]) > 30) vels[i].x *= -1;
-        if (Math.abs(posArr[i3 + 1]) > 20) vels[i].y *= -1;
-        if (Math.abs(posArr[i3 + 2]) > 15) vels[i].z *= -1;
+        if (Math.abs(posArr[i3]) > 28) vels[i].x *= -1;
+        if (Math.abs(posArr[i3 + 1]) > 19) vels[i].y *= -1;
+        if (Math.abs(posArr[i3 + 2]) > 13) vels[i].z *= -1;
       }
       nodeGeo.attributes.position.needsUpdate = true;
 
@@ -197,8 +197,8 @@ export default function ThreeGalaxyCanvas() {
       mouseX += (targetMouseX - mouseX) * 0.05;
       mouseY += (targetMouseY - mouseY) * 0.05;
 
-      camera.position.x = mouseX * 5;
-      camera.position.y = -mouseY * 5;
+      camera.position.x = mouseX * 4;
+      camera.position.y = -mouseY * 4;
       camera.lookAt(0, 0, 0);
 
       renderer.render(scene, camera);
@@ -230,7 +230,7 @@ export default function ThreeGalaxyCanvas() {
   return (
     <div
       ref={containerRef}
-      className="fixed inset-0 pointer-events-none z-0 opacity-70 dark:opacity-80 transition-opacity duration-500"
+      className="fixed inset-0 pointer-events-none z-[1] opacity-90 dark:opacity-95 transition-opacity duration-500"
     />
   );
 }
