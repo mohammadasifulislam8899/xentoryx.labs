@@ -8,19 +8,10 @@ import { motion } from "framer-motion";
 import { ArrowUpRight, Terminal, Sparkles, Cpu, Layers, Radio, Activity } from "lucide-react";
 import { useCMS } from "@/hooks/useCMS";
 
-// Lazy load 3D R3F Canvas & Interactive 3D Character for 95+ Lighthouse Performance
+// Lazy load 3D R3F Canvas for 95+ Lighthouse Performance
 const Hero3DCanvas = dynamic(() => import("./Hero3DCanvas"), {
   ssr: false,
   loading: () => <div className="absolute inset-0 pointer-events-none" />,
-});
-
-const Interactive3DCharacter = dynamic(() => import("../canvas/Interactive3DCharacter"), {
-  ssr: false,
-  loading: () => (
-    <div className="w-full h-full flex items-center justify-center font-mono text-xs text-brand-red animate-pulse">
-      Initializing 3D Character Mesh...
-    </div>
-  ),
 });
 
 export default function FounderHero() {
@@ -125,21 +116,30 @@ export default function FounderHero() {
             </div>
           </div>
 
-          {/* Right Column: Interactive WebGL 3D Character Scene */}
+          {/* Right Column: 2.5D Founder Avatar & Minimal Live Telemetry Widget */}
           <div className="lg:col-span-5 flex justify-center relative">
-            <div className="relative w-full h-[450px] sm:h-[500px]">
-              {/* Purple/Red Ambient Stage Lighting */}
-              <div className="absolute inset-0 rounded-3xl bg-gradient-to-tr from-brand-red/10 via-purple-600/10 to-transparent blur-3xl pointer-events-none" />
+            <div className="relative w-72 h-72 sm:w-80 sm:h-80 md:w-96 md:h-96">
+              {/* Outer Energy Ring */}
+              <div className="absolute inset-0 rounded-full border border-brand-red/40 animate-spin-slow" />
+              <div className="absolute -inset-4 rounded-full border border-brand-red/20 blur-sm" />
 
-              {/* 3D WebGL Canvas */}
-              <Interactive3DCharacter />
+              {/* Founder Avatar Image Container */}
+              <div className="relative w-full h-full rounded-full overflow-hidden border-2 border-brand-red/60 shadow-2xl p-1 bg-[#0A0C10]">
+                <Image
+                  src="/assets/founder-asif.jpg"
+                  alt="Founder Asif"
+                  fill
+                  priority
+                  className="object-cover rounded-full filter grayscale hover:grayscale-0 transition-all duration-700"
+                />
+              </div>
 
               {/* Minimal Telemetry Status Badge */}
               <motion.div
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ delay: 0.5 }}
-                className="absolute bottom-2 left-1/2 -translate-x-1/2 px-4 py-2 rounded-2xl glass-panel-red border border-brand-red/40 flex items-center gap-2 shadow-2xl z-20 whitespace-nowrap"
+                className="absolute -bottom-4 left-1/2 -translate-x-1/2 px-4 py-2 rounded-2xl glass-panel-red border border-brand-red/40 flex items-center gap-2 shadow-2xl z-20 whitespace-nowrap"
               >
                 <Activity className="w-4 h-4 text-brand-red animate-pulse" />
                 <span className="text-xs font-mono text-white font-bold">

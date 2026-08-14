@@ -1,0 +1,762 @@
+{
+  "settings": {
+    "founderName": "Asif",
+    "companyName": "Xentoryx Labs",
+    "tagline": "Building Scalable Software, IoT Systems and Intelligent Technologies",
+    "email": "mohammadasifulislam8899@gmail.com",
+    "githubUrl": "https://github.com/mohammadasifulislam8899",
+    "linkedinUrl": "https://linkedin.com/in/mohammadasifulislam",
+    "twitterUrl": "https://x.com/xentoryxlabs",
+    "socialLinks": [
+      {
+        "id": "s-1",
+        "name": "GitHub",
+        "url": "https://github.com/mohammadasifulislam8899",
+        "icon": "Github",
+        "active": true
+      },
+      {
+        "id": "s-2",
+        "name": "LinkedIn",
+        "url": "https://linkedin.com/in/mohammadasifulislam",
+        "icon": "Linkedin",
+        "active": true
+      },
+      {
+        "id": "s-3",
+        "name": "Twitter / X",
+        "url": "https://x.com/xentoryxlabs",
+        "icon": "Twitter",
+        "active": true
+      },
+      {
+        "id": "s-4",
+        "name": "Email Direct",
+        "url": "mailto:mohammadasifulislam8899@gmail.com",
+        "icon": "Mail",
+        "active": true
+      }
+    ],
+    "uptimeMetric": "99.98%",
+    "aiPrompt": "You are Gemini AI, powered by Google Gemini AI for Founder Asif and Xentoryx Labs.",
+    "hero": {
+      "statusPill": "FOUNDER & PRINCIPAL ENGINEER",
+      "headline": "ASIF",
+      "roles": [
+        "Android Developer",
+        "IoT Systems Engineer",
+        "Backend Architect",
+        "Modern Web Specialist",
+        "Founder of Xentoryx Labs"
+      ],
+      "description": "Building scalable software products, intelligent IoT hardware systems, high-throughput backend architectures, and modern web experiences through Xentoryx Labs.",
+      "yearsMetric": "4+",
+      "techNodesMetric": "15+",
+      "uptimeMetric": "99.9%",
+      "telemetryCardText": "Active // 12ms Ping"
+    },
+    "philosophy": [
+      {
+        "title": "Build Fast",
+        "subtitle": "Rapid Prototyping to Production",
+        "description": "Moving swiftly from initial architectural concept to clean, production-ready code without cutting engineering corners.",
+        "points": [
+          "Modular Clean Architecture",
+          "Iterative Sprint Deployment",
+          "Zero Tech Debt Strategy"
+        ]
+      },
+      {
+        "title": "Think Scalable",
+        "subtitle": "Enterprise-Grade Performance",
+        "description": "Architecting software microservices and IoT hardware pipelines designed to effortlessly handle exponential user & data growth.",
+        "points": [
+          "Offline-First Android Data Caching",
+          "High-Throughput MQTT Brokers",
+          "Database Indexing & Micro-caching"
+        ]
+      },
+      {
+        "title": "Design for Humans",
+        "subtitle": "Apple & Linear Level Polish",
+        "description": "Crafting intuitive user interfaces, buttery smooth animations, and ergonomic software designs that wow users at first glance.",
+        "points": [
+          "Declarative Jetpack Compose & React 19",
+          "Micro-interactions & Smooth Scroll",
+          "Accessible & Dark Mode First"
+        ]
+      },
+      {
+        "title": "Automate Everything",
+        "subtitle": "Continuous Telemetry & OTA",
+        "description": "Automating build pipelines, hardware Over-The-Air (OTA) updates, cloud container deployments, and background monitoring.",
+        "points": [
+          "OTA Wireless ESP32 Updating",
+          "Dockerized Container Workflows",
+          "Automated System Diagnostics"
+        ]
+      }
+    ],
+    "services": [
+      {
+        "title": "Android Development",
+        "description": "High-performance native Android applications built with Jetpack Compose, Kotlin Coroutines, and offline-first Room DB.",
+        "deliverables": [
+          "Declarative Jetpack Compose UI",
+          "Offline-First Room Architecture",
+          "WorkManager Background Sync",
+          "App Store Deployment"
+        ]
+      },
+      {
+        "title": "IoT & Hardware Systems",
+        "description": "Embedded C++ firmware for ESP32 microcontrollers, low-power BLE provisioning, MQTT real-time streaming, and OTA updates.",
+        "deliverables": [
+          "Custom ESP32 C++ Drivers",
+          "MQTT & WebSocket Telemetry",
+          "Bluetooth Low Energy (BLE)",
+          "Wireless OTA Firmware Engine"
+        ]
+      },
+      {
+        "title": "Backend API Engineering",
+        "description": "Distributed RESTful & GraphQL microservices built with Node.js, Express, PostgreSQL, Prisma, Redis, and JWT security.",
+        "deliverables": [
+          "Scalable REST & WebSocket APIs",
+          "PostgreSQL Relational Schemas",
+          "Redis Micro-Caching Layer",
+          "JWT & OAuth2 Auth Pipelines"
+        ]
+      },
+      {
+        "title": "Modern Web Platforms",
+        "description": "Production-ready, cinematic web applications built with Next.js 15 App Router, TypeScript, GSAP, and Framer Motion.",
+        "deliverables": [
+          "Apple/Linear Level Visual Polish",
+          "GSAP ScrollTrigger Storytelling",
+          "SEO & OpenGraph Optimization",
+          "Lighthouse 90+ Guaranteed"
+        ]
+      },
+      {
+        "title": "Cloud & DevOps",
+        "description": "Containerized deployment pipelines, Docker orchestration, and cloud infrastructure setup for high availability.",
+        "deliverables": [
+          "Docker Containerization",
+          "Automated CI/CD Workflows",
+          "SSL/TLS TLS Certification",
+          "Cloud Infrastructure Setup"
+        ]
+      },
+      {
+        "title": "Technical Consulting",
+        "description": "Architecture audits, tech stack strategy, performance optimization, and IoT hardware feasibility assessments.",
+        "deliverables": [
+          "Codebase Quality Audit",
+          "System Architecture Blueprint",
+          "IoT Hardware Feasibility",
+          "Performance Tuning"
+        ]
+      }
+    ],
+    "company": [
+      {
+        "headline": "Engineering Tomorrow's Digital Experiences",
+        "description": "Xentoryx Labs develops scalable software, IoT products, backend systems, and intelligent digital experiences designed for the future. Founded by Asif.",
+        "mission": "To bridge the gap between physical hardware microcontrollers and cloud software systems by engineering resilient, low-latency IoT hardware and elegant mobile/web applications.",
+        "vision": "To become a globally recognized technology lab where hardware engineering meets modern web design and AI intelligence, delivering software that empowers millions.",
+        "values": [
+          {
+            "title": "Engineering Excellence",
+            "description": "We write clean, typed, modular code built to last for decades."
+          },
+          {
+            "title": "Pioneering Innovation",
+            "description": "Pushing boundaries in Edge AI microcontrollers and hardware telemetry."
+          },
+          {
+            "title": "Human-Centric UX",
+            "description": "Combining raw technical power with Apple-level visual craftsmanship."
+          }
+        ]
+      }
+    ]
+  },
+  "projects": [
+    {
+      "id": "dipannita",
+      "title": "Dipannita",
+      "subtitle": "AI-Powered Embedded IoT Companion Device",
+      "tagline": "Autonomous sensor intelligence with BLE, MQTT & OLED real-time UI",
+      "description": "Dipannita is an advanced AI-powered ESP32 companion ecosystem. It combines low-latency sensor ingestion, local telemetry processing, Bluetooth Low Energy (BLE) provisioning, MQTT broker sync, and Over-The-Air (OTA) firmware update capabilities with a sleek OLED visual interface.",
+      "category": "IoT",
+      "featured": true,
+      "image": "/assets/projects/dipannita.jpg",
+      "techStack": [
+        "ESP32",
+        "C++",
+        "MQTT",
+        "BLE",
+        "FreeRTOS",
+        "OLED Driver",
+        "Sensors",
+        "OTA Update"
+      ],
+      "features": [
+        "Real-time sensor telemetry & local anomaly classification",
+        "Bluetooth Low Energy (BLE) mobile provisioning pipeline",
+        "Robust MQTT communication over TLS",
+        "Automatic OTA wireless firmware update engine",
+        "Custom double-buffered OLED graphical user interface"
+      ],
+      "architecture": {
+        "hardware": "ESP32-WROOM-32D Dual-Core MCU (240MHz)",
+        "protocol": "MQTT over WebSockets / TLS 1.3",
+        "frontend": "Jetpack Compose Mobile Dashboard",
+        "backend": "Node.js / Mosquitto MQTT Broker"
+      },
+      "githubUrl": "https://github.com/Xentoryx/Dipannita-IoT",
+      "liveUrl": "https://xentoryx.com/labs/dipannita",
+      "stats": [
+        {
+          "label": "Latency",
+          "value": "< 12ms"
+        },
+        {
+          "label": "Uptime",
+          "value": "99.98%"
+        },
+        {
+          "label": "Sensor Sampling",
+          "value": "100 Hz"
+        }
+      ]
+    },
+    {
+      "id": "expensey",
+      "title": "Expensey",
+      "subtitle": "Offline-First Personal Finance Platform",
+      "tagline": "High-performance native Android app with syncable Node.js API",
+      "description": "Expensey is a comprehensive personal finance tracking suite engineered with Jetpack Compose, Room DB, and Ktor Client on Android, backed by a Node.js & PostgreSQL backend. Built on offline-first principles, it guarantees zero transaction lag and seamless encrypted cloud synchronization.",
+      "category": "Android",
+      "featured": true,
+      "image": "/assets/projects/expensey.jpg",
+      "techStack": [
+        "Kotlin",
+        "Jetpack Compose",
+        "Room DB",
+        "Coroutines",
+        "Node.js",
+        "PostgreSQL",
+        "JWT",
+        "Docker"
+      ],
+      "features": [
+        "Offline-first local transaction caching via Room Database",
+        "Jetpack Compose declarative reactive UI with smooth micro-animations",
+        "Background periodic sync using Android WorkManager",
+        "Encrypted API auth using JWT & OAuth2 integration",
+        "Automated monthly budget telemetry & insight graphs"
+      ],
+      "architecture": {
+        "frontend": "Android Native (Kotlin, Jetpack Compose, Hilt DI)",
+        "backend": "Node.js / Express microservice cluster",
+        "database": "PostgreSQL with Prisma ORM & Redis cache"
+      },
+      "githubUrl": "https://github.com/Xentoryx/Expensey-Android",
+      "liveUrl": "https://expensey.xentoryx.com",
+      "stats": [
+        {
+          "label": "App Size",
+          "value": "< 14 MB"
+        },
+        {
+          "label": "Sync Speed",
+          "value": "240ms"
+        },
+        {
+          "label": "Offline Mode",
+          "value": "100% Reliable"
+        }
+      ]
+    },
+    {
+      "id": "reelo",
+      "title": "Reelo",
+      "subtitle": "Creator-Focused Media Engine & Platform",
+      "tagline": "Ultra-responsive video distribution architecture",
+      "description": "Reelo is a modern, high-throughput video platform tailored for media creators and technology brands. Features instant HLS video streaming, dynamic CDN edge caching, rich analytics, and an elegant glassmorphism web interface.",
+      "category": "Fullstack",
+      "featured": true,
+      "image": "/assets/projects/reelo.jpg",
+      "techStack": [
+        "Next.js 15",
+        "TypeScript",
+        "Tailwind CSS",
+        "Framer Motion",
+        "Node.js",
+        "Redis",
+        "FFmpeg",
+        "AWS S3"
+      ],
+      "features": [
+        "Adaptive HLS video transcoding & streaming pipeline",
+        "Creator dashboard with real-time watch telemetry analytics",
+        "Minimalist dark glassmorphism design system",
+        "Global CDN edge asset delivery and Redis caching layer"
+      ],
+      "architecture": {
+        "frontend": "Next.js 15 App Router + Framer Motion",
+        "backend": "Node.js API + FFmpeg video encoder worker cluster",
+        "database": "MongoDB Atlas + Redis cluster"
+      },
+      "githubUrl": "https://github.com/Xentoryx/Reelo-Platform",
+      "liveUrl": "https://reelo.xentoryx.com",
+      "stats": [
+        {
+          "label": "Stream Startup",
+          "value": "0.4s"
+        },
+        {
+          "label": "Transcode Rate",
+          "value": "60 FPS"
+        },
+        {
+          "label": "CDN Hit Ratio",
+          "value": "98.5%"
+        }
+      ]
+    },
+    {
+      "id": "xentoryx-os",
+      "title": "Xentoryx Telemetry Dashboard",
+      "subtitle": "Real-time Industrial IoT Control Plane",
+      "tagline": "Centralized hardware monitoring & control center",
+      "description": "An industrial-grade IoT control plane designed by Xentoryx Labs to monitor hundreds of remote sensor nodes, visualize real-time MQTT metrics, trigger remote OTA hardware updates, and manage device security certificates.",
+      "category": "IoT",
+      "featured": false,
+      "image": "/assets/projects/telemetry.jpg",
+      "techStack": [
+        "React",
+        "TypeScript",
+        "WebSockets",
+        "MQTT.js",
+        "Chart.js",
+        "Tailwind CSS",
+        "Docker"
+      ],
+      "features": [
+        "Live WebSocket telemetry streaming dashboard",
+        "Interactive node topology graph visualizer",
+        "Remote OTA firmware release management",
+        "Instant alarm triggers & SMS/Webhook alert webhooks"
+      ],
+      "architecture": {
+        "frontend": "React + WebSockets + Tailwind CSS",
+        "backend": "Go MQTT Broker & Telemetry Ingestion Worker",
+        "database": "TimescaleDB for high-frequency metric storage"
+      },
+      "githubUrl": "https://github.com/Xentoryx/Telemetry-Control-Plane",
+      "liveUrl": "https://xentoryx.com/labs/telemetry",
+      "stats": [
+        {
+          "label": "Throughput",
+          "value": "10k msg/sec"
+        },
+        {
+          "label": "Nodes Connected",
+          "value": "500+"
+        }
+      ]
+    }
+  ],
+  "skills": [
+    {
+      "category": "ANDROID",
+      "iconName": "Smartphone",
+      "description": "Production-grade native Android applications with modern architecture and declarative UI.",
+      "skills": [
+        {
+          "name": "Kotlin",
+          "level": 95,
+          "experience": "4+ Years",
+          "badge": "Core Language"
+        },
+        {
+          "name": "Jetpack Compose",
+          "level": 92,
+          "experience": "3+ Years",
+          "badge": "Declarative UI"
+        },
+        {
+          "name": "Coroutines & Flow",
+          "level": 90,
+          "experience": "4+ Years",
+          "badge": "Asynchronous"
+        },
+        {
+          "name": "Room Database",
+          "level": 90,
+          "experience": "3+ Years",
+          "badge": "Offline First"
+        },
+        {
+          "name": "WorkManager",
+          "level": 88,
+          "experience": "3+ Years",
+          "badge": "Background Tasks"
+        },
+        {
+          "name": "Ktor Client & Hilt",
+          "level": 85,
+          "experience": "3+ Years",
+          "badge": "Networking & DI"
+        }
+      ]
+    },
+    {
+      "category": "BACKEND",
+      "iconName": "Server",
+      "description": "High-throughput APIs, microservices, micro-caching, and secure backend architectures.",
+      "skills": [
+        {
+          "name": "Node.js & Express",
+          "level": 92,
+          "experience": "4+ Years",
+          "badge": "Runtime Engine"
+        },
+        {
+          "name": "PostgreSQL & Prisma",
+          "level": 88,
+          "experience": "3+ Years",
+          "badge": "Relational DB"
+        },
+        {
+          "name": "MongoDB",
+          "level": 86,
+          "experience": "3+ Years",
+          "badge": "NoSQL"
+        },
+        {
+          "name": "Redis",
+          "level": 84,
+          "experience": "2+ Years",
+          "badge": "In-Memory Cache"
+        },
+        {
+          "name": "Docker & Containerization",
+          "level": 85,
+          "experience": "3+ Years",
+          "badge": "DevOps"
+        },
+        {
+          "name": "JWT & OAuth2 Security",
+          "level": 90,
+          "experience": "4+ Years",
+          "badge": "Authentication"
+        }
+      ]
+    },
+    {
+      "category": "WEB",
+      "iconName": "Globe",
+      "description": "Futuristic, ultra-fast web apps with rich animations, SSR, and modern React 19 / Next.js 15.",
+      "skills": [
+        {
+          "name": "Next.js 15 (App Router)",
+          "level": 94,
+          "experience": "3+ Years",
+          "badge": "Fullstack Web"
+        },
+        {
+          "name": "React 19 & TypeScript",
+          "level": 95,
+          "experience": "4+ Years",
+          "badge": "UI Library"
+        },
+        {
+          "name": "Tailwind CSS",
+          "level": 96,
+          "experience": "4+ Years",
+          "badge": "Design Tokens"
+        },
+        {
+          "name": "GSAP & ScrollTrigger",
+          "level": 90,
+          "experience": "2+ Years",
+          "badge": "Cinematic Motion"
+        },
+        {
+          "name": "Framer Motion",
+          "level": 92,
+          "experience": "3+ Years",
+          "badge": "Micro-Interactions"
+        },
+        {
+          "name": "Lenis Smooth Scroll",
+          "level": 88,
+          "experience": "2+ Years",
+          "badge": "UX Scroll"
+        }
+      ]
+    },
+    {
+      "category": "IOT",
+      "iconName": "Cpu",
+      "description": "Embedded system firmware, hardware sensor integration, low-power BLE, and MQTT messaging.",
+      "skills": [
+        {
+          "name": "ESP32 & C/C++",
+          "level": 92,
+          "experience": "3+ Years",
+          "badge": "Hardware MCU"
+        },
+        {
+          "name": "MQTT Protocol",
+          "level": 90,
+          "experience": "3+ Years",
+          "badge": "IoT Messaging"
+        },
+        {
+          "name": "Bluetooth Low Energy (BLE)",
+          "level": 88,
+          "experience": "3+ Years",
+          "badge": "Wireless Comms"
+        },
+        {
+          "name": "WiFi Provisioning",
+          "level": 86,
+          "experience": "2+ Years",
+          "badge": "Device Onboarding"
+        },
+        {
+          "name": "OTA Firmware Updates",
+          "level": 88,
+          "experience": "3+ Years",
+          "badge": "Remote Deployment"
+        },
+        {
+          "name": "Sensors & OLED Drivers",
+          "level": 90,
+          "experience": "3+ Years",
+          "badge": "Hardware I/O"
+        }
+      ]
+    }
+  ],
+  "timeline": [
+    {
+      "year": "2021",
+      "period": "Early Engineering",
+      "title": "Started Android Development",
+      "companyRole": "Mobile Software Engineer",
+      "description": "Dived deep into native Android development with Java & Kotlin, mastering asynchronous state handling, SQLite, REST architectures, and modern Android UI development.",
+      "highlights": [
+        "Mastered Kotlin & Android SDK fundamentals",
+        "Built native mobile utility apps with custom UI components",
+        "Established foundational clean architecture principles"
+      ],
+      "technologies": [
+        "Android",
+        "Kotlin",
+        "Java",
+        "SQLite",
+        "REST API"
+      ],
+      "icon": "Smartphone"
+    },
+    {
+      "year": "2022",
+      "period": "Hardware & Microcontrollers",
+      "title": "Built First Embedded IoT System",
+      "companyRole": "Embedded Hardware & Systems Engineer",
+      "description": "Expanded engineering scope into hardware microcontrollers. Interfaced ESP32 microcontrollers with physical sensor arrays, BLE wireless protocols, and lightweight MQTT broker communication.",
+      "highlights": [
+        "Designed low-power sensor ingestion circuits on ESP32",
+        "Built real-time telemetry pipelines using MQTT & WebSockets",
+        "Created BLE mobile onboarding protocols"
+      ],
+      "technologies": [
+        "ESP32",
+        "C++",
+        "MQTT",
+        "BLE",
+        "FreeRTOS",
+        "Sensors"
+      ],
+      "icon": "Cpu"
+    },
+    {
+      "year": "2023",
+      "period": "Product Launch",
+      "title": "Developed Expensey Platform",
+      "companyRole": "Fullstack Product Engineer",
+      "description": "Architected and released Expensey — an offline-first personal finance application with Jetpack Compose on Android and a robust Node.js + PostgreSQL backend engine.",
+      "highlights": [
+        "Engineered offline-first Room DB synchronization engine",
+        "Built RESTful microservice backend with JWT authentication",
+        "Achieved sub-14MB Android package size with 60 FPS UI"
+      ],
+      "technologies": [
+        "Kotlin",
+        "Compose",
+        "Room",
+        "Node.js",
+        "PostgreSQL",
+        "Docker"
+      ],
+      "icon": "CreditCard"
+    },
+    {
+      "year": "2024",
+      "period": "AI Hardware Innovation",
+      "title": "Created Dipannita AI Device",
+      "companyRole": "Lead IoT & AI Hardware Architect",
+      "description": "Designed Dipannita, an AI-powered ESP32 companion device integrating real-time telemetry processing, OLED UI drivers, OTA update engine, and mobile sync.",
+      "highlights": [
+        "Architected wireless Over-The-Air (OTA) firmware upgrade pipeline",
+        "Built dual-buffered graphics engine for OLED display",
+        "Integrated machine learning signal processing"
+      ],
+      "technologies": [
+        "ESP32",
+        "C++",
+        "MQTT",
+        "OTA",
+        "OLED",
+        "TinyML",
+        "Next.js"
+      ],
+      "icon": "Bot"
+    },
+    {
+      "year": "2025–Present",
+      "period": "Enterprise Enterprise",
+      "title": "Founded Xentoryx Labs",
+      "companyRole": "Founder & Principal Systems Architect",
+      "description": "Established Xentoryx Labs as an elite technology company focused on building scalable software products, intelligent IoT hardware systems, and high-performance digital experiences.",
+      "highlights": [
+        "Leading multi-disciplinary engineering initiatives in Mobile, Web, Backend & IoT",
+        "Architecting enterprise-grade IoT control planes & software platforms",
+        "Empowering client organizations with future-proof tech stacks"
+      ],
+      "technologies": [
+        "Next.js 15",
+        "TypeScript",
+        "Android",
+        "Node.js",
+        "ESP32",
+        "Docker",
+        "PostgreSQL"
+      ],
+      "icon": "Rocket"
+    }
+  ],
+  "labs": [
+    {
+      "id": "neural-iot-gateway",
+      "title": "Neural Edge ESP32 Classifier",
+      "status": "Prototype",
+      "date": "Q1 2026",
+      "category": "Edge AI",
+      "description": "TinyML model quantization compiled directly onto the ESP32 microcontroller dual-core chip. Classifies vibration & acoustic signals locally without requiring cloud roundtrips.",
+      "tags": [
+        "TinyML",
+        "ESP32",
+        "C++",
+        "Edge AI",
+        "TensorFlow Lite"
+      ],
+      "metrics": [
+        {
+          "label": "Memory Footprint",
+          "value": "84 KB RAM"
+        },
+        {
+          "label": "Inference Time",
+          "value": "4.2 ms"
+        },
+        {
+          "label": "Offline Accuracy",
+          "value": "97.3%"
+        }
+      ],
+      "interactiveType": "sensor",
+      "githubUrl": "https://github.com/Xentoryx/Neural-ESP32-Edge"
+    },
+    {
+      "id": "autonomous-telemetry-stream",
+      "title": "High-Frequency MQTT Mesh Broker",
+      "status": "Live",
+      "date": "Q4 2025",
+      "category": "Distributed Protocol",
+      "description": "Distributed micro-broker pipeline handling 50,000 sensor telemetry messages per second over WebSockets & MQTT with dynamic payload compression.",
+      "tags": [
+        "MQTT",
+        "Go",
+        "WebSockets",
+        "TimescaleDB",
+        "Protobuf"
+      ],
+      "metrics": [
+        {
+          "label": "Message Throughput",
+          "value": "50k/sec"
+        },
+        {
+          "label": "P99 Latency",
+          "value": "1.8 ms"
+        },
+        {
+          "label": "Packet Loss",
+          "value": "0.00%"
+        }
+      ],
+      "interactiveType": "drone",
+      "githubUrl": "https://github.com/Xentoryx/HighFreq-MQTT-Mesh"
+    },
+    {
+      "id": "smart-energy-matrix",
+      "title": "Adaptive Hardware Power Governor",
+      "status": "Research",
+      "date": "Q2 2026",
+      "category": "Embedded System",
+      "description": "Dynamic frequency scaling and power gating driver for battery-powered remote IoT sensors, extending field operational lifespan by 300%.",
+      "tags": [
+        "Low Power",
+        "FreeRTOS",
+        "Deep Sleep",
+        "LiFePO4",
+        "C++"
+      ],
+      "metrics": [
+        {
+          "label": "Sleep Current",
+          "value": "5 µA"
+        },
+        {
+          "label": "Battery Extension",
+          "value": "3.2x"
+        },
+        {
+          "label": "Duty Cycle",
+          "value": "0.1%"
+        }
+      ],
+      "interactiveType": "power",
+      "githubUrl": "https://github.com/Xentoryx/Power-Governor-MCU"
+    }
+  ],
+  "inquiries": [
+    {
+      "id": "inq-1",
+      "name": "Client Partner",
+      "email": "partner@techventure.com",
+      "projectType": "IoT & Hardware Systems",
+      "budget": "$5,000 - $10,000",
+      "message": "Interested in developing custom ESP32 BLE telemetry hardware companion devices.",
+      "timestamp": "2026-08-14T18:32:24.663Z",
+      "read": false
+    }
+  ]
+}
