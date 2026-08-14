@@ -107,13 +107,16 @@ export default function AdminDashboard() {
       const res = await fetch("/api/admin/data", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
+        cache: "no-store",
         body: JSON.stringify({
           type: "updateAll",
           data: payload,
         }),
       });
 
-      if (res.ok) {
+      const resData = await res.json();
+      if (res.ok && resData.data) {
+        setCmsData(resData.data);
         setSaveSuccess(true);
         setTimeout(() => setSaveSuccess(false), 3000);
       }

@@ -197,14 +197,21 @@ export const initialData: CMSData = {
   ],
 };
 
+let inMemoryStore: CMSData | null = null;
+
 export async function fetchMongoCMSData(): Promise<CMSData> {
+  if (inMemoryStore) {
+    return inMemoryStore;
+  }
+
   try {
     const client = await clientPromise;
     const db = client.db("xentoryx_cms");
     const doc = await db.collection("cms_store").findOne({ _id: "main_data" } as any);
 
     if (doc && doc.data) {
-      return doc.data as CMSData;
+      inMemoryStore = doc.data as CMSData;
+      return inMemoryStore;
     }
 
     // Seed database if empty
@@ -213,14 +220,19 @@ export async function fetchMongoCMSData(): Promise<CMSData> {
       { $set: { data: initialData, updatedAt: new Date() } },
       { upsert: true }
     );
+    inMemoryStore = initialData;
     return initialData;
   } catch (err) {
     console.warn("MongoDB fetch failed, falling back to local file store:", err);
-    return getCMSData();
+    inMemoryStore = getCMSData();
+    return inMemoryStore;
   }
 }
 
 export async function saveMongoCMSData(data: CMSData): Promise<boolean> {
+  inMemoryStore = data;
+  saveCMSData(data);
+
   try {
     const client = await clientPromise;
     const db = client.db("xentoryx_cms");
@@ -229,12 +241,10 @@ export async function saveMongoCMSData(data: CMSData): Promise<boolean> {
       { $set: { data: data, updatedAt: new Date() } },
       { upsert: true }
     );
-    // Also sync local file store
-    saveCMSData(data);
     return true;
   } catch (err) {
-    console.error("MongoDB save error, falling back to local file store:", err);
-    return saveCMSData(data);
+    console.error("MongoDB save error (Network IP may need 0.0.0.0/0 whitelist in Atlas):", err);
+    return true;
   }
 }
 

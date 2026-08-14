@@ -1,10 +1,17 @@
 import { NextResponse } from "next/server";
 import { fetchMongoCMSData, saveMongoCMSData, CMSData } from "@/lib/cms/store";
 
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+
 export async function GET() {
   try {
     const data = await fetchMongoCMSData();
-    return NextResponse.json(data);
+    return NextResponse.json(data, {
+      headers: {
+        "Cache-Control": "no-store, max-age=0, must-revalidate",
+      },
+    });
   } catch (error) {
     return NextResponse.json({ error: "Failed to fetch CMS data" }, { status: 500 });
   }
@@ -29,7 +36,7 @@ export async function POST(req: Request) {
       };
       current.inquiries.unshift(newInquiry);
       await saveMongoCMSData(current);
-      return NextResponse.json({ success: true, inquiry: newInquiry });
+      return NextResponse.json({ success: true, inquiry: newInquiry, data: current });
     }
 
     if (body.type === "updateAll") {
@@ -40,6 +47,7 @@ export async function POST(req: Request) {
 
     return NextResponse.json({ error: "Invalid POST type" }, { status: 400 });
   } catch (error) {
+    console.error("API POST error:", error);
     return NextResponse.json({ error: "Failed to update CMS data" }, { status: 500 });
   }
 }
