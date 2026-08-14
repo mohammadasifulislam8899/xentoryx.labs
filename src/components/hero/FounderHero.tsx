@@ -38,19 +38,19 @@ export default function FounderHero() {
   }, [roles.length]);
 
   return (
-    <section className="relative min-h-[92vh] flex items-center justify-center pt-24 pb-16 overflow-hidden bg-[var(--bg-primary)] text-[var(--text-primary)] transition-colors duration-300">
+    <section className="relative min-h-[90vh] flex items-center justify-center pt-28 pb-20 sm:pt-36 sm:pb-28 overflow-hidden bg-[var(--bg-primary)] text-[var(--text-primary)] transition-colors duration-300">
       {/* Lazy-Loaded R3F 3D Scene Background */}
       <Hero3DCanvas />
 
       {/* Red ambient core glow */}
-      <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-brand-red/15 rounded-full blur-[130px] pointer-events-none" />
+      <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[550px] h-[550px] bg-brand-red/12 rounded-full blur-[140px] pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 sm:gap-16 items-center">
           {/* Left Column: Headline & Pitch */}
-          <div className="lg:col-span-7 space-y-6 text-left">
+          <div className="lg:col-span-7 space-y-7 text-left">
             {/* Status Badge */}
-            <div className="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full glass-panel-red border border-brand-red/30">
+            <div className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full glass-panel-red border border-brand-red/30">
               <span className="w-2 h-2 rounded-full bg-brand-red animate-ping" />
               <span className="text-xs font-mono font-bold text-brand-red uppercase tracking-wider">
                 {heroConfig.statusPill}
@@ -58,8 +58,8 @@ export default function FounderHero() {
             </div>
 
             {/* Main Title */}
-            <div className="space-y-2">
-              <h1 className="font-display text-5xl sm:text-6xl md:text-7xl font-extrabold tracking-tight dark:text-white text-gray-900 leading-none">
+            <div className="space-y-3">
+              <h1 className="font-display text-5xl sm:text-6xl md:text-7xl font-black tracking-tight dark:text-white text-gray-900 leading-[1.05]">
                 {heroConfig.headline || founderName.toUpperCase()}
               </h1>
               <div className="h-10 flex items-center text-xl sm:text-2xl font-mono text-brand-red font-bold">
@@ -77,7 +77,7 @@ export default function FounderHero() {
             </div>
 
             {/* Description Pitch */}
-            <p className="text-base sm:text-lg text-brand-muted max-w-2xl leading-relaxed font-sans">
+            <p className="text-base sm:text-lg dark:text-gray-300 text-gray-700 max-w-2xl leading-relaxed font-sans font-normal">
               {heroConfig.description || tagline}
             </p>
 

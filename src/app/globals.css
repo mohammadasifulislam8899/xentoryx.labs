@@ -4,23 +4,25 @@
 
 @layer base {
   :root {
-    --bg-primary: #FAFAFA;
-    --bg-[#0A0C10]: #FAFAFA;
+    --bg-primary: #F8FAFC;
     --bg-surface: #FFFFFF;
+    --bg-card: #FFFFFF;
     --text-primary: #0F172A;
     --text-muted: #64748B;
-    --border-color: rgba(0, 0, 0, 0.1);
+    --border-color: rgba(15, 23, 42, 0.08);
+    --border-hover: rgba(219, 67, 56, 0.4);
     --glass-bg: rgba(255, 255, 255, 0.85);
   }
 
   .dark {
-    --bg-primary: #0A0C10;
-    --bg-[#0A0C10]: #0A0C10;
-    --bg-surface: #12151E;
+    --bg-primary: #080A0E;
+    --bg-surface: #0E1118;
+    --bg-card: #121622;
     --text-primary: #F8FAFC;
     --text-muted: #94A3B8;
-    --border-color: rgba(255, 255, 255, 0.1);
-    --glass-bg: rgba(18, 21, 30, 0.85);
+    --border-color: rgba(255, 255, 255, 0.08);
+    --border-hover: rgba(219, 67, 56, 0.5);
+    --glass-bg: rgba(14, 17, 24, 0.85);
   }
 
   body {
@@ -28,21 +30,33 @@
     color: var(--text-primary);
     font-family: var(--font-inter), sans-serif;
     overflow-x: hidden;
+    letter-spacing: -0.01em;
     transition: background-color 0.3s ease, color 0.3s ease;
+  }
+
+  h1, h2, h3, h4 {
+    letter-spacing: -0.03em;
   }
 }
 
 @layer utilities {
+  /* Apple/Linear Level Glass Card Styling */
   .glass-panel {
     background-color: var(--glass-bg);
     border: 1px solid var(--border-color);
-    backdrop-filter: blur(16px);
+    backdrop-filter: blur(20px);
+    box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.04);
+    transition: border-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .glass-panel:hover {
+    border-color: var(--border-hover);
   }
 
   .glass-panel-red {
-    background: rgba(219, 67, 56, 0.08);
-    border: 1px solid rgba(219, 67, 56, 0.3);
-    backdrop-filter: blur(16px);
+    background: rgba(219, 67, 56, 0.06);
+    border: 1px solid rgba(219, 67, 56, 0.25);
+    backdrop-filter: blur(20px);
   }
 
   .text-gradient-red {
@@ -52,11 +66,11 @@
   }
 
   .shadow-glow-red {
-    box-shadow: 0 0 25px rgba(219, 67, 56, 0.35);
+    box-shadow: 0 0 25px rgba(219, 67, 56, 0.3);
   }
 
   .shadow-glow-red-lg {
-    box-shadow: 0 0 45px rgba(219, 67, 56, 0.55);
+    box-shadow: 0 0 45px rgba(219, 67, 56, 0.5);
   }
 }
 
