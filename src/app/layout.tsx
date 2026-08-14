@@ -113,7 +113,7 @@ export default function RootLayout({
   };
 
   return (
-    <html lang="en" suppressHydrationWarning className="dark">
+    <html lang="en" suppressHydrationWarning>
       <head>
         <script
           type="application/ld+json"
@@ -123,7 +123,7 @@ export default function RootLayout({
       <body
         className={`${inter.variable} ${spaceGrotesk.variable} antialiased bg-[var(--bg-primary)] text-[var(--text-primary)] selection:bg-brand-red selection:text-white font-sans transition-colors duration-300`}
       >
-        <ThemeProvider>
+        <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
           <ClientLayoutWrapper>{children}</ClientLayoutWrapper>
         </ThemeProvider>
       </body>
