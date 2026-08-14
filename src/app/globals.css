@@ -29,8 +29,12 @@
     --glass-bg: rgba(14, 17, 24, 0.92);
   }
 
-  body {
+  html {
     background-color: var(--bg-primary);
+  }
+
+  body {
+    background-color: transparent;
     color: var(--text-primary);
     font-family: var(--font-inter), sans-serif;
     overflow-x: hidden;

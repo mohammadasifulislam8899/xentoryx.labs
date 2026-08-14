@@ -44,7 +44,7 @@ export default function ThreeGalaxyCanvas() {
       color: cRed,
       wireframe: true,
       transparent: true,
-      opacity: 0.35,
+      opacity: 0.4,
     });
     const meshIco = new THREE.Mesh(geoIco, matIco);
     meshIco.position.set(-13, 4, -4);
@@ -56,7 +56,7 @@ export default function ThreeGalaxyCanvas() {
       color: cCyan,
       wireframe: true,
       transparent: true,
-      opacity: 0.4,
+      opacity: 0.45,
     });
     const meshTorus = new THREE.Mesh(geoTorus, matTorus);
     meshTorus.position.set(15, -6, -6);
@@ -67,7 +67,7 @@ export default function ThreeGalaxyCanvas() {
     const meshGroup = new THREE.Group();
     scene.add(meshGroup);
 
-    const nodeCount = 90;
+    const nodeCount = 95;
     const nodeGeo = new THREE.BufferGeometry();
     const nodePos = new Float32Array(nodeCount * 3);
     const vels: { x: number; y: number; z: number }[] = [];
@@ -85,7 +85,7 @@ export default function ThreeGalaxyCanvas() {
 
     nodeGeo.setAttribute("position", new THREE.BufferAttribute(nodePos, 3));
     const nodeMat = new THREE.PointsMaterial({
-      size: 0.5,
+      size: 0.55,
       color: cRed,
       transparent: true,
       opacity: 0.95,
@@ -94,14 +94,14 @@ export default function ThreeGalaxyCanvas() {
     meshGroup.add(nodePoints);
 
     // Red Laser Neural Lines
-    const maxConn = 600;
+    const maxConn = 700;
     const redLinePos = new Float32Array(maxConn * 6);
     const redLineGeo = new THREE.BufferGeometry();
     redLineGeo.setAttribute("position", new THREE.BufferAttribute(redLinePos, 3));
     const redLineMat = new THREE.LineBasicMaterial({
       color: cRed,
       transparent: true,
-      opacity: 0.65,
+      opacity: 0.85,
     });
     const redLines = new THREE.LineSegments(redLineGeo, redLineMat);
     meshGroup.add(redLines);
@@ -113,7 +113,7 @@ export default function ThreeGalaxyCanvas() {
     const cyanLineMat = new THREE.LineBasicMaterial({
       color: cCyan,
       transparent: true,
-      opacity: 0.6,
+      opacity: 0.8,
     });
     const cyanLines = new THREE.LineSegments(cyanLineGeo, cyanLineMat);
     meshGroup.add(cyanLines);
@@ -248,7 +248,7 @@ export default function ThreeGalaxyCanvas() {
   return (
     <div
       ref={containerRef}
-      className="fixed inset-0 pointer-events-none z-[1] opacity-90 dark:opacity-95 transition-opacity duration-500"
+      className="fixed inset-0 pointer-events-none z-0 opacity-100 transition-opacity duration-500"
     />
   );
 }
