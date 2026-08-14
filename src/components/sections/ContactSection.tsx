@@ -27,11 +27,24 @@ export default function ContactSection() {
 
   const budgetOptions = ["$2,000 - $5,000", "$5,000 - $10,000", "$10,000+"];
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!formData.name || !formData.email || !formData.message) return;
 
     setLoading(true);
+
+    try {
+      await fetch("/api/admin/data", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          type: "inquiry",
+          ...formData,
+        }),
+      });
+    } catch (err) {
+      console.warn("Failed to post inquiry to CMS API:", err);
+    }
 
     setTimeout(() => {
       setLoading(false);
@@ -44,7 +57,7 @@ export default function ContactSection() {
         origin: { y: 0.6 },
         colors: ["#DB4338", "#FF5E50", "#FFFFFF"],
       });
-    }, 800);
+    }, 600);
   };
 
   return (
