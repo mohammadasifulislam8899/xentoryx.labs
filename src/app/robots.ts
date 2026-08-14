@@ -6,6 +6,6 @@ export default function robots(): MetadataRoute.Robots {
       userAgent: "*",
       allow: "/",
     },
-    sitemap: "https://xentoryx.com/sitemap.xml",
+    sitemap: "https://www.xentoryxlabs.site/sitemap.xml",
   };
 }
