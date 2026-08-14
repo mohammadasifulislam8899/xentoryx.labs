@@ -5,18 +5,20 @@ import Image from "next/image";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { ArrowRight, Bot, Cpu, Smartphone, Server, Globe, Sparkles, Activity } from "lucide-react";
+import { useCMS } from "@/hooks/useCMS";
 
 export default function FounderHero({ onOpenAi }: { onOpenAi: () => void }) {
+  const { settings, founderName, companyName } = useCMS();
   const [roleIndex, setRoleIndex] = useState(0);
   const [mouseOffset, setMouseOffset] = useState({ x: 0, y: 0 });
   const heroRef = useRef<HTMLDivElement | null>(null);
 
-  const roles = [
+  const roles = settings?.hero?.roles || [
     "Android Developer",
     "IoT Systems Engineer",
     "Backend Architect",
     "Modern Web Specialist",
-    "Founder of Xentoryx Labs",
+    `Founder of ${companyName}`,
   ];
 
   // Auto-rotate subheadline roles
@@ -73,14 +75,14 @@ export default function FounderHero({ onOpenAi }: { onOpenAi: () => void }) {
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full glass-panel-red border border-brand-red/30 text-xs">
               <span className="w-2 h-2 rounded-full bg-brand-red animate-ping" />
               <span className="font-mono text-brand-red font-semibold uppercase tracking-wider">
-                FOUNDER & PRINCIPAL ENGINEER
+                {settings?.hero?.statusPill || "FOUNDER & PRINCIPAL ENGINEER"}
               </span>
             </div>
 
             {/* Main Headline */}
             <div className="space-y-2">
-              <h1 className="font-display text-5xl sm:text-7xl lg:text-8xl font-extrabold tracking-tight text-white">
-                ASIF<span className="text-brand-red">.</span>
+              <h1 className="font-display text-5xl sm:text-7xl lg:text-8xl font-extrabold tracking-tight text-white uppercase">
+                {settings?.hero?.headline || founderName}<span className="text-brand-red">.</span>
               </h1>
 
               {/* Cycling Role Subheadline */}
@@ -102,8 +104,7 @@ export default function FounderHero({ onOpenAi }: { onOpenAi: () => void }) {
 
             {/* Description */}
             <p className="text-base sm:text-lg text-brand-muted max-w-xl leading-relaxed">
-              Building scalable software products, intelligent IoT hardware systems, high-throughput backend architectures, and modern web experiences through{" "}
-              <span className="text-white font-semibold">Xentoryx Labs</span>.
+              {settings?.hero?.description || `Building scalable software products, intelligent IoT hardware systems, high-throughput backend architectures, and modern web experiences through ${companyName}.`}
             </p>
 
             {/* CTA Action Buttons */}
@@ -136,15 +137,15 @@ export default function FounderHero({ onOpenAi }: { onOpenAi: () => void }) {
             {/* Quick Metrics */}
             <div className="pt-6 grid grid-cols-3 gap-4 border-t border-white/10 max-w-md">
               <div>
-                <div className="text-2xl font-bold font-display text-white">4+</div>
+                <div className="text-2xl font-bold font-display text-white">{settings?.hero?.yearsMetric || "4+"}</div>
                 <div className="text-xs text-brand-muted">Years Engineering</div>
               </div>
               <div>
-                <div className="text-2xl font-bold font-display text-brand-red">15+</div>
+                <div className="text-2xl font-bold font-display text-brand-red">{settings?.hero?.techNodesMetric || "15+"}</div>
                 <div className="text-xs text-brand-muted">Tech Stack Nodes</div>
               </div>
               <div>
-                <div className="text-2xl font-bold font-display text-white">99.9%</div>
+                <div className="text-2xl font-bold font-display text-white">{settings?.hero?.uptimeMetric || "99.9%"}</div>
                 <div className="text-xs text-brand-muted">System Uptime</div>
               </div>
             </div>

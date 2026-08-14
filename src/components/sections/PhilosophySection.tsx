@@ -2,15 +2,19 @@
 
 import { motion } from "framer-motion";
 import { Zap, Layers, HeartHandshake, Bot, CheckCircle2 } from "lucide-react";
+import { useCMS } from "@/hooks/useCMS";
 
 export default function PhilosophySection() {
-  const pillars = [
+  const { settings, companyName } = useCMS();
+
+  const icons = [Zap, Layers, HeartHandshake, Bot];
+  const colors = ["text-amber-400", "text-brand-red", "text-purple-400", "text-emerald-400"];
+  const borderColors = ["border-amber-500/30", "border-brand-red/40", "border-purple-500/30", "border-emerald-500/30"];
+
+  const pillars = settings?.philosophy || [
     {
       title: "Build Fast",
       subtitle: "Rapid Prototyping to Production",
-      icon: Zap,
-      color: "text-amber-400",
-      borderColor: "border-amber-500/30",
       description:
         "Moving swiftly from initial architectural concept to clean, production-ready code without cutting engineering corners.",
       points: ["Modular Clean Architecture", "Iterative Sprint Deployment", "Zero Tech Debt Strategy"],
@@ -18,9 +22,6 @@ export default function PhilosophySection() {
     {
       title: "Think Scalable",
       subtitle: "Enterprise-Grade Performance",
-      icon: Layers,
-      color: "text-brand-red",
-      borderColor: "border-brand-red/40",
       description:
         "Architecting software microservices and IoT hardware pipelines designed to effortlessly handle exponential user & data growth.",
       points: ["Offline-First Android Data Caching", "High-Throughput MQTT Brokers", "Database Indexing & Micro-caching"],
@@ -28,9 +29,6 @@ export default function PhilosophySection() {
     {
       title: "Design for Humans",
       subtitle: "Apple & Linear Level Polish",
-      icon: HeartHandshake,
-      color: "text-purple-400",
-      borderColor: "border-purple-500/30",
       description:
         "Crafting intuitive user interfaces, buttery smooth animations, and ergonomic software designs that wow users at first glance.",
       points: ["Declarative Jetpack Compose & React 19", "Micro-interactions & Smooth Scroll", "Accessible & Dark Mode First"],
@@ -38,9 +36,6 @@ export default function PhilosophySection() {
     {
       title: "Automate Everything",
       subtitle: "Continuous Telemetry & OTA",
-      icon: Bot,
-      color: "text-emerald-400",
-      borderColor: "border-emerald-500/30",
       description:
         "Automating build pipelines, hardware Over-The-Air (OTA) updates, cloud container deployments, and background monitoring.",
       points: ["OTA Wireless ESP32 Updating", "Dockerized Container Workflows", "Automated System Diagnostics"],
@@ -67,7 +62,10 @@ export default function PhilosophySection() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {pillars.map((pillar, idx) => {
-            const IconComp = pillar.icon;
+            const IconComp = icons[idx % icons.length];
+            const colorClass = colors[idx % colors.length];
+            const borderClass = borderColors[idx % borderColors.length];
+
             return (
               <motion.div
                 key={pillar.title}
@@ -75,12 +73,12 @@ export default function PhilosophySection() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: idx * 0.1 }}
-                className={`glass-panel p-8 rounded-3xl border ${pillar.borderColor} hover:border-brand-red/50 transition-all group relative overflow-hidden`}
+                className={`glass-panel p-8 rounded-3xl border ${borderClass} hover:border-brand-red/50 transition-all group relative overflow-hidden`}
               >
                 <div className="absolute top-0 right-0 w-32 h-32 bg-white/5 rounded-bl-full pointer-events-none group-hover:bg-brand-red/10 transition-colors" />
 
                 <div className="flex items-center gap-4 mb-6">
-                  <div className={`w-14 h-14 rounded-2xl bg-surface border border-white/10 flex items-center justify-center ${pillar.color} shadow-lg group-hover:scale-110 transition-transform`}>
+                  <div className={`w-14 h-14 rounded-2xl bg-surface border border-white/10 flex items-center justify-center ${colorClass} shadow-lg group-hover:scale-110 transition-transform`}>
                     <IconComp className="w-7 h-7" />
                   </div>
                   <div>

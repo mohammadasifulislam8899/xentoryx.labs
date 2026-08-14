@@ -2,25 +2,22 @@
 
 import { motion } from "framer-motion";
 import { Target, Compass, ShieldCheck, Zap } from "lucide-react";
+import { useCMS } from "@/hooks/useCMS";
 
 export default function CompanySection() {
-  const values = [
-    {
-      title: "Engineering Excellence",
-      description: "We write clean, typed, modular code built to last for decades.",
-      icon: ShieldCheck,
-    },
-    {
-      title: "Pioneering Innovation",
-      description: "Pushing boundaries in Edge AI microcontrollers and hardware telemetry.",
-      icon: Zap,
-    },
-    {
-      title: "Human-Centric UX",
-      description: "Combining raw technical power with Apple-level visual craftsmanship.",
-      icon: Compass,
-    },
-  ];
+  const { settings, companyName, founderName } = useCMS();
+
+  const compData = settings?.company?.[0] || {
+    headline: "Engineering Tomorrow's Digital Experiences",
+    description: `${companyName} develops scalable software, IoT products, backend systems, and intelligent digital experiences designed for the future. Founded by ${founderName}.`,
+    mission: "To bridge the gap between physical hardware microcontrollers and cloud software systems by engineering resilient, low-latency IoT hardware and elegant mobile/web applications.",
+    vision: "To become a globally recognized technology lab where hardware engineering meets modern web design and AI intelligence, delivering software that empowers millions.",
+    values: [
+      { title: "Engineering Excellence", description: "We write clean, typed, modular code built to last for decades." },
+      { title: "Pioneering Innovation", description: "Pushing boundaries in Edge AI microcontrollers and hardware telemetry." },
+      { title: "Human-Centric UX", description: "Combining raw technical power with Apple-level visual craftsmanship." },
+    ],
+  };
 
   return (
     <section id="company" className="py-24 bg-[#0F1115] relative overflow-hidden">
@@ -30,16 +27,15 @@ export default function CompanySection() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="text-center max-w-4xl mx-auto space-y-6 mb-20">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full glass-panel-red text-xs font-mono text-brand-red font-semibold uppercase tracking-wider">
-            ABOUT XENTORYX LABS
+            ABOUT {companyName.toUpperCase()}
           </div>
 
           <h2 className="font-display text-4xl sm:text-6xl font-extrabold text-white tracking-tight leading-tight">
-            Engineering Tomorrow's <br />
-            <span className="text-gradient-red">Digital Experiences</span>
+            {compData.headline}
           </h2>
 
           <p className="text-lg text-brand-muted leading-relaxed max-w-2xl mx-auto">
-            Xentoryx Labs develops scalable software, IoT products, backend systems, and intelligent digital experiences designed for the future. Founded by Asif.
+            {compData.description}
           </p>
         </div>
 
@@ -56,7 +52,7 @@ export default function CompanySection() {
             </div>
             <h3 className="font-display text-2xl font-bold text-white">Our Mission</h3>
             <p className="text-sm text-gray-300 leading-relaxed">
-              To bridge the gap between physical hardware microcontrollers and cloud software systems by engineering resilient, low-latency IoT hardware and elegant mobile/web applications.
+              {compData.mission}
             </p>
           </motion.div>
 
@@ -71,15 +67,16 @@ export default function CompanySection() {
             </div>
             <h3 className="font-display text-2xl font-bold text-white">Our Vision</h3>
             <p className="text-sm text-gray-300 leading-relaxed">
-              To become a globally recognized technology lab where hardware engineering meets modern web design and AI intelligence, delivering software that empowers millions.
+              {compData.vision}
             </p>
           </motion.div>
         </div>
 
         {/* Core Values Row */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {values.map((val) => {
-            const IconComp = val.icon;
+          {compData.values.map((val, idx) => {
+            const icons = [ShieldCheck, Zap, Compass];
+            const IconComp = icons[idx % icons.length];
             return (
               <div key={val.title} className="glass-panel p-6 rounded-2xl border border-white/10 space-y-3">
                 <IconComp className="w-5 h-5 text-brand-red" />
