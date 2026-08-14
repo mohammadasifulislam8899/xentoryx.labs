@@ -631,6 +631,100 @@ export default function AdminDashboard() {
           </div>
         )}
 
+        {/* TAB 5: SERVICES MANAGER */}
+        {activeTab === "services" && (
+          <div className="space-y-6">
+            <div className="flex items-center justify-between">
+              <h2 className="text-xl font-bold font-display text-white">
+                Manage Company Services ({cmsData.settings.services?.length || 0})
+              </h2>
+              <button
+                onClick={() => {
+                  const newService: ServiceData = {
+                    title: "New Service Offering",
+                    description: "High-level description of engineering service...",
+                    deliverables: ["Deliverable 1", "Deliverable 2"],
+                  };
+                  const updated = { ...cmsData };
+                  if (!updated.settings.services) updated.settings.services = [];
+                  updated.settings.services.push(newService);
+                  setCmsData(updated);
+                  handleSaveAll(updated);
+                }}
+                className="px-4 py-2 rounded-xl bg-surface border border-brand-red/40 hover:bg-brand-red/20 text-xs font-mono text-white flex items-center gap-2"
+              >
+                <Plus className="w-4 h-4 text-brand-red" />
+                <span>Add New Service</span>
+              </button>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              {cmsData.settings.services?.map((svc, idx) => (
+                <div key={idx} className="glass-panel p-6 rounded-2xl border border-white/10 space-y-4">
+                  <div className="flex items-center justify-between">
+                    <span className="px-2.5 py-1 rounded text-[10px] font-mono bg-brand-red/20 text-brand-red border border-brand-red/40 font-bold uppercase">
+                      Service #{idx + 1}
+                    </span>
+                    <button
+                      onClick={() => {
+                        const updated = { ...cmsData };
+                        updated.settings.services.splice(idx, 1);
+                        setCmsData(updated);
+                        handleSaveAll(updated);
+                      }}
+                      className="p-1.5 rounded-lg text-brand-muted hover:text-brand-red"
+                    >
+                      <Trash2 className="w-4 h-4" />
+                    </button>
+                  </div>
+
+                  <div className="space-y-2">
+                    <label className="text-[10px] font-mono text-brand-muted uppercase">Service Title</label>
+                    <input
+                      type="text"
+                      value={svc.title}
+                      onChange={(e) => {
+                        const updated = { ...cmsData };
+                        updated.settings.services[idx].title = e.target.value;
+                        setCmsData(updated);
+                      }}
+                      className="w-full bg-surface px-3 py-1.5 rounded-lg text-sm text-white font-bold border border-white/10 focus:border-brand-red focus:outline-none"
+                    />
+                  </div>
+
+                  <div className="space-y-2">
+                    <label className="text-[10px] font-mono text-brand-muted uppercase">Service Description</label>
+                    <textarea
+                      rows={3}
+                      value={svc.description}
+                      onChange={(e) => {
+                        const updated = { ...cmsData };
+                        updated.settings.services[idx].description = e.target.value;
+                        setCmsData(updated);
+                      }}
+                      className="w-full bg-surface px-3 py-1.5 rounded-lg text-xs text-gray-300 border border-white/10 focus:border-brand-red focus:outline-none"
+                    />
+                  </div>
+
+                  <div className="space-y-2">
+                    <label className="text-[10px] font-mono text-brand-muted uppercase">Deliverables List (comma separated)</label>
+                    <input
+                      type="text"
+                      value={svc.deliverables?.join(", ") || ""}
+                      onChange={(e) => {
+                        const updated = { ...cmsData };
+                        updated.settings.services[idx].deliverables = e.target.value.split(",").map((d) => d.trim());
+                        setCmsData(updated);
+                      }}
+                      className="w-full bg-surface px-3 py-1.5 rounded-lg text-xs font-mono text-emerald-400 border border-white/10 focus:border-brand-red focus:outline-none"
+                    />
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
         {/* TAB 5: HERO & COMPANY VISION */}
         {activeTab === "heroCompany" && (
           <div className="space-y-8 max-w-4xl">
