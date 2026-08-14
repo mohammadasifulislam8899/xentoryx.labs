@@ -103,7 +103,7 @@ export default function DeveloperPlaygroundConsolePage() {
   };
 
   return (
-    <div className="min-h-screen pt-28 pb-32 bg-slate-50 dark:bg-[#07090C] text-slate-900 dark:text-white relative transition-colors duration-300">
+    <div className="min-h-screen pt-28 pb-20 bg-slate-50 dark:bg-[#07090C] text-slate-900 dark:text-white relative transition-colors duration-300">
       {/* Red ambient core */}
       <div className="absolute top-20 left-10 w-[500px] h-[500px] bg-brand-red/10 rounded-full blur-[140px] pointer-events-none" />
 
