@@ -65,13 +65,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${inter.variable} ${spaceGrotesk.variable} dark`}>
-      <body className="bg-[#0F1115] text-[#F5F5F5] antialiased selection:bg-brand-red selection:text-white">
+    <html lang="en" className={`${inter.variable} ${spaceGrotesk.variable}`} suppressHydrationWarning>
+      <body className="bg-[var(--bg-primary)] text-[var(--text-primary)] antialiased selection:bg-brand-red selection:text-white transition-colors duration-300">
         <ThemeProvider
           attribute="class"
           defaultTheme="dark"
           enableSystem
-          disableTransitionOnChange
+          disableTransitionOnChange={false}
         >
           {/* JSON-LD Structured Data Schema for SEO */}
           <script

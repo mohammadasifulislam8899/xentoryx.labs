@@ -2,97 +2,78 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --bg-dark: #0f1115;
-  --bg-surface: #161920;
-  --text-main: #f5f5f5;
-  --text-muted: #a0a0a0;
-  --brand-red: #db4338;
+@layer base {
+  :root {
+    --bg-primary: #FAFAFA;
+    --bg-[#0A0C10]: #FAFAFA;
+    --bg-surface: #FFFFFF;
+    --text-primary: #0F172A;
+    --text-muted: #64748B;
+    --border-color: rgba(0, 0, 0, 0.1);
+    --glass-bg: rgba(255, 255, 255, 0.85);
+  }
+
+  .dark {
+    --bg-primary: #0A0C10;
+    --bg-[#0A0C10]: #0A0C10;
+    --bg-surface: #12151E;
+    --text-primary: #F8FAFC;
+    --text-muted: #94A3B8;
+    --border-color: rgba(255, 255, 255, 0.1);
+    --glass-bg: rgba(18, 21, 30, 0.85);
+  }
+
+  body {
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    font-family: var(--font-inter), sans-serif;
+    overflow-x: hidden;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
 }
 
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
+@layer utilities {
+  .glass-panel {
+    background-color: var(--glass-bg);
+    border: 1px solid var(--border-color);
+    backdrop-filter: blur(16px);
+  }
+
+  .glass-panel-red {
+    background: rgba(219, 67, 56, 0.08);
+    border: 1px solid rgba(219, 67, 56, 0.3);
+    backdrop-filter: blur(16px);
+  }
+
+  .text-gradient-red {
+    background: linear-gradient(135deg, #DB4338 0%, #FF5E50 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .shadow-glow-red {
+    box-shadow: 0 0 25px rgba(219, 67, 56, 0.35);
+  }
+
+  .shadow-glow-red-lg {
+    box-shadow: 0 0 45px rgba(219, 67, 56, 0.55);
+  }
 }
 
-html {
-  scroll-behavior: initial;
-  background-color: var(--bg-dark);
-  color: var(--text-main);
-  font-family: var(--font-inter), sans-serif;
-  overflow-x: hidden;
-}
-
-body {
-  background-color: var(--bg-dark);
-  color: var(--text-main);
-  min-height: 100vh;
-  selection-background-color: #db4338;
-  selection-color: #ffffff;
-}
-
-::selection {
-  background-color: rgba(219, 67, 56, 0.4);
-  color: #ffffff;
-}
-
-/* Custom Red Scrollbar */
+/* Custom Scrollbar */
 ::-webkit-scrollbar {
-  width: 6px;
+  width: 8px;
 }
+
 ::-webkit-scrollbar-track {
-  background: #0f1115;
+  background: var(--bg-primary);
 }
+
 ::-webkit-scrollbar-thumb {
-  background: #262a36;
-  border-radius: 3px;
+  background: #DB4338;
+  border-radius: 4px;
 }
+
 ::-webkit-scrollbar-thumb:hover {
-  background: #db4338;
-}
-
-/* Glassmorphism utility classes */
-.glass-panel {
-  background: rgba(22, 25, 32, 0.7);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-}
-
-.glass-panel-red {
-  background: rgba(22, 25, 32, 0.75);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(219, 67, 56, 0.25);
-  box-shadow: 0 8px 32px 0 rgba(219, 67, 56, 0.15);
-}
-
-.text-gradient-red {
-  background: linear-gradient(135deg, #ffffff 0%, #f5f5f5 50%, #db4338 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-.text-gradient-white {
-  background: linear-gradient(180deg, #ffffff 0%, #a0a0a0 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-/* Red Energy Pulse effect */
-.red-energy-ring {
-  position: absolute;
-  border-radius: 50%;
-  border: 1.5px solid rgba(219, 67, 56, 0.5);
-  box-shadow: 0 0 30px rgba(219, 67, 56, 0.3), inset 0 0 20px rgba(219, 67, 56, 0.2);
-  pointer-events: none;
-}
-
-/* Particle Grid canvas backdrop */
-.bg-grid-pattern {
-  background-size: 40px 40px;
-  background-image: 
-    linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+  background: #FF5E50;
 }

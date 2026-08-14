@@ -64,13 +64,13 @@ export default function JourneyTimeline() {
   ];
 
   return (
-    <section id="experience" className="py-24 bg-[#0B0D11] dark:bg-[#07090C] text-white relative border-t border-white/5">
+    <section id="experience" className="py-24 bg-[var(--bg-primary)] text-[var(--text-primary)] relative border-t border-black/5 dark:border-white/5 transition-colors duration-300">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center max-w-3xl mx-auto mb-16 space-y-4">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full glass-panel-red text-xs font-mono text-brand-red font-semibold uppercase tracking-wider">
             CAREER & MILESTONES
           </div>
-          <h2 className="font-display text-4xl sm:text-5xl font-extrabold text-white tracking-tight">
+          <h2 className="font-display text-4xl sm:text-5xl font-extrabold dark:text-white text-gray-900 tracking-tight">
             Engineering <span className="text-gradient-red">Experience Timeline</span>
           </h2>
           <p className="text-base text-brand-muted leading-relaxed">

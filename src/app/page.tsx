@@ -12,7 +12,7 @@ import ContactSection from "@/components/sections/ContactSection";
 
 export default function Home() {
   return (
-    <main className="min-h-screen bg-[#0A0C10] text-white selection:bg-brand-red selection:text-white">
+    <main className="min-h-screen bg-[var(--bg-primary)] text-[var(--text-primary)] selection:bg-brand-red selection:text-white transition-colors duration-300">
       {/* 1. Founder Hero Section */}
       <FounderHero />
 

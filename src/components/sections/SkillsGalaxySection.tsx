@@ -44,7 +44,7 @@ export default function SkillsGalaxySection() {
   const filteredNodes = activeFilter === "All" ? nodes : nodes.filter((n) => n.category === activeFilter);
 
   return (
-    <section id="galaxy" className="py-24 bg-[#0F1115] dark:bg-[#0A0C10] text-white relative overflow-hidden border-t border-white/5">
+    <section id="galaxy" className="py-24 bg-[var(--bg-primary)] text-[var(--text-primary)] relative overflow-hidden border-t border-black/5 dark:border-white/5 transition-colors duration-300">
       {/* Red ambient core */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-brand-red/10 rounded-full blur-[140px] pointer-events-none" />
 
@@ -53,7 +53,7 @@ export default function SkillsGalaxySection() {
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full glass-panel-red text-xs font-mono text-brand-red font-semibold uppercase tracking-wider">
             INTERACTIVE TECH GALAXY
           </div>
-          <h2 className="font-display text-4xl sm:text-5xl font-extrabold text-white tracking-tight">
+          <h2 className="font-display text-4xl sm:text-5xl font-extrabold dark:text-white text-gray-900 tracking-tight">
             Engineering <span className="text-gradient-red">Stack Galaxy</span>
           </h2>
           <p className="text-base text-brand-muted leading-relaxed">

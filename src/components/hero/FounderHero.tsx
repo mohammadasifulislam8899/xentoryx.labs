@@ -38,7 +38,7 @@ export default function FounderHero() {
   }, [roles.length]);
 
   return (
-    <section className="relative min-h-[92vh] flex items-center justify-center pt-24 pb-16 overflow-hidden bg-[#0A0C10] text-white">
+    <section className="relative min-h-[92vh] flex items-center justify-center pt-24 pb-16 overflow-hidden bg-[var(--bg-primary)] text-[var(--text-primary)] transition-colors duration-300">
       {/* Lazy-Loaded R3F 3D Scene Background */}
       <Hero3DCanvas />
 
@@ -59,7 +59,7 @@ export default function FounderHero() {
 
             {/* Main Title */}
             <div className="space-y-2">
-              <h1 className="font-display text-5xl sm:text-6xl md:text-7xl font-extrabold tracking-tight text-white leading-none">
+              <h1 className="font-display text-5xl sm:text-6xl md:text-7xl font-extrabold tracking-tight dark:text-white text-gray-900 leading-none">
                 {heroConfig.headline || founderName.toUpperCase()}
               </h1>
               <div className="h-10 flex items-center text-xl sm:text-2xl font-mono text-brand-red font-bold">
