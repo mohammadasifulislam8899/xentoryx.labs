@@ -1218,6 +1218,56 @@ export default function AdminDashboard() {
                 />
               </div>
 
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                  <label className="text-xs font-mono text-slate-500 dark:text-slate-400 uppercase font-bold">GitHub Profile URL</label>
+                  <input
+                    type="text"
+                    value={cmsData.settings.githubUrl || ""}
+                    onChange={(e) => {
+                      setCmsData({
+                        ...cmsData,
+                        settings: { ...cmsData.settings, githubUrl: e.target.value },
+                      });
+                    }}
+                    placeholder="https://github.com/..."
+                    className="w-full bg-slate-100 dark:bg-surface px-4 py-2.5 rounded-xl text-xs text-cyan-600 dark:text-cyan-400 font-mono font-bold border border-slate-200 dark:border-white/10 focus:border-brand-red focus:outline-none"
+                  />
+                </div>
+
+                <div>
+                  <label className="text-xs font-mono text-slate-500 dark:text-slate-400 uppercase font-bold">LinkedIn Profile URL</label>
+                  <input
+                    type="text"
+                    value={cmsData.settings.linkedinUrl || ""}
+                    onChange={(e) => {
+                      setCmsData({
+                        ...cmsData,
+                        settings: { ...cmsData.settings, linkedinUrl: e.target.value },
+                      });
+                    }}
+                    placeholder="https://linkedin.com/in/..."
+                    className="w-full bg-slate-100 dark:bg-surface px-4 py-2.5 rounded-xl text-xs text-sky-600 dark:text-sky-400 font-mono font-bold border border-slate-200 dark:border-white/10 focus:border-brand-red focus:outline-none"
+                  />
+                </div>
+              </div>
+
+              <div>
+                <label className="text-xs font-mono text-slate-500 dark:text-slate-400 uppercase font-bold">Twitter / X Profile URL</label>
+                <input
+                  type="text"
+                  value={cmsData.settings.twitterUrl || ""}
+                  onChange={(e) => {
+                    setCmsData({
+                      ...cmsData,
+                      settings: { ...cmsData.settings, twitterUrl: e.target.value },
+                    });
+                  }}
+                  placeholder="https://x.com/..."
+                  className="w-full bg-slate-100 dark:bg-surface px-4 py-2.5 rounded-xl text-xs text-slate-900 dark:text-white font-mono font-bold border border-slate-200 dark:border-white/10 focus:border-brand-red focus:outline-none"
+                />
+              </div>
+
               <div>
                 <label className="text-xs font-mono text-slate-500 dark:text-slate-400 uppercase font-bold">Contact Email Address</label>
                 <input

@@ -6,7 +6,7 @@ import { ArrowUp, Github, Linkedin, Mail, Heart } from "lucide-react";
 import { useCMS } from "@/hooks/useCMS";
 
 export default function Footer() {
-  const { founderName, companyName, tagline, email, settings } = useCMS();
+  const { founderName, companyName, tagline, email, githubUrl, linkedinUrl } = useCMS();
 
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
@@ -38,27 +38,27 @@ export default function Footer() {
 
           <div className="flex items-center gap-4">
             <a
-              href="https://github.com/mohammadasifulislam8899"
+              href={githubUrl}
               target="_blank"
               rel="noreferrer"
               className="p-2.5 rounded-xl glass-panel text-slate-700 dark:text-slate-300 hover:text-brand-red transition-colors"
-              title="GitHub"
+              title="GitHub Profile"
             >
               <Github className="w-4 h-4" />
             </a>
             <a
-              href="https://linkedin.com"
+              href={linkedinUrl}
               target="_blank"
               rel="noreferrer"
               className="p-2.5 rounded-xl glass-panel text-slate-700 dark:text-slate-300 hover:text-brand-red transition-colors"
-              title="LinkedIn"
+              title="LinkedIn Profile"
             >
               <Linkedin className="w-4 h-4" />
             </a>
             <a
               href={`mailto:${email}`}
               className="p-2.5 rounded-xl glass-panel text-slate-700 dark:text-slate-300 hover:text-brand-red transition-colors"
-              title="Email Direct"
+              title="Direct Email"
             >
               <Mail className="w-4 h-4" />
             </a>

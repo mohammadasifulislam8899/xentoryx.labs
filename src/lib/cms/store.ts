@@ -46,6 +46,7 @@ export interface SiteSettings {
   email: string;
   githubUrl: string;
   linkedinUrl: string;
+  twitterUrl?: string;
   uptimeMetric: string;
   aiPrompt: string;
   hero: HeroSettings;
@@ -81,9 +82,10 @@ export const initialData: CMSData = {
     founderName: "Asif",
     companyName: "Xentoryx Labs",
     tagline: "Building Scalable Software, IoT Systems and Intelligent Technologies",
-    email: "asif@xentoryx.com",
-    githubUrl: "https://github.com/Xentoryx",
-    linkedinUrl: "https://linkedin.com",
+    email: "mohammadasifulislam8899@gmail.com",
+    githubUrl: "https://github.com/mohammadasifulislam8899",
+    linkedinUrl: "https://linkedin.com/in/mohammadasifulislam",
+    twitterUrl: "https://x.com/xentoryxlabs",
     uptimeMetric: "99.98%",
     aiPrompt: "You are Gemini AI, powered by Google Gemini AI for Founder Asif and Xentoryx Labs.",
     hero: {
