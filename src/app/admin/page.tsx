@@ -471,6 +471,194 @@ export default function AdminDashboard() {
           </div>
         )}
 
+        {/* TAB 2: LABS R&D EXPERIMENTS */}
+        {activeTab === "labs" && (
+          <div className="space-y-6">
+            <div className="flex items-center justify-between">
+              <h2 className="text-xl font-bold font-display text-slate-900 dark:text-white">
+                Manage Hardware & R&D Prototypes ({cmsData.labs?.length || 0})
+              </h2>
+              <button
+                onClick={() => {
+                  const newLab: LabExperiment = {
+                    id: `lab-${Date.now()}`,
+                    title: "New Hardware Prototype",
+                    description: "Experimental research description...",
+                    category: "Hardware",
+                    status: "Prototype",
+                    date: "2026",
+                    metrics: [{ label: "Throughput", value: "100 Mbps" }],
+                    tags: ["ESP32", "MQTT"],
+                  };
+                  const updated = { ...cmsData, labs: [newLab, ...(cmsData.labs || [])] };
+                  setCmsData(updated);
+                  handleSaveAll(updated);
+                }}
+                className="px-4 py-2 rounded-xl bg-slate-100 dark:bg-surface border border-brand-red/40 hover:bg-brand-red/20 text-xs font-mono text-slate-900 dark:text-white flex items-center gap-2 font-bold"
+              >
+                <Plus className="w-4 h-4 text-brand-red" />
+                <span>Add Lab Prototype</span>
+              </button>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              {cmsData.labs?.map((lab, idx) => (
+                <div key={lab.id} className="glass-panel p-6 rounded-2xl border border-slate-200 dark:border-white/10 space-y-4">
+                  <div className="flex items-center justify-between">
+                    <span className="px-2.5 py-1 rounded text-[10px] font-mono bg-cyan-500/20 text-cyan-600 dark:text-cyan-400 font-bold">
+                      {lab.category} // {lab.status}
+                    </span>
+                    <button
+                      onClick={() => {
+                        const updated = { ...cmsData };
+                        updated.labs.splice(idx, 1);
+                        setCmsData(updated);
+                        handleSaveAll(updated);
+                      }}
+                      className="p-1.5 rounded-lg text-slate-500 hover:text-brand-red"
+                    >
+                      <Trash2 className="w-4 h-4" />
+                    </button>
+                  </div>
+
+                  <div className="space-y-1">
+                    <label className="text-[10px] font-mono text-slate-500 dark:text-slate-400 uppercase font-bold">Prototype Title</label>
+                    <input
+                      type="text"
+                      value={lab.title}
+                      onChange={(e) => {
+                        const updated = { ...cmsData };
+                        updated.labs[idx].title = e.target.value;
+                        setCmsData(updated);
+                      }}
+                      className="w-full bg-slate-100 dark:bg-surface px-3 py-1.5 rounded-lg text-sm text-slate-900 dark:text-white font-bold border border-slate-200 dark:border-white/10 focus:border-brand-red focus:outline-none"
+                    />
+                  </div>
+
+                  <div className="space-y-1">
+                    <label className="text-[10px] font-mono text-slate-500 dark:text-slate-400 uppercase font-bold">Description</label>
+                    <textarea
+                      rows={2}
+                      value={lab.description}
+                      onChange={(e) => {
+                        const updated = { ...cmsData };
+                        updated.labs[idx].description = e.target.value;
+                        setCmsData(updated);
+                      }}
+                      className="w-full bg-slate-100 dark:bg-surface px-3 py-1.5 rounded-lg text-xs text-slate-900 dark:text-gray-300 border border-slate-200 dark:border-white/10 focus:border-brand-red focus:outline-none"
+                    />
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* TAB 3: SKILLS MATRIX */}
+        {activeTab === "skills" && (
+          <div className="space-y-6">
+            <div className="flex items-center justify-between">
+              <h2 className="text-xl font-bold font-display text-slate-900 dark:text-white">
+                Manage Skills Matrix ({cmsData.skills?.length || 0} Categories)
+              </h2>
+              <button
+                onClick={() => {
+                  const newSkillCat: SkillCategory = {
+                    category: "ANDROID",
+                    iconName: "Cpu",
+                    description: "Android engineering skills",
+                    skills: [
+                      { name: "New Skill", level: 90, experience: "Advanced" },
+                    ],
+                  };
+                  const updated = { ...cmsData, skills: [newSkillCat, ...(cmsData.skills || [])] };
+                  setCmsData(updated);
+                  handleSaveAll(updated);
+                }}
+                className="px-4 py-2 rounded-xl bg-slate-100 dark:bg-surface border border-brand-red/40 hover:bg-brand-red/20 text-xs font-mono text-slate-900 dark:text-white flex items-center gap-2 font-bold"
+              >
+                <Plus className="w-4 h-4 text-brand-red" />
+                <span>Add Skill Category</span>
+              </button>
+            </div>
+
+            <div className="space-y-6">
+              {cmsData.skills?.map((cat, catIdx) => (
+                <div key={catIdx} className="glass-panel p-6 rounded-2xl border border-slate-200 dark:border-white/10 space-y-4">
+                  <div className="flex items-center justify-between">
+                    <input
+                      type="text"
+                      value={cat.category}
+                      onChange={(e) => {
+                        const updated = { ...cmsData };
+                        updated.skills[catIdx].category = e.target.value as any;
+                        setCmsData(updated);
+                      }}
+                      className="bg-transparent text-lg font-bold text-slate-900 dark:text-white border-b border-slate-200 dark:border-white/10 focus:border-brand-red focus:outline-none uppercase font-mono"
+                    />
+                    <button
+                      onClick={() => {
+                        const updated = { ...cmsData };
+                        updated.skills.splice(catIdx, 1);
+                        setCmsData(updated);
+                        handleSaveAll(updated);
+                      }}
+                      className="p-1.5 rounded-lg text-slate-500 hover:text-brand-red"
+                    >
+                      <Trash2 className="w-4 h-4" />
+                    </button>
+                  </div>
+
+                  <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+                    {cat.skills?.map((sk, skIdx) => (
+                      <div key={skIdx} className="p-3 rounded-xl bg-slate-100 dark:bg-surface border border-slate-200 dark:border-white/10 flex items-center gap-3">
+                        <div className="flex-1">
+                          <input
+                            type="text"
+                            value={sk.name}
+                            onChange={(e) => {
+                              const updated = { ...cmsData };
+                              updated.skills[catIdx].skills[skIdx].name = e.target.value;
+                              setCmsData(updated);
+                            }}
+                            className="w-full bg-transparent text-xs font-bold text-slate-900 dark:text-white focus:outline-none"
+                          />
+                          <div className="flex items-center gap-2 mt-1">
+                            <span className="text-[10px] font-mono text-brand-red font-bold">{sk.level}%</span>
+                            <input
+                              type="range"
+                              min="50"
+                              max="100"
+                              value={sk.level}
+                              onChange={(e) => {
+                                const updated = { ...cmsData };
+                                updated.skills[catIdx].skills[skIdx].level = parseInt(e.target.value);
+                                setCmsData(updated);
+                              }}
+                              className="w-full h-1 bg-slate-300 dark:bg-slate-700 rounded accent-brand-red"
+                            />
+                          </div>
+                        </div>
+                        <button
+                          onClick={() => {
+                            const updated = { ...cmsData };
+                            updated.skills[catIdx].skills.splice(skIdx, 1);
+                            setCmsData(updated);
+                            handleSaveAll(updated);
+                          }}
+                          className="text-slate-400 hover:text-brand-red"
+                        >
+                          <X className="w-3.5 h-3.5" />
+                        </button>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
         {/* TAB 4: TIMELINE */}
         {activeTab === "timeline" && (
           <div className="space-y-6">
@@ -619,6 +807,207 @@ export default function AdminDashboard() {
                 </div>
               ))}
             </div>
+          </div>
+        )}
+
+        {/* TAB 5: SERVICES */}
+        {activeTab === "services" && (
+          <div className="space-y-6">
+            <div className="flex items-center justify-between">
+              <h2 className="text-xl font-bold font-display text-slate-900 dark:text-white">
+                Manage Services ({cmsData.settings.services?.length || 0})
+              </h2>
+              <button
+                onClick={() => {
+                  const newSvc: ServiceData = {
+                    title: "New Engineering Service",
+                    description: "Service details...",
+                    deliverables: ["Deliverable 1", "Deliverable 2"],
+                  };
+                  const updated = { ...cmsData };
+                  if (!updated.settings.services) updated.settings.services = [];
+                  updated.settings.services.push(newSvc);
+                  setCmsData(updated);
+                  handleSaveAll(updated);
+                }}
+                className="px-4 py-2 rounded-xl bg-slate-100 dark:bg-surface border border-brand-red/40 text-xs font-mono text-slate-900 dark:text-white flex items-center gap-2 font-bold"
+              >
+                <Plus className="w-4 h-4 text-brand-red" />
+                <span>Add Service</span>
+              </button>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              {cmsData.settings.services?.map((svc, idx) => (
+                <div key={idx} className="glass-panel p-6 rounded-2xl border border-slate-200 dark:border-white/10 space-y-4">
+                  <div className="flex items-center justify-between">
+                    <span className="text-xs font-mono text-brand-red font-bold">SERVICE 0{idx + 1}</span>
+                    <button
+                      onClick={() => {
+                        const updated = { ...cmsData };
+                        updated.settings.services.splice(idx, 1);
+                        setCmsData(updated);
+                        handleSaveAll(updated);
+                      }}
+                      className="text-slate-500 hover:text-brand-red"
+                    >
+                      <Trash2 className="w-4 h-4" />
+                    </button>
+                  </div>
+
+                  <div>
+                    <label className="text-[10px] font-mono text-slate-500 dark:text-slate-400 uppercase font-bold">Service Title</label>
+                    <input
+                      type="text"
+                      value={svc.title}
+                      onChange={(e) => {
+                        const updated = { ...cmsData };
+                        updated.settings.services[idx].title = e.target.value;
+                        setCmsData(updated);
+                      }}
+                      className="w-full bg-slate-100 dark:bg-surface px-3 py-1.5 rounded-lg text-sm text-slate-900 dark:text-white font-bold border border-slate-200 dark:border-white/10 focus:border-brand-red focus:outline-none"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="text-[10px] font-mono text-slate-500 dark:text-slate-400 uppercase font-bold">Description</label>
+                    <textarea
+                      rows={2}
+                      value={svc.description}
+                      onChange={(e) => {
+                        const updated = { ...cmsData };
+                        updated.settings.services[idx].description = e.target.value;
+                        setCmsData(updated);
+                      }}
+                      className="w-full bg-slate-100 dark:bg-surface px-3 py-1.5 rounded-lg text-xs text-slate-900 dark:text-gray-300 border border-slate-200 dark:border-white/10 focus:border-brand-red focus:outline-none"
+                    />
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* TAB 6: HERO & COMPANY */}
+        {activeTab === "heroCompany" && (
+          <div className="space-y-8 max-w-4xl">
+            <div className="glass-panel p-6 rounded-2xl border border-slate-200 dark:border-white/10 space-y-4">
+              <h3 className="font-display text-lg font-bold text-slate-900 dark:text-white">Hero Section Configuration</h3>
+              <div className="space-y-4">
+                <div>
+                  <label className="text-[10px] font-mono text-slate-500 dark:text-slate-400 uppercase font-bold">Status Pill Badge</label>
+                  <input
+                    type="text"
+                    value={cmsData.settings.hero?.statusPill || "NEXT-GEN R&D SOFTWARE & HARDWARE LAB"}
+                    onChange={(e) => {
+                      setCmsData({
+                        ...cmsData,
+                        settings: {
+                          ...cmsData.settings,
+                          hero: { ...(cmsData.settings.hero || {}), statusPill: e.target.value } as any,
+                        },
+                      });
+                    }}
+                    className="w-full bg-slate-100 dark:bg-surface px-3 py-2 rounded-lg text-xs text-slate-900 dark:text-white font-bold border border-slate-200 dark:border-white/10 focus:border-brand-red focus:outline-none font-mono"
+                  />
+                </div>
+
+                <div>
+                  <label className="text-[10px] font-mono text-slate-500 dark:text-slate-400 uppercase font-bold">Main Headline</label>
+                  <input
+                    type="text"
+                    value={cmsData.settings.hero?.headline || "Building Scalable Software, IoT Systems & Intelligent Technologies"}
+                    onChange={(e) => {
+                      setCmsData({
+                        ...cmsData,
+                        settings: {
+                          ...cmsData.settings,
+                          hero: { ...(cmsData.settings.hero || {}), headline: e.target.value } as any,
+                        },
+                      });
+                    }}
+                    className="w-full bg-slate-100 dark:bg-surface px-3 py-2 rounded-lg text-xs text-slate-900 dark:text-white font-bold border border-slate-200 dark:border-white/10 focus:border-brand-red focus:outline-none"
+                  />
+                </div>
+
+                <div>
+                  <label className="text-[10px] font-mono text-slate-500 dark:text-slate-400 uppercase font-bold">Founder Pitch / Sub-description</label>
+                  <textarea
+                    rows={3}
+                    value={cmsData.settings.hero?.description || "Engineering native Android apps, hardware IoT systems, and production web platforms."}
+                    onChange={(e) => {
+                      setCmsData({
+                        ...cmsData,
+                        settings: {
+                          ...cmsData.settings,
+                          hero: { ...(cmsData.settings.hero || {}), description: e.target.value } as any,
+                        },
+                      });
+                    }}
+                    className="w-full bg-slate-100 dark:bg-surface px-3 py-2 rounded-lg text-xs text-slate-900 dark:text-white border border-slate-200 dark:border-white/10 focus:border-brand-red focus:outline-none"
+                  />
+                </div>
+              </div>
+            </div>
+
+            <button
+              onClick={() => handleSaveAll()}
+              className="px-6 py-3 rounded-xl bg-gradient-to-r from-brand-red to-[#FF5E50] text-white font-bold text-xs uppercase font-mono shadow-glow-red"
+            >
+              Save Hero & Company Config
+            </button>
+          </div>
+        )}
+
+        {/* TAB 7: INQUIRIES INBOX */}
+        {activeTab === "inquiries" && (
+          <div className="space-y-6">
+            <div className="flex items-center justify-between">
+              <h2 className="text-xl font-bold font-display text-slate-900 dark:text-white">
+                Client Inquiries Inbox ({cmsData.inquiries?.length || 0})
+              </h2>
+            </div>
+
+            {(!cmsData.inquiries || cmsData.inquiries.length === 0) ? (
+              <div className="glass-panel p-12 text-center text-slate-500 font-mono text-xs rounded-3xl">
+                No client project inquiries in inbox.
+              </div>
+            ) : (
+              <div className="space-y-4">
+                {cmsData.inquiries.map((inq, idx) => (
+                  <div key={inq.id || idx} className="glass-panel p-6 rounded-2xl border border-slate-200 dark:border-white/10 space-y-3">
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <span className="font-bold text-sm text-slate-900 dark:text-white">{inq.name}</span>
+                        <a href={`mailto:${inq.email}`} className="text-xs font-mono text-brand-red ml-3 font-bold hover:underline">
+                          {inq.email}
+                        </a>
+                      </div>
+                      <button
+                        onClick={() => {
+                          const updated = { ...cmsData };
+                          updated.inquiries.splice(idx, 1);
+                          setCmsData(updated);
+                          handleSaveAll(updated);
+                        }}
+                        className="text-slate-500 hover:text-brand-red"
+                      >
+                        <Trash2 className="w-4 h-4" />
+                      </button>
+                    </div>
+
+                    <div className="flex gap-4 text-[10px] font-mono text-slate-600 dark:text-slate-400">
+                      <span className="px-2 py-0.5 rounded bg-slate-100 dark:bg-surface border border-slate-200 dark:border-white/10 font-bold">Scope: {inq.projectType}</span>
+                      <span className="px-2 py-0.5 rounded bg-slate-100 dark:bg-surface border border-slate-200 dark:border-white/10 font-bold text-emerald-600 dark:text-emerald-400">Budget: {inq.budget}</span>
+                    </div>
+
+                    <p className="text-xs font-mono text-slate-800 dark:text-slate-300 leading-relaxed bg-slate-100 dark:bg-surface p-3 rounded-xl border border-slate-200 dark:border-white/10">
+                      {inq.message}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
         )}
 
