@@ -52,15 +52,17 @@ export default function ClientLayoutWrapper({ children }: { children: React.Reac
       <CustomCursor />
       <ParticleGridCanvas />
 
-      <Navbar
-        onOpenCmdk={() => setCmdkOpen(true)}
-        onOpenAi={() => setAiOpen(true)}
-        onTriggerConsole={() => setConsoleOpen(true)}
-      />
+      <div className="relative z-10 flex flex-col min-h-screen">
+        <Navbar
+          onOpenCmdk={() => setCmdkOpen(true)}
+          onOpenAi={() => setAiOpen(true)}
+          onTriggerConsole={() => setConsoleOpen(true)}
+        />
 
-      {children}
+        <main className="flex-1">{children}</main>
 
-      <Footer />
+        <Footer />
+      </div>
 
       {/* Floating XenAI Assistant Button Badge */}
       <button
