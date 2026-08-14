@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { usePathname } from "next/navigation";
 import SmoothScroll from "@/components/layout/SmoothScroll";
 import CustomCursor from "@/components/layout/CustomCursor";
 import ScrollProgress from "@/components/ui/ScrollProgress";
@@ -12,6 +13,9 @@ import EngineeringConsoleModal from "@/components/layout/EngineeringConsoleModal
 import AiAssistantModal from "@/components/ui/AiAssistantModal";
 
 export default function ClientLayoutWrapper({ children }: { children: React.ReactNode }) {
+  const pathname = usePathname();
+  const isAdminRoute = pathname?.startsWith("/admin");
+
   const [cmdkOpen, setCmdkOpen] = useState(false);
   const [consoleOpen, setConsoleOpen] = useState(false);
   const [aiOpen, setAiOpen] = useState(false);
@@ -31,6 +35,15 @@ export default function ClientLayoutWrapper({ children }: { children: React.Reac
       document.removeEventListener("open-engineering-console", handleOpenConsole);
     };
   }, []);
+
+  // Completely isolated Admin Page without any client/visitor navbar, footer, cursor, or canvas
+  if (isAdminRoute) {
+    return (
+      <div className="min-h-screen bg-[#0A0C10] text-white selection:bg-brand-red selection:text-white">
+        {children}
+      </div>
+    );
+  }
 
   return (
     <SmoothScroll>

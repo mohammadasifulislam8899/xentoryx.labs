@@ -184,23 +184,37 @@ export default function AdminDashboard() {
   }
 
   return (
-    <div className="min-h-screen bg-[#0B0D11] text-white pt-24 pb-20">
-      {/* Header Bar */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between border-b border-white/10 pb-6 mb-8 gap-4">
-          <div>
-            <div className="flex items-center gap-2">
-              <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-ping" />
-              <span className="text-xs font-mono text-brand-red font-bold uppercase tracking-wider">
-                ADMIN CONTROL CENTER
-              </span>
+    <div className="min-h-screen bg-[#07090C] text-white py-8">
+      {/* Standalone Admin Navbar Header */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-8">
+        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between p-6 rounded-3xl bg-[#0E1118] border border-white/10 shadow-2xl gap-4">
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 rounded-2xl bg-brand-red/20 border border-brand-red/50 text-brand-red flex items-center justify-center font-bold text-sm font-mono">
+              XL
             </div>
-            <h1 className="font-display text-3xl font-bold text-white mt-1">
-              Dynamic CMS Dashboard — Founder Asif
-            </h1>
+            <div>
+              <div className="flex items-center gap-2">
+                <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping" />
+                <span className="text-xs font-mono text-brand-red font-bold uppercase tracking-wider">
+                  FOUNDER ADMIN PORTAL (ISOLATED)
+                </span>
+              </div>
+              <h1 className="font-display text-2xl font-bold text-white mt-0.5">
+                Xentoryx Labs Management Control Plane
+              </h1>
+            </div>
           </div>
 
           <div className="flex items-center gap-3">
+            <Link
+              href="/"
+              target="_blank"
+              className="px-4 py-2 rounded-xl glass-panel text-xs font-mono text-gray-300 hover:text-white flex items-center gap-2 transition-colors border-white/10"
+            >
+              <Eye className="w-3.5 h-3.5 text-cyan-400" />
+              <span>View Public Live Site</span>
+            </Link>
+
             <button
               onClick={() => handleSaveAll()}
               disabled={saving}
@@ -224,12 +238,13 @@ export default function AdminDashboard() {
               className="p-2.5 rounded-xl glass-panel text-brand-muted hover:text-white transition-colors"
               title="Lock Admin Session"
             >
-              <Unlock className="w-4 h-4" />
+              <Unlock className="w-4 h-4 text-brand-red" />
             </button>
           </div>
         </div>
+      </div>
 
-        {/* Dashboard Nav Tabs */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-wrap gap-2 border-b border-white/10 pb-4 mb-8">
           {[
             { id: "projects", label: "Projects", icon: Briefcase, count: cmsData.projects.length },
