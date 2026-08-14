@@ -2,15 +2,41 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowUp, Github, Linkedin, Mail, Heart } from "lucide-react";
+import { ArrowUp, Github, Linkedin, Mail, Heart, Globe, Twitter, Facebook, Youtube, Send, ExternalLink } from "lucide-react";
 import { useCMS } from "@/hooks/useCMS";
 
 export default function Footer() {
-  const { founderName, companyName, tagline, email, githubUrl, linkedinUrl } = useCMS();
+  const { founderName, companyName, tagline, email, socialLinks } = useCMS();
 
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
+
+  const getSocialIcon = (iconName: string) => {
+    switch (iconName.toLowerCase()) {
+      case "github":
+        return Github;
+      case "linkedin":
+        return Linkedin;
+      case "twitter":
+      case "x":
+        return Twitter;
+      case "mail":
+      case "email":
+        return Mail;
+      case "facebook":
+        return Facebook;
+      case "youtube":
+        return Youtube;
+      case "telegram":
+      case "send":
+        return Send;
+      default:
+        return Globe;
+    }
+  };
+
+  const activeLinks = socialLinks?.filter((l) => l.active) || [];
 
   return (
     <footer className="bg-slate-100 dark:bg-[#07090C] text-slate-900 dark:text-white border-t border-slate-200 dark:border-white/10 py-12 transition-colors duration-300">
@@ -36,32 +62,25 @@ export default function Footer() {
             </p>
           </div>
 
-          <div className="flex items-center gap-4">
-            <a
-              href={githubUrl}
-              target="_blank"
-              rel="noreferrer"
-              className="p-2.5 rounded-xl glass-panel text-slate-700 dark:text-slate-300 hover:text-brand-red transition-colors"
-              title="GitHub Profile"
-            >
-              <Github className="w-4 h-4" />
-            </a>
-            <a
-              href={linkedinUrl}
-              target="_blank"
-              rel="noreferrer"
-              className="p-2.5 rounded-xl glass-panel text-slate-700 dark:text-slate-300 hover:text-brand-red transition-colors"
-              title="LinkedIn Profile"
-            >
-              <Linkedin className="w-4 h-4" />
-            </a>
-            <a
-              href={`mailto:${email}`}
-              className="p-2.5 rounded-xl glass-panel text-slate-700 dark:text-slate-300 hover:text-brand-red transition-colors"
-              title="Direct Email"
-            >
-              <Mail className="w-4 h-4" />
-            </a>
+          {/* Dynamic Social Links List */}
+          <div className="flex items-center gap-3 flex-wrap justify-center">
+            {activeLinks.map((link) => {
+              const IconComp = getSocialIcon(link.icon || link.name);
+              return (
+                <a
+                  key={link.id || link.name}
+                  href={link.url}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="p-2.5 rounded-xl glass-panel text-slate-700 dark:text-slate-300 hover:text-brand-red dark:hover:text-brand-red transition-all flex items-center gap-2 text-xs font-mono font-bold"
+                  title={link.name}
+                >
+                  <IconComp className="w-4 h-4 text-brand-red" />
+                  <span className="hidden sm:inline">{link.name}</span>
+                </a>
+              );
+            })}
+
             <button
               onClick={scrollToTop}
               className="p-2.5 rounded-xl glass-panel text-brand-red hover:text-white hover:bg-brand-red transition-all"

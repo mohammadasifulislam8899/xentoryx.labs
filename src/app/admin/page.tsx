@@ -47,7 +47,7 @@ export default function AdminDashboard() {
   const [password, setPassword] = useState("");
   const [authError, setAuthError] = useState("");
   const [activeTab, setActiveTab] = useState<
-    "projects" | "labs" | "skills" | "timeline" | "services" | "heroCompany" | "inquiries" | "settings"
+    "projects" | "labs" | "skills" | "timeline" | "services" | "heroCompany" | "socialLinks" | "inquiries" | "settings"
   >("projects");
 
   const [cmsData, setCmsData] = useState<CMSData | null>(null);
@@ -336,6 +336,7 @@ export default function AdminDashboard() {
             { id: "timeline", label: "Career Timeline", icon: Calendar, count: cmsData.timeline?.length },
             { id: "services", label: "Services", icon: Zap, count: cmsData.settings.services?.length },
             { id: "heroCompany", label: "Hero & Company", icon: Target },
+            { id: "socialLinks", label: "Social Links", icon: Globe, count: cmsData.settings.socialLinks?.length },
             { id: "inquiries", label: "Client Inbox", icon: Mail, count: cmsData.inquiries?.length },
             { id: "settings", label: "Global & Gemini Config", icon: Settings },
           ].map((tab) => {
@@ -1101,6 +1102,149 @@ export default function AdminDashboard() {
             >
               Save Hero & Company Config
             </button>
+          </div>
+        )}
+
+        {/* TAB: SOCIAL & EXTERNAL PROFILE LINKS */}
+        {activeTab === "socialLinks" && (
+          <div className="space-y-6">
+            <div className="flex items-center justify-between">
+              <div>
+                <h2 className="text-xl font-bold font-display text-slate-900 dark:text-white">
+                  Manage Social & Profile Links ({cmsData.settings.socialLinks?.length || 0})
+                </h2>
+                <p className="text-xs font-mono text-slate-500 dark:text-slate-400 mt-0.5">
+                  Dynamically add, edit, or delete any social or external profile links displayed across your website.
+                </p>
+              </div>
+
+              <button
+                onClick={() => {
+                  const newLink = {
+                    id: `link-${Date.now()}`,
+                    name: "New Platform",
+                    url: "https://example.com",
+                    icon: "Globe",
+                    active: true,
+                  };
+                  const updated = { ...cmsData };
+                  if (!updated.settings.socialLinks) updated.settings.socialLinks = [];
+                  updated.settings.socialLinks.push(newLink);
+                  setCmsData(updated);
+                  handleSaveAll(updated);
+                }}
+                className="px-4 py-2.5 rounded-xl bg-slate-900 dark:bg-white text-white dark:text-slate-900 text-xs font-mono font-bold flex items-center gap-2 hover:bg-brand-red dark:hover:bg-brand-red dark:hover:text-white transition-all shadow-md"
+              >
+                <Plus className="w-4 h-4 text-brand-red dark:text-brand-red" />
+                <span>Add Social Link</span>
+              </button>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              {cmsData.settings.socialLinks?.map((link, idx) => (
+                <div
+                  key={link.id || idx}
+                  className="glass-panel p-6 rounded-3xl border border-slate-200 dark:border-white/10 space-y-4 hover:border-brand-red/40 transition-all"
+                >
+                  <div className="flex items-center justify-between">
+                    <span className="px-3 py-1 rounded-full text-[10px] font-mono font-bold bg-brand-red/20 text-brand-red border border-brand-red/30 uppercase">
+                      Link #{idx + 1}
+                    </span>
+
+                    <div className="flex items-center gap-2">
+                      <button
+                        onClick={() => {
+                          const updated = { ...cmsData };
+                          updated.settings.socialLinks![idx].active = !updated.settings.socialLinks![idx].active;
+                          setCmsData(updated);
+                          handleSaveAll(updated);
+                        }}
+                        className={`px-3 py-1 rounded-full text-[10px] font-mono font-bold ${
+                          link.active
+                            ? "bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 border border-emerald-500/30"
+                            : "bg-slate-200 dark:bg-surface text-slate-500 dark:text-slate-400"
+                        }`}
+                      >
+                        {link.active ? "● Active Live" : "Hidden"}
+                      </button>
+
+                      <button
+                        onClick={() => {
+                          const updated = { ...cmsData };
+                          updated.settings.socialLinks!.splice(idx, 1);
+                          setCmsData(updated);
+                          handleSaveAll(updated);
+                        }}
+                        className="p-1.5 rounded-lg text-slate-400 hover:text-brand-red transition-colors"
+                        title="Delete Link"
+                      >
+                        <Trash2 className="w-4 h-4" />
+                      </button>
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-2 gap-3">
+                    <div>
+                      <label className="text-[10px] font-mono text-slate-500 dark:text-slate-400 uppercase font-bold">
+                        Platform Name
+                      </label>
+                      <input
+                        type="text"
+                        value={link.name}
+                        onChange={(e) => {
+                          const updated = { ...cmsData };
+                          updated.settings.socialLinks![idx].name = e.target.value;
+                          setCmsData(updated);
+                        }}
+                        placeholder="GitHub, LinkedIn, Discord..."
+                        className="w-full bg-slate-100 dark:bg-surface px-3.5 py-2 rounded-xl text-xs font-bold text-slate-900 dark:text-white border border-slate-200 dark:border-white/10 focus:border-brand-red focus:outline-none"
+                      />
+                    </div>
+
+                    <div>
+                      <label className="text-[10px] font-mono text-slate-500 dark:text-slate-400 uppercase font-bold">
+                        Icon Preset
+                      </label>
+                      <select
+                        value={link.icon || "Globe"}
+                        onChange={(e) => {
+                          const updated = { ...cmsData };
+                          updated.settings.socialLinks![idx].icon = e.target.value;
+                          setCmsData(updated);
+                        }}
+                        className="w-full bg-slate-100 dark:bg-surface px-3 py-2 rounded-xl text-xs font-mono text-slate-900 dark:text-white border border-slate-200 dark:border-white/10 focus:border-brand-red focus:outline-none"
+                      >
+                        <option value="Github">Github</option>
+                        <option value="Linkedin">Linkedin</option>
+                        <option value="Twitter">Twitter / X</option>
+                        <option value="Mail">Mail / Email</option>
+                        <option value="Facebook">Facebook</option>
+                        <option value="Youtube">Youtube</option>
+                        <option value="Send">Telegram / Send</option>
+                        <option value="Globe">Globe / Website</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  <div>
+                    <label className="text-[10px] font-mono text-slate-500 dark:text-slate-400 uppercase font-bold">
+                      Full URL Link
+                    </label>
+                    <input
+                      type="text"
+                      value={link.url}
+                      onChange={(e) => {
+                        const updated = { ...cmsData };
+                        updated.settings.socialLinks![idx].url = e.target.value;
+                        setCmsData(updated);
+                      }}
+                      placeholder="https://..."
+                      className="w-full bg-slate-100 dark:bg-surface px-3.5 py-2 rounded-xl text-xs font-mono font-bold text-cyan-600 dark:text-cyan-400 border border-slate-200 dark:border-white/10 focus:border-brand-red focus:outline-none"
+                    />
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
         )}
 

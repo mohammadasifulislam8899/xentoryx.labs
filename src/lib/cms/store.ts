@@ -39,6 +39,14 @@ export interface CompanyData {
   values: { title: string; description: string }[];
 }
 
+export interface SocialLink {
+  id: string;
+  name: string;
+  url: string;
+  icon: string;
+  active: boolean;
+}
+
 export interface SiteSettings {
   founderName: string;
   companyName: string;
@@ -53,6 +61,7 @@ export interface SiteSettings {
   philosophy: PhilosophyPillar[];
   services: ServiceData[];
   company: CompanyData[];
+  socialLinks?: SocialLink[];
 }
 
 export interface Inquiry {
@@ -86,6 +95,12 @@ export const initialData: CMSData = {
     githubUrl: "https://github.com/mohammadasifulislam8899",
     linkedinUrl: "https://linkedin.com/in/mohammadasifulislam",
     twitterUrl: "https://x.com/xentoryxlabs",
+    socialLinks: [
+      { id: "s-1", name: "GitHub", url: "https://github.com/mohammadasifulislam8899", icon: "Github", active: true },
+      { id: "s-2", name: "LinkedIn", url: "https://linkedin.com/in/mohammadasifulislam", icon: "Linkedin", active: true },
+      { id: "s-3", name: "Twitter / X", url: "https://x.com/xentoryxlabs", icon: "Twitter", active: true },
+      { id: "s-4", name: "Email Direct", url: "mailto:mohammadasifulislam8899@gmail.com", icon: "Mail", active: true },
+    ],
     uptimeMetric: "99.98%",
     aiPrompt: "You are Gemini AI, powered by Google Gemini AI for Founder Asif and Xentoryx Labs.",
     hero: {
