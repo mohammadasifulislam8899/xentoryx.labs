@@ -11,6 +11,7 @@ import Footer from "@/components/layout/Footer";
 import CommandPalette from "@/components/layout/CommandPalette";
 import EngineeringConsoleModal from "@/components/layout/EngineeringConsoleModal";
 import AiAssistantModal from "@/components/ui/AiAssistantModal";
+import { Bot } from "lucide-react";
 
 export default function ClientLayoutWrapper({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
@@ -61,13 +62,13 @@ export default function ClientLayoutWrapper({ children }: { children: React.Reac
 
       <Footer />
 
-      {/* Floating Gemini AI Assistant Button Badge */}
+      {/* Floating XenAI Assistant Button Badge */}
       <button
         onClick={() => setAiOpen(true)}
-        className="fixed bottom-6 right-6 z-[999] px-4 py-3 rounded-full bg-gradient-to-r from-brand-red to-[#FF5E50] text-white text-xs font-bold font-mono shadow-glow-red hover:shadow-glow-red-lg transition-all flex items-center gap-2 hover:scale-105 active:scale-95 group"
+        className="fixed bottom-6 right-6 z-30 px-4 py-2.5 rounded-full bg-gradient-to-r from-brand-red to-[#FF5E50] text-white text-xs font-mono font-bold flex items-center gap-2 shadow-glow-red hover:shadow-glow-red-lg hover:scale-105 transition-all group"
       >
-        <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-ping" />
-        <span>Gemini AI</span>
+        <Bot className="w-4 h-4 animate-bounce" />
+        <span>XenAI</span>
       </button>
 
       {/* Modals */}

@@ -127,13 +127,13 @@ export default function Navbar({ onOpenCmdk, onOpenConsole, onTriggerConsole, on
               </kbd>
             </button>
 
-            {/* Gemini AI Button */}
+            {/* XenAI Button */}
             <button
               onClick={onOpenAi}
-              className="relative group px-3.5 py-1.5 rounded-full bg-gradient-to-r from-brand-red to-[#FF5E50] text-white text-xs font-semibold shadow-glow-red hover:shadow-glow-red-lg transition-all flex items-center gap-2 overflow-hidden"
+              className="px-3 py-1.5 rounded-full bg-brand-red/10 border border-brand-red/30 text-[11px] font-mono font-bold text-brand-red hover:bg-brand-red hover:text-white transition-all flex items-center gap-1.5"
             >
-              <Bot className="w-3.5 h-3.5 text-white animate-pulse" />
-              <span>Gemini AI</span>
+              <Bot className="w-3.5 h-3.5" />
+              <span>XenAI</span>
             </button>
 
             {/* Mobile Menu Button */}

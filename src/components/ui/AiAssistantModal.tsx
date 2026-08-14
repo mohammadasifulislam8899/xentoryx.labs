@@ -16,7 +16,7 @@ export default function AiAssistantModal({ isOpen, onClose }: Props) {
     {
       id: "init",
       sender: "asif-ai",
-      text: "✨ Hello! I am **Gemini AI**, powered by Google Gemini AI technology for Founder Asif & Xentoryx Labs. Ask me anything about our Android & IoT engineering capabilities, or flagship projects like Dipannita and Expensey!",
+      text: "✨ Hello! I am **XenAI**, the official intelligent digital assistant for Founder Asif & Xentoryx Labs. Ask me anything about our Android & IoT engineering capabilities, or flagship projects like Dipannita and Expensey!",
       timestamp: new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }),
     },
   ]);
@@ -105,13 +105,10 @@ export default function AiAssistantModal({ isOpen, onClose }: Props) {
               </div>
               <div>
                 <div className="flex items-center gap-2">
-                  <h3 className="font-display text-base font-bold text-white">Gemini AI</h3>
-                  <span className="px-1.5 py-0.2 text-[9px] font-mono uppercase bg-brand-red/30 text-brand-red rounded border border-brand-red/40">
-                    GOOGLE GEMINI
-                  </span>
+                  <h3 className="font-display text-base font-bold text-white">XenAI Assistant</h3>
                 </div>
-                <p className="text-[10px] font-mono text-brand-muted">
-                  Powered by Google Gemini // Xentoryx Labs
+                <p className="text-[10px] text-brand-muted font-mono">
+                  Powered by XenAI Engine // Xentoryx Labs
                 </p>
               </div>
             </div>

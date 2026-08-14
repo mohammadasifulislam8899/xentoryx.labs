@@ -115,7 +115,7 @@ export default function CommandPalette({ isOpen, onClose, onOpenAi, onOpenConsol
                   className="flex items-center gap-3 px-3 py-2.5 rounded-lg cursor-pointer hover:bg-brand-red/20 hover:text-white transition-colors aria-selected:bg-brand-red/20 aria-selected:text-white"
                 >
                   <MessageSquare className="w-4 h-4 text-brand-red animate-pulse" />
-                  <span className="font-semibold text-brand-red">Launch "Gemini AI" Assistant</span>
+                  <span className="font-semibold text-brand-red">Launch "XenAI" Assistant</span>
                 </Command.Item>
 
                 <Command.Item
