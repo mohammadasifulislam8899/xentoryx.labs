@@ -390,6 +390,72 @@ export default function AdminDashboard() {
                     />
                   </div>
 
+                  <div className="grid grid-cols-2 gap-4">
+                    <div>
+                      <label className="text-[10px] font-mono text-brand-muted uppercase">App Category</label>
+                      <select
+                        value={proj.category}
+                        onChange={(e) => {
+                          const updated = { ...cmsData };
+                          updated.projects[idx].category = e.target.value as any;
+                          setCmsData(updated);
+                        }}
+                        className="w-full bg-surface px-3 py-1.5 rounded-lg text-xs text-white border border-white/10 focus:border-brand-red focus:outline-none"
+                      >
+                        <option value="Android">Android</option>
+                        <option value="Web">Web</option>
+                        <option value="Backend">Backend</option>
+                        <option value="IoT">IoT</option>
+                      </select>
+                    </div>
+
+                    <div>
+                      <label className="text-[10px] font-mono text-brand-muted uppercase">App Cover Image URL</label>
+                      <input
+                        type="text"
+                        value={proj.image}
+                        onChange={(e) => {
+                          const updated = { ...cmsData };
+                          updated.projects[idx].image = e.target.value;
+                          setCmsData(updated);
+                        }}
+                        className="w-full bg-surface px-3 py-1.5 rounded-lg text-xs text-white border border-white/10 focus:border-brand-red focus:outline-none font-mono"
+                      />
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-2 gap-4">
+                    <div>
+                      <label className="text-[10px] font-mono text-brand-muted uppercase">GitHub / Source Code Link</label>
+                      <input
+                        type="text"
+                        value={proj.githubUrl || ""}
+                        onChange={(e) => {
+                          const updated = { ...cmsData };
+                          updated.projects[idx].githubUrl = e.target.value;
+                          setCmsData(updated);
+                        }}
+                        placeholder="https://github.com/..."
+                        className="w-full bg-surface px-3 py-1.5 rounded-lg text-xs text-cyan-400 border border-white/10 focus:border-brand-red focus:outline-none font-mono"
+                      />
+                    </div>
+
+                    <div>
+                      <label className="text-[10px] font-mono text-brand-muted uppercase">Live Demo / Play Store Link</label>
+                      <input
+                        type="text"
+                        value={proj.liveUrl || ""}
+                        onChange={(e) => {
+                          const updated = { ...cmsData };
+                          updated.projects[idx].liveUrl = e.target.value;
+                          setCmsData(updated);
+                        }}
+                        placeholder="https://play.google.com/..."
+                        className="w-full bg-surface px-3 py-1.5 rounded-lg text-xs text-emerald-400 border border-white/10 focus:border-brand-red focus:outline-none font-mono"
+                      />
+                    </div>
+                  </div>
+
                   <div className="space-y-2">
                     <label className="text-[10px] font-mono text-brand-muted uppercase">Description</label>
                     <textarea
