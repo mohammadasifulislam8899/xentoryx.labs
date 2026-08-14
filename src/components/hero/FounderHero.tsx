@@ -92,7 +92,7 @@ export default function FounderHero() {
               </Link>
 
               <Link
-                href="#contact"
+                href="/#contact"
                 className="px-6 py-3.5 rounded-2xl glass-panel text-slate-900 dark:text-white text-xs font-mono font-bold uppercase tracking-wider flex items-center gap-2 transition-all"
               >
                 <span>Initiate Contact</span>

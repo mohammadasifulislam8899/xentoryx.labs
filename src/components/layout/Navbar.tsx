@@ -47,7 +47,7 @@ export default function Navbar({ onOpenCmdk, onOpenConsole, onTriggerConsole, on
     { label: "Projects", href: "/projects" },
     { label: "Labs", href: "/labs" },
     { label: "Console", href: "/labs/console", badge: "DEV" },
-    { label: "Contact", href: "#contact" },
+    { label: "Contact", href: "/#contact" },
   ];
 
   return (
