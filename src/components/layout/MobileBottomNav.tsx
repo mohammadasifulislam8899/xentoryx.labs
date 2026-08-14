@@ -20,8 +20,8 @@ export default function MobileBottomNav({
   ];
 
   return (
-    <div className="fixed bottom-4 left-4 right-4 z-40 max-w-lg mx-auto">
-      <nav className="glass-panel p-2 rounded-2xl border border-slate-200 dark:border-white/10 shadow-2xl backdrop-blur-2xl bg-white/90 dark:bg-[#0A0C10]/90 flex items-center justify-around">
+    <div className="fixed bottom-0 left-0 right-0 sm:bottom-4 sm:left-4 sm:right-4 z-50 max-w-lg mx-auto pointer-events-auto">
+      <nav className="glass-panel p-2.5 sm:p-2 sm:rounded-2xl rounded-t-2xl border-t sm:border border-slate-200 dark:border-white/10 shadow-2xl backdrop-blur-2xl bg-white/95 dark:bg-[#0A0C10]/95 flex items-center justify-around">
         {navItems.map((item) => {
           const IconComp = item.icon;
           const isActive =
