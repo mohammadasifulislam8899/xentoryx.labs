@@ -20,8 +20,8 @@ export default function MobileBottomNav({
   ];
 
   return (
-    <div className="fixed bottom-3 left-3 right-3 z-40 md:hidden">
-      <nav className="glass-panel p-2 rounded-2xl border border-slate-200 dark:border-white/10 shadow-2xl backdrop-blur-2xl bg-white/85 dark:bg-[#0A0C10]/85 flex items-center justify-around">
+    <div className="fixed bottom-4 left-4 right-4 z-40 max-w-lg mx-auto">
+      <nav className="glass-panel p-2 rounded-2xl border border-slate-200 dark:border-white/10 shadow-2xl backdrop-blur-2xl bg-white/90 dark:bg-[#0A0C10]/90 flex items-center justify-around">
         {navItems.map((item) => {
           const IconComp = item.icon;
           const isActive =
@@ -42,7 +42,7 @@ export default function MobileBottomNav({
               <IconComp className={`w-4 h-4 ${isActive ? "animate-pulse" : ""}`} />
               <span>{item.label}</span>
               {isActive && (
-                <span className="w-1 h-1 rounded-full bg-brand-red absolute -top-1" />
+                <span className="w-1.5 h-1.5 rounded-full bg-brand-red absolute -top-1 shadow-glow-red" />
               )}
             </Link>
           );

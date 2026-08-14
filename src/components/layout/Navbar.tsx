@@ -135,50 +135,9 @@ export default function Navbar({ onOpenCmdk, onOpenConsole, onTriggerConsole, on
               <Bot className="w-3.5 h-3.5" />
               <span>XenAI</span>
             </button>
-
-            {/* Mobile Menu Button */}
-            <button
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="md:hidden p-2 rounded-lg glass-panel text-slate-900 dark:text-white hover:text-brand-red transition-colors"
-              aria-label="Toggle menu"
-            >
-              {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
-            </button>
           </div>
         </div>
       </div>
-
-      {/* Mobile Drawer */}
-      <AnimatePresence>
-        {mobileMenuOpen && (
-          <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: "auto" }}
-            exit={{ opacity: 0, height: 0 }}
-            className="md:hidden glass-panel border-b border-slate-200 dark:border-white/10 bg-white/95 dark:bg-[#0F1115]/95 backdrop-blur-2xl overflow-hidden"
-          >
-            <div className="px-6 py-6 space-y-4">
-              <div className="flex flex-col space-y-3">
-                {navLinks.map((link) => (
-                  <Link
-                    key={link.label}
-                    href={link.href}
-                    onClick={() => setMobileMenuOpen(false)}
-                    className="text-sm font-mono text-slate-700 dark:text-slate-300 hover:text-brand-red transition-colors flex items-center justify-between"
-                  >
-                    <span>{link.label}</span>
-                    {link.badge && (
-                      <span className="text-[10px] font-mono px-1.5 py-0.5 bg-brand-red/20 text-brand-red rounded border border-brand-red/40">
-                        {link.badge}
-                      </span>
-                    )}
-                  </Link>
-                ))}
-              </div>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
     </header>
   );
 }
