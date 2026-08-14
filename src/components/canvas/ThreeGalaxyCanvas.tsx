@@ -44,7 +44,7 @@ export default function ThreeGalaxyCanvas() {
       color: cRed,
       wireframe: true,
       transparent: true,
-      opacity: 0.3,
+      opacity: 0.35,
     });
     const meshIco = new THREE.Mesh(geoIco, matIco);
     meshIco.position.set(-13, 4, -4);
@@ -56,7 +56,7 @@ export default function ThreeGalaxyCanvas() {
       color: cCyan,
       wireframe: true,
       transparent: true,
-      opacity: 0.35,
+      opacity: 0.4,
     });
     const meshTorus = new THREE.Mesh(geoTorus, matTorus);
     meshTorus.position.set(15, -6, -6);
@@ -85,7 +85,7 @@ export default function ThreeGalaxyCanvas() {
 
     nodeGeo.setAttribute("position", new THREE.BufferAttribute(nodePos, 3));
     const nodeMat = new THREE.PointsMaterial({
-      size: 0.45,
+      size: 0.5,
       color: cRed,
       transparent: true,
       opacity: 0.95,
@@ -93,21 +93,30 @@ export default function ThreeGalaxyCanvas() {
     const nodePoints = new THREE.Points(nodeGeo, nodeMat);
     meshGroup.add(nodePoints);
 
-    // Dynamic Connecting Laser Lines (Dense Mesh Buffer)
-    const maxConn = 800;
-    const linePos = new Float32Array(maxConn * 6);
-    const lineCols = new Float32Array(maxConn * 6);
-    const lineGeo = new THREE.BufferGeometry();
-    lineGeo.setAttribute("position", new THREE.BufferAttribute(linePos, 3));
-    lineGeo.setAttribute("color", new THREE.BufferAttribute(lineCols, 3));
-    const lineMat = new THREE.LineBasicMaterial({
-      vertexColors: true,
+    // Red Laser Neural Lines
+    const maxConn = 600;
+    const redLinePos = new Float32Array(maxConn * 6);
+    const redLineGeo = new THREE.BufferGeometry();
+    redLineGeo.setAttribute("position", new THREE.BufferAttribute(redLinePos, 3));
+    const redLineMat = new THREE.LineBasicMaterial({
+      color: cRed,
       transparent: true,
-      opacity: 0.7,
-      blending: THREE.AdditiveBlending,
+      opacity: 0.65,
     });
-    const lines = new THREE.LineSegments(lineGeo, lineMat);
-    meshGroup.add(lines);
+    const redLines = new THREE.LineSegments(redLineGeo, redLineMat);
+    meshGroup.add(redLines);
+
+    // Cyan Cyber Neural Lines
+    const cyanLinePos = new Float32Array(maxConn * 6);
+    const cyanLineGeo = new THREE.BufferGeometry();
+    cyanLineGeo.setAttribute("position", new THREE.BufferAttribute(cyanLinePos, 3));
+    const cyanLineMat = new THREE.LineBasicMaterial({
+      color: cCyan,
+      transparent: true,
+      opacity: 0.6,
+    });
+    const cyanLines = new THREE.LineSegments(cyanLineGeo, cyanLineMat);
+    meshGroup.add(cyanLines);
 
     // 5. Mouse Parallax & Interactions
     let mouseX = 0;
@@ -156,15 +165,15 @@ export default function ThreeGalaxyCanvas() {
       }
       nodeGeo.attributes.position.needsUpdate = true;
 
-      // Update dense distance-based laser mesh connections
-      let vIdx = 0;
-      let cIdx = 0;
-      let conns = 0;
-      const connectDist = 20;
+      // Calculate 3D Laser Mesh Lines
+      let redIdx = 0;
+      let cyanIdx = 0;
+      let redConns = 0;
+      let cyanConns = 0;
+      const connectDist = 18;
 
       for (let i = 0; i < nodeCount; i++) {
         for (let j = i + 1; j < nodeCount; j++) {
-          if (conns >= maxConn) break;
           const i3 = i * 3;
           const j3 = j * 3;
           const dx = posArr[i3] - posArr[j3];
@@ -173,28 +182,32 @@ export default function ThreeGalaxyCanvas() {
           const dist = Math.sqrt(dx * dx + dy * dy + dz * dz);
 
           if (dist < connectDist) {
-            linePos[vIdx++] = posArr[i3];
-            linePos[vIdx++] = posArr[i3 + 1];
-            linePos[vIdx++] = posArr[i3 + 2];
-            linePos[vIdx++] = posArr[j3];
-            linePos[vIdx++] = posArr[j3 + 1];
-            linePos[vIdx++] = posArr[j3 + 2];
-
-            const alpha = 1 - dist / connectDist;
-            const col = i % 2 === 0 ? cRed : cCyan;
-            lineCols[cIdx++] = col.r * alpha;
-            lineCols[cIdx++] = col.g * alpha;
-            lineCols[cIdx++] = col.b * alpha;
-            lineCols[cIdx++] = col.r * alpha;
-            lineCols[cIdx++] = col.g * alpha;
-            lineCols[cIdx++] = col.b * alpha;
-            conns++;
+            if (i % 2 === 0 && redConns < maxConn) {
+              redLinePos[redIdx++] = posArr[i3];
+              redLinePos[redIdx++] = posArr[i3 + 1];
+              redLinePos[redIdx++] = posArr[i3 + 2];
+              redLinePos[redIdx++] = posArr[j3];
+              redLinePos[redIdx++] = posArr[j3 + 1];
+              redLinePos[redIdx++] = posArr[j3 + 2];
+              redConns++;
+            } else if (cyanConns < maxConn) {
+              cyanLinePos[cyanIdx++] = posArr[i3];
+              cyanLinePos[cyanIdx++] = posArr[i3 + 1];
+              cyanLinePos[cyanIdx++] = posArr[i3 + 2];
+              cyanLinePos[cyanIdx++] = posArr[j3];
+              cyanLinePos[cyanIdx++] = posArr[j3 + 1];
+              cyanLinePos[cyanIdx++] = posArr[j3 + 2];
+              cyanConns++;
+            }
           }
         }
       }
-      lineGeo.setDrawRange(0, conns * 2);
-      lineGeo.attributes.position.needsUpdate = true;
-      lineGeo.attributes.color.needsUpdate = true;
+
+      redLineGeo.setDrawRange(0, redConns * 2);
+      redLineGeo.attributes.position.needsUpdate = true;
+
+      cyanLineGeo.setDrawRange(0, cyanConns * 2);
+      cyanLineGeo.attributes.position.needsUpdate = true;
 
       // Smooth Mouse Parallax Reaction
       mouseX += (targetMouseX - mouseX) * 0.05;
@@ -224,8 +237,10 @@ export default function ThreeGalaxyCanvas() {
       matTorus.dispose();
       nodeGeo.dispose();
       nodeMat.dispose();
-      lineGeo.dispose();
-      lineMat.dispose();
+      redLineGeo.dispose();
+      redLineMat.dispose();
+      cyanLineGeo.dispose();
+      cyanLineMat.dispose();
       renderer.dispose();
     };
   }, []);
@@ -233,7 +248,7 @@ export default function ThreeGalaxyCanvas() {
   return (
     <div
       ref={containerRef}
-      className="fixed inset-0 pointer-events-none z-[-1] opacity-85 dark:opacity-90 transition-opacity duration-500"
+      className="fixed inset-0 pointer-events-none z-[1] opacity-90 dark:opacity-95 transition-opacity duration-500"
     />
   );
 }
