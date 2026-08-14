@@ -2,9 +2,12 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowUp, Github, Linkedin, Mail, ShieldCheck, Heart } from "lucide-react";
+import { ArrowUp, Github, Linkedin, Mail, ShieldCheck } from "lucide-react";
+import { useCMS } from "@/hooks/useCMS";
 
 export default function Footer() {
+  const { email, founderName, companyName, tagline, settings } = useCMS();
+
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
@@ -28,22 +31,22 @@ export default function Footer() {
               />
               <div>
                 <span className="font-display text-xl font-bold tracking-tight text-white">
-                  Xentoryx
+                  {companyName.split(" ")[0]}
                 </span>
                 <span className="ml-1 text-xs uppercase tracking-widest font-mono text-brand-red font-semibold">
-                  LABS
+                  {companyName.split(" ").slice(1).join(" ") || "LABS"}
                 </span>
               </div>
             </div>
             <p className="text-sm text-brand-muted max-w-sm leading-relaxed">
-              Building Scalable Software, IoT Systems and Intelligent Technologies. Founded by Asif.
+              {tagline}. Founded by {founderName}.
             </p>
 
             {/* System Uptime Badge */}
             <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs font-mono">
               <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping" />
               <ShieldCheck className="w-3.5 h-3.5" />
-              <span>All Systems Operational // 99.98% Uptime</span>
+              <span>All Systems Operational // {settings?.uptimeMetric || "99.98%"} Uptime</span>
             </div>
           </div>
 
@@ -94,7 +97,7 @@ export default function Footer() {
             </p>
             <div className="flex items-center gap-3">
               <a
-                href="https://github.com/Xentoryx"
+                href={settings?.githubUrl || "https://github.com/Xentoryx"}
                 target="_blank"
                 rel="noreferrer"
                 className="p-2.5 rounded-xl glass-panel text-white hover:text-brand-red hover:border-brand-red/40 transition-all"
@@ -103,7 +106,7 @@ export default function Footer() {
                 <Github className="w-4 h-4" />
               </a>
               <a
-                href="https://linkedin.com"
+                href={settings?.linkedinUrl || "https://linkedin.com"}
                 target="_blank"
                 rel="noreferrer"
                 className="p-2.5 rounded-xl glass-panel text-white hover:text-brand-red hover:border-brand-red/40 transition-all"
@@ -112,7 +115,7 @@ export default function Footer() {
                 <Linkedin className="w-4 h-4" />
               </a>
               <a
-                href="mailto:asif@xentoryx.com"
+                href={`mailto:${email}`}
                 className="p-2.5 rounded-xl glass-panel text-white hover:text-brand-red hover:border-brand-red/40 transition-all"
                 aria-label="Email"
               >
@@ -125,8 +128,8 @@ export default function Footer() {
         {/* Bottom copyright & back to top */}
         <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-brand-muted">
           <div>
-            © {new Date().getFullYear()} Xentoryx Labs. All rights reserved. Architected by{" "}
-            <span className="text-white font-semibold">Asif</span>.
+            © {new Date().getFullYear()} {companyName}. All rights reserved. Architected by{" "}
+            <span className="text-white font-semibold">{founderName}</span>.
           </div>
           <button
             onClick={scrollToTop}

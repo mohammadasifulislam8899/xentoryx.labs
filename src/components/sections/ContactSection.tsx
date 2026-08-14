@@ -3,9 +3,12 @@
 import { useState } from "react";
 import confetti from "canvas-confetti";
 import { motion } from "framer-motion";
-import { Send, CheckCircle2, Mail, Github, Linkedin, MapPin, Sparkles } from "lucide-react";
+import { Send, CheckCircle2, Mail, Github, Linkedin, MapPin } from "lucide-react";
+import { useCMS } from "@/hooks/useCMS";
 
 export default function ContactSection() {
+  const { email, founderName, settings } = useCMS();
+
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -89,8 +92,8 @@ export default function ContactSection() {
                 </div>
                 <div>
                   <div className="text-[10px] font-mono text-brand-muted uppercase">DIRECT EMAIL</div>
-                  <a href="mailto:asif@xentoryx.com" className="text-sm font-bold text-white hover:text-brand-red transition-colors">
-                    asif@xentoryx.com
+                  <a href={`mailto:${email}`} className="text-sm font-bold text-white hover:text-brand-red transition-colors">
+                    {email}
                   </a>
                 </div>
               </div>
