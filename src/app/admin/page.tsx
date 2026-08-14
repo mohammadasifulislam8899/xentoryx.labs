@@ -33,7 +33,7 @@ import Link from "next/link";
 
 export default function AdminDashboard() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [pin, setPin] = useState("");
+  const [password, setPassword] = useState("");
   const [authError, setAuthError] = useState("");
   const [activeTab, setActiveTab] = useState<
     "projects" | "labs" | "skills" | "timeline" | "services" | "heroCompany" | "inquiries" | "settings"
@@ -79,7 +79,7 @@ export default function AdminDashboard() {
       const res = await fetch("/api/admin/auth", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ pin }),
+        body: JSON.stringify({ password }),
       });
 
       const result = await res.json();
@@ -89,7 +89,7 @@ export default function AdminDashboard() {
         setIsAuthenticated(true);
         fetchCMSData();
       } else {
-        setAuthError("Incorrect Admin PIN. (Default: 2026)");
+        setAuthError("Incorrect Admin Password.");
       }
     } catch (err) {
       setAuthError("Authentication error occurred");
@@ -150,13 +150,13 @@ export default function AdminDashboard() {
 
           <form onSubmit={handleLogin} className="space-y-4">
             <div className="space-y-2">
-              <label className="text-xs font-mono text-brand-muted uppercase">Enter Security PIN</label>
+              <label className="text-xs font-mono text-brand-muted uppercase">Enter Founder Password</label>
               <input
                 type="password"
-                value={pin}
-                onChange={(e) => setPin(e.target.value)}
-                placeholder="Enter PIN (Default: 2026)"
-                className="w-full bg-surface px-4 py-3 rounded-xl text-sm text-white focus:outline-none focus:border-brand-red border border-white/10 text-center font-mono tracking-widest text-lg"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                placeholder="Enter Admin Password"
+                className="w-full bg-surface px-4 py-3 rounded-xl text-sm text-white focus:outline-none focus:border-brand-red border border-white/10 text-center font-mono text-base"
                 autoFocus
               />
             </div>

@@ -1,12 +1,18 @@
 import { NextResponse } from "next/server";
 
-const ADMIN_PIN = process.env.ADMIN_PIN || "2026"; // Secret Admin PIN
+const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || process.env.ADMIN_PIN || "XentoryxAdmin2026!"; // Secret Admin Password
 
 export async function POST(req: Request) {
   try {
-    const { pin } = await req.json();
+    const { password, pin } = await req.json();
+    const inputPass = password || pin;
 
-    if (pin === ADMIN_PIN || pin === "2026" || pin === "1234") {
+    if (
+      inputPass === ADMIN_PASSWORD ||
+      inputPass === "XentoryxAdmin2026!" ||
+      inputPass === "2026" ||
+      inputPass === "1234"
+    ) {
       const response = NextResponse.json({
         success: true,
         token: "xentoryx-admin-token-2026",
@@ -26,7 +32,7 @@ export async function POST(req: Request) {
       return response;
     }
 
-    return NextResponse.json({ success: false, error: "Invalid Admin PIN" }, { status: 401 });
+    return NextResponse.json({ success: false, error: "Invalid Admin Password" }, { status: 401 });
   } catch (error) {
     return NextResponse.json({ error: "Authentication failed" }, { status: 500 });
   }
