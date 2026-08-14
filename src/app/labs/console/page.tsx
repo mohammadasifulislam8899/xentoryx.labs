@@ -103,49 +103,52 @@ export default function DeveloperPlaygroundConsolePage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#07090C] text-white py-12 px-4 sm:px-6 lg:px-8 font-mono">
-      <div className="max-w-4xl mx-auto space-y-6">
-        {/* Header Navigation */}
+    <div className="min-h-screen pt-28 pb-20 bg-slate-50 dark:bg-[#07090C] text-slate-900 dark:text-white relative transition-colors duration-300">
+      {/* Red ambient core */}
+      <div className="absolute top-20 left-10 w-[500px] h-[500px] bg-brand-red/10 rounded-full blur-[140px] pointer-events-none" />
+
+      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 space-y-8">
+        {/* Navigation */}
         <div className="flex items-center justify-between">
           <Link
             href="/labs"
-            className="inline-flex items-center gap-2 text-xs text-brand-muted hover:text-white transition-colors"
+            className="px-4 py-2 rounded-full glass-panel text-xs font-mono text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white flex items-center gap-2 transition-colors border-slate-200 dark:border-white/10 font-bold"
           >
-            <ArrowLeft className="w-4 h-4" />
-            <span>Back to Research Labs</span>
+            <ArrowLeft className="w-4 h-4 text-brand-red" />
+            <span>Return to Labs R&D</span>
           </Link>
 
-          <div className="flex items-center gap-2">
-            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping" />
-            <span className="text-xs text-emerald-400 font-bold uppercase tracking-wider">
+          <div className="flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/30 font-mono">
+            <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+            <span className="text-xs text-emerald-600 dark:text-emerald-400 font-bold uppercase tracking-wider">
               DEVELOPER PLAYGROUND CONSOLE
             </span>
           </div>
         </div>
 
         {/* Terminal Window Box */}
-        <div className="rounded-3xl glass-panel-red border border-brand-red/40 bg-[#0A0C10]/95 p-6 shadow-2xl space-y-6 min-h-[500px] flex flex-col justify-between">
+        <div className="rounded-3xl glass-panel border border-slate-200 dark:border-white/10 bg-white/95 dark:bg-[#0A0C10]/95 p-6 shadow-2xl space-y-6 min-h-[500px] flex flex-col justify-between">
           <div className="space-y-4">
             {/* Top Bar */}
-            <div className="flex items-center justify-between border-b border-white/10 pb-4">
+            <div className="flex items-center justify-between border-b border-slate-200 dark:border-white/10 pb-4">
               <div className="flex items-center gap-2">
                 <div className="w-3 h-3 rounded-full bg-red-500/80" />
                 <div className="w-3 h-3 rounded-full bg-amber-500/80" />
                 <div className="w-3 h-3 rounded-full bg-emerald-500/80" />
-                <span className="text-xs text-brand-muted ml-2">xentoryx-labs@asif-node:~</span>
+                <span className="text-xs text-slate-500 dark:text-slate-400 font-mono font-bold ml-2">xentoryx-labs@asif-node:~</span>
               </div>
               <Terminal className="w-4 h-4 text-brand-red" />
             </div>
 
             {/* Terminal Logs Output */}
-            <div className="space-y-4 text-xs">
+            <div className="space-y-4 text-xs font-mono">
               {history.map((item, idx) => (
                 <div key={idx} className="space-y-1">
-                  <div className="flex items-center gap-2 text-brand-red">
+                  <div className="flex items-center gap-2 text-brand-red font-bold">
                     <span>xentoryx-cli$&gt;</span>
-                    <span className="text-white font-bold">{item.command}</span>
+                    <span className="text-slate-900 dark:text-white font-bold">{item.command}</span>
                   </div>
-                  <div className="text-gray-300 pl-4">{item.response}</div>
+                  <div className="text-slate-700 dark:text-slate-300 pl-4">{item.response}</div>
                 </div>
               ))}
               <div ref={bottomRef} />
@@ -153,17 +156,17 @@ export default function DeveloperPlaygroundConsolePage() {
           </div>
 
           {/* Interactive Input Form */}
-          <form onSubmit={handleCommandSubmit} className="flex items-center gap-2 border-t border-white/10 pt-4">
+          <form onSubmit={handleCommandSubmit} className="flex items-center gap-2 border-t border-slate-200 dark:border-white/10 pt-4 font-mono">
             <span className="text-xs text-brand-red font-bold">xentoryx-cli$&gt;</span>
             <input
               type="text"
               value={input}
               onChange={(e) => setInput(e.target.value)}
               placeholder="Type 'help', 'status', 'stack', 'projects', or 'contact'..."
-              className="flex-1 bg-transparent text-xs text-white focus:outline-none placeholder:text-gray-600"
+              className="flex-1 bg-transparent text-xs text-slate-900 dark:text-white focus:outline-none placeholder:text-slate-400 font-mono font-bold"
               autoFocus
             />
-            <button type="submit" className="text-brand-muted hover:text-white">
+            <button type="submit" className="text-slate-500 dark:text-slate-400 hover:text-brand-red transition-colors">
               <CornerDownLeft className="w-4 h-4" />
             </button>
           </form>
