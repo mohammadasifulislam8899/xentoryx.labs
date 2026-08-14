@@ -10,7 +10,7 @@ export default function ThreeGalaxyCanvas() {
     const container = containerRef.current;
     if (!container) return;
 
-    // 1. Scene & Camera Setup
+    // 1. Scene & Camera
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(
       60,
@@ -18,9 +18,7 @@ export default function ThreeGalaxyCanvas() {
       0.1,
       1000
     );
-    camera.position.z = 25;
-    camera.position.y = 8;
-    camera.lookAt(0, 0, 0);
+    camera.position.z = 30;
 
     // 2. WebGL Renderer
     const renderer = new THREE.WebGLRenderer({
@@ -32,78 +30,99 @@ export default function ThreeGalaxyCanvas() {
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     container.appendChild(renderer.domElement);
 
-    // 3. Create 3D Particle Spiral Galaxy Geometry
-    const particleCount = 4000;
-    const geometry = new THREE.BufferGeometry();
-    const positions = new Float32Array(particleCount * 3);
-    const colors = new Float32Array(particleCount * 3);
-    const scales = new Float32Array(particleCount);
+    // 3. Create Floating 3D Geometric Polyhedra (Tech Orbs & Wireframes)
+    const shapesGroup = new THREE.Group();
+    scene.add(shapesGroup);
 
-    const colorCore = new THREE.Color("#DB4338"); // Xentoryx Red Energy Core
-    const colorArm1 = new THREE.Color("#00F2FE"); // Electric Cyan
-    const colorArm2 = new THREE.Color("#FFFFFF"); // White Core
-    const colorOuter = new THREE.Color("#FF5E50"); // Crimson Flare
+    // Shape 1: Outer Wireframe Icosahedron
+    const geoIco = new THREE.IcosahedronGeometry(6, 1);
+    const matIco = new THREE.MeshBasicMaterial({
+      color: new THREE.Color("#DB4338"),
+      wireframe: true,
+      transparent: true,
+      opacity: 0.15,
+    });
+    const meshIco = new THREE.Mesh(geoIco, matIco);
+    meshIco.position.set(-12, 4, -5);
+    shapesGroup.add(meshIco);
 
-    const arms = 3;
-    const radius = 22;
+    // Shape 2: Inner Core Ring
+    const geoTorus = new THREE.TorusGeometry(8, 0.08, 16, 100);
+    const matTorus = new THREE.MeshBasicMaterial({
+      color: new THREE.Color("#00F2FE"),
+      wireframe: true,
+      transparent: true,
+      opacity: 0.2,
+    });
+    const meshTorus = new THREE.Mesh(geoTorus, matTorus);
+    meshTorus.position.set(14, -6, -8);
+    meshTorus.rotation.x = Math.PI / 3;
+    shapesGroup.add(meshTorus);
 
-    for (let i = 0; i < particleCount; i++) {
+    // 4. Create Interactive 3D Neural Constellation Nodes & Mesh
+    const nodeCount = 120;
+    const nodeGeometry = new THREE.BufferGeometry();
+    const nodePositions = new Float32Array(nodeCount * 3);
+    const nodeVelocities: { x: number; y: number; z: number }[] = [];
+
+    for (let i = 0; i < nodeCount; i++) {
       const i3 = i * 3;
+      nodePositions[i3] = (Math.random() - 0.5) * 60;
+      nodePositions[i3 + 1] = (Math.random() - 0.5) * 40;
+      nodePositions[i3 + 2] = (Math.random() - 0.5) * 30;
 
-      // Spiral arms mathematics
-      const r = Math.pow(Math.random(), 2) * radius;
-      const spinAngle = r * 0.4;
-      const branchAngle = ((i % arms) * 2 * Math.PI) / arms;
-
-      const randomX = (Math.random() - 0.5) * (r * 0.25);
-      const randomY = (Math.random() - 0.5) * (r * 0.25);
-      const randomZ = (Math.random() - 0.5) * (r * 0.25);
-
-      positions[i3] = Math.cos(branchAngle + spinAngle) * r + randomX;
-      positions[i3 + 1] = randomY;
-      positions[i3 + 2] = Math.sin(branchAngle + spinAngle) * r + randomZ;
-
-      // Color interpolation from core to outer edge
-      const mixedColor = colorCore.clone();
-      const ratio = r / radius;
-
-      if (i % 3 === 0) {
-        mixedColor.lerp(colorArm1, ratio);
-      } else if (i % 3 === 1) {
-        mixedColor.lerp(colorOuter, ratio);
-      } else {
-        mixedColor.lerp(colorArm2, ratio);
-      }
-
-      colors[i3] = mixedColor.r;
-      colors[i3 + 1] = mixedColor.g;
-      colors[i3 + 2] = mixedColor.b;
-
-      scales[i] = Math.random() * 0.8 + 0.2;
+      nodeVelocities.push({
+        x: (Math.random() - 0.5) * 0.02,
+        y: (Math.random() - 0.5) * 0.02,
+        z: (Math.random() - 0.5) * 0.01,
+      });
     }
 
-    geometry.setAttribute("position", new THREE.BufferAttribute(positions, 3));
-    geometry.setAttribute("color", new THREE.BufferAttribute(colors, 3));
+    nodeGeometry.setAttribute(
+      "position",
+      new THREE.BufferAttribute(nodePositions, 3)
+    );
 
-    // 4. Particle Material with Depth & Transparency
-    const material = new THREE.PointsMaterial({
-      size: 0.18,
-      sizeAttenuation: true,
-      vertexColors: true,
+    const nodeMaterial = new THREE.PointsMaterial({
+      size: 0.35,
+      color: new THREE.Color("#DB4338"),
       transparent: true,
-      opacity: 0.85,
-      blending: THREE.AdditiveBlending,
-      depthWrite: false,
+      opacity: 0.7,
     });
 
-    const galaxyPoints = new THREE.Points(geometry, material);
-    scene.add(galaxyPoints);
+    const nodesPoints = new THREE.Points(nodeGeometry, nodeMaterial);
+    scene.add(nodesPoints);
 
-    // 5. Mouse Parallax Reaction
-    let targetMouseX = 0;
-    let targetMouseY = 0;
+    // Dynamic Connecting Lines LinesGeometry
+    const maxConnections = 250;
+    const linePositions = new Float32Array(maxConnections * 6);
+    const lineColors = new Float32Array(maxConnections * 6);
+
+    const lineGeometry = new THREE.BufferGeometry();
+    lineGeometry.setAttribute(
+      "position",
+      new THREE.BufferAttribute(linePositions, 3)
+    );
+    lineGeometry.setAttribute(
+      "color",
+      new THREE.BufferAttribute(lineColors, 3)
+    );
+
+    const lineMaterial = new THREE.LineBasicMaterial({
+      vertexColors: true,
+      transparent: true,
+      opacity: 0.35,
+      blending: THREE.AdditiveBlending,
+    });
+
+    const linesMesh = new THREE.LineSegments(lineGeometry, lineMaterial);
+    scene.add(linesMesh);
+
+    // 5. Mouse Parallax & Interactions
     let mouseX = 0;
     let mouseY = 0;
+    let targetMouseX = 0;
+    let targetMouseY = 0;
 
     const handleMouseMove = (e: MouseEvent) => {
       targetMouseX = (e.clientX / window.innerWidth - 0.5) * 2;
@@ -126,16 +145,85 @@ export default function ThreeGalaxyCanvas() {
     const animate = () => {
       const elapsedTime = clock.getElapsedTime();
 
-      // Slow 3D Galaxy Rotation
-      galaxyPoints.rotation.y = elapsedTime * 0.08;
-      galaxyPoints.rotation.x = Math.sin(elapsedTime * 0.04) * 0.1;
+      // Rotate geometric shapes slowly
+      meshIco.rotation.x = elapsedTime * 0.15;
+      meshIco.rotation.y = elapsedTime * 0.2;
+      meshTorus.rotation.z = elapsedTime * 0.1;
+      meshTorus.rotation.y = elapsedTime * 0.15;
 
-      // Smooth Mouse Parallax Interp
+      // Update Node positions & bounds checking
+      const posArr = nodeGeometry.attributes.position.array as Float32Array;
+
+      for (let i = 0; i < nodeCount; i++) {
+        const i3 = i * 3;
+        posArr[i3] += nodeVelocities[i].x;
+        posArr[i3 + 1] += nodeVelocities[i].y;
+        posArr[i3 + 2] += nodeVelocities[i].z;
+
+        // Bounce back inside 3D volume
+        if (Math.abs(posArr[i3]) > 30) nodeVelocities[i].x *= -1;
+        if (Math.abs(posArr[i3 + 1]) > 20) nodeVelocities[i].y *= -1;
+        if (Math.abs(posArr[i3 + 2]) > 15) nodeVelocities[i].z *= -1;
+      }
+      nodeGeometry.attributes.position.needsUpdate = true;
+
+      // Update Connecting Neural Lines
+      let vertexIdx = 0;
+      let colorIdx = 0;
+      let connections = 0;
+
+      const cRed = new THREE.Color("#DB4338");
+      const cCyan = new THREE.Color("#00F2FE");
+
+      for (let i = 0; i < nodeCount; i++) {
+        for (let j = i + 1; j < nodeCount; j++) {
+          if (connections >= maxConnections) break;
+
+          const i3 = i * 3;
+          const j3 = j * 3;
+
+          const dx = posArr[i3] - posArr[j3];
+          const dy = posArr[i3 + 1] - posArr[j3 + 1];
+          const dz = posArr[i3 + 2] - posArr[j3 + 2];
+          const dist = Math.sqrt(dx * dx + dy * dy + dz * dz);
+
+          if (dist < 10) {
+            // Line Segment Position
+            linePositions[vertexIdx++] = posArr[i3];
+            linePositions[vertexIdx++] = posArr[i3 + 1];
+            linePositions[vertexIdx++] = posArr[i3 + 2];
+
+            linePositions[vertexIdx++] = posArr[j3];
+            linePositions[vertexIdx++] = posArr[j3 + 1];
+            linePositions[vertexIdx++] = posArr[j3 + 2];
+
+            // Distance-based color gradient
+            const alpha = 1 - dist / 10;
+            const mixColor = i % 2 === 0 ? cRed : cCyan;
+
+            lineColors[colorIdx++] = mixColor.r * alpha;
+            lineColors[colorIdx++] = mixColor.g * alpha;
+            lineColors[colorIdx++] = mixColor.b * alpha;
+
+            lineColors[colorIdx++] = mixColor.r * alpha;
+            lineColors[colorIdx++] = mixColor.g * alpha;
+            lineColors[colorIdx++] = mixColor.b * alpha;
+
+            connections++;
+          }
+        }
+      }
+
+      lineGeometry.attributes.position.needsUpdate = true;
+      lineGeometry.attributes.color.needsUpdate = true;
+
+      // Smooth Mouse Parallax
       mouseX += (targetMouseX - mouseX) * 0.05;
       mouseY += (targetMouseY - mouseY) * 0.05;
 
-      scene.rotation.y = mouseX * 0.3;
-      scene.rotation.x = -mouseY * 0.3;
+      camera.position.x = mouseX * 3;
+      camera.position.y = -mouseY * 3;
+      camera.lookAt(0, 0, 0);
 
       renderer.render(scene, camera);
       animationFrameId = requestAnimationFrame(animate);
@@ -151,8 +239,14 @@ export default function ThreeGalaxyCanvas() {
       if (container.contains(renderer.domElement)) {
         container.removeChild(renderer.domElement);
       }
-      geometry.dispose();
-      material.dispose();
+      geoIco.dispose();
+      matIco.dispose();
+      geoTorus.dispose();
+      matTorus.dispose();
+      nodeGeometry.dispose();
+      nodeMaterial.dispose();
+      lineGeometry.dispose();
+      lineMaterial.dispose();
       renderer.dispose();
     };
   }, []);
@@ -160,7 +254,7 @@ export default function ThreeGalaxyCanvas() {
   return (
     <div
       ref={containerRef}
-      className="fixed inset-0 pointer-events-none z-[1] opacity-70 dark:opacity-85 mix-blend-screen transition-opacity duration-500"
+      className="fixed inset-0 pointer-events-none z-[1] opacity-70 dark:opacity-85 transition-opacity duration-500"
     />
   );
 }
