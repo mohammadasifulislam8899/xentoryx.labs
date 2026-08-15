@@ -18,7 +18,7 @@ export default function ThreeGalaxyCanvas() {
       0.1,
       1000
     );
-    camera.position.z = 40;
+    camera.position.z = 35;
 
     // 2. WebGL Renderer
     const renderer = new THREE.WebGLRenderer({
@@ -30,95 +30,131 @@ export default function ThreeGalaxyCanvas() {
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     container.appendChild(renderer.domElement);
 
-    // 3. Create Floating 3D Geometric Polyhedra (Pushed far to screen margins)
-    const shapesGroup = new THREE.Group();
-    scene.add(shapesGroup);
+    // 3. Create 3D Holographic Quantum Tech Core Rings Group
+    const techCoreGroup = new THREE.Group();
+    scene.add(techCoreGroup);
 
-    // Shape 1: Outer Wireframe Icosahedron (Far Left Margin)
-    const geoIco = new THREE.IcosahedronGeometry(4.5, 1);
-    const matIco = new THREE.MeshBasicMaterial({
+    // Ring 1: Primary Xentoryx Red Outer Core Ring
+    const geoRing1 = new THREE.TorusGeometry(12, 0.08, 16, 120);
+    const matRing1 = new THREE.MeshBasicMaterial({
       color: new THREE.Color("#DB4338"),
       wireframe: true,
       transparent: true,
-      opacity: 0.18,
+      opacity: 0.2,
     });
-    const meshIco = new THREE.Mesh(geoIco, matIco);
-    meshIco.position.set(-25, 8, -15);
-    shapesGroup.add(meshIco);
+    const ring1 = new THREE.Mesh(geoRing1, matRing1);
+    ring1.rotation.x = Math.PI / 4;
+    techCoreGroup.add(ring1);
 
-    // Shape 2: Inner Core Ring (Far Right Margin)
-    const geoTorus = new THREE.TorusGeometry(5.5, 0.06, 16, 100);
-    const matTorus = new THREE.MeshBasicMaterial({
+    // Ring 2: Secondary Cyan Inner Orbital Ring
+    const geoRing2 = new THREE.TorusGeometry(8.5, 0.06, 16, 100);
+    const matRing2 = new THREE.MeshBasicMaterial({
       color: new THREE.Color("#00F2FE"),
       wireframe: true,
       transparent: true,
       opacity: 0.22,
     });
-    const meshTorus = new THREE.Mesh(geoTorus, matTorus);
-    meshTorus.position.set(25, -10, -15);
-    meshTorus.rotation.x = Math.PI / 3;
-    shapesGroup.add(meshTorus);
+    const ring2 = new THREE.Mesh(geoRing2, matRing2);
+    ring2.rotation.y = Math.PI / 3;
+    techCoreGroup.add(ring2);
 
-    // 4. Create Subdued Background 3D Neural Constellation Nodes & Mesh
-    const nodeCount = 95;
-    const nodeGeometry = new THREE.BufferGeometry();
-    const nodePositions = new Float32Array(nodeCount * 3);
-    const nodeVelocities: { x: number; y: number; z: number }[] = [];
-
-    for (let i = 0; i < nodeCount; i++) {
-      const i3 = i * 3;
-      nodePositions[i3] = (Math.random() - 0.5) * 75;
-      nodePositions[i3 + 1] = (Math.random() - 0.5) * 50;
-      nodePositions[i3 + 2] = -15 + (Math.random() - 0.5) * 20; // Pushed deep into the background
-
-      nodeVelocities.push({
-        x: (Math.random() - 0.5) * 0.015,
-        y: (Math.random() - 0.5) * 0.015,
-        z: (Math.random() - 0.5) * 0.008,
-      });
-    }
-
-    nodeGeometry.setAttribute(
-      "position",
-      new THREE.BufferAttribute(nodePositions, 3)
-    );
-
-    const nodeMaterial = new THREE.PointsMaterial({
-      size: 0.22,
-      color: new THREE.Color("#DB4338"),
+    // Ring 3: Concentric Tech Inner Core
+    const geoRing3 = new THREE.RingGeometry(5, 5.15, 64);
+    const matRing3 = new THREE.MeshBasicMaterial({
+      color: new THREE.Color("#FF5E50"),
+      side: THREE.DoubleSide,
       transparent: true,
-      opacity: 0.5,
+      opacity: 0.15,
+    });
+    const ring3 = new THREE.Mesh(geoRing3, matRing3);
+    techCoreGroup.add(ring3);
+
+    // Position the Holographic Core in the Far Right Background
+    techCoreGroup.position.set(22, -6, -15);
+
+    // 4. Create Floating 3D Quantum Data Cubes Group (Subtle floating tech elements)
+    const cubesGroup = new THREE.Group();
+    scene.add(cubesGroup);
+
+    const cubeCount = 45;
+    const cubeMeshes: THREE.Mesh[] = [];
+    const geoCube = new THREE.BoxGeometry(0.8, 0.8, 0.8);
+    const matCubeRed = new THREE.MeshBasicMaterial({
+      color: new THREE.Color("#DB4338"),
+      wireframe: true,
+      transparent: true,
+      opacity: 0.25,
+    });
+    const matCubeCyan = new THREE.MeshBasicMaterial({
+      color: new THREE.Color("#00F2FE"),
+      wireframe: true,
+      transparent: true,
+      opacity: 0.25,
     });
 
-    const nodesPoints = new THREE.Points(nodeGeometry, nodeMaterial);
-    scene.add(nodesPoints);
+    for (let i = 0; i < cubeCount; i++) {
+      const mesh = new THREE.Mesh(
+        geoCube,
+        i % 2 === 0 ? matCubeRed : matCubeCyan
+      );
+      mesh.position.set(
+        (Math.random() - 0.5) * 70,
+        (Math.random() - 0.5) * 45,
+        -10 + (Math.random() - 0.5) * 20
+      );
+      mesh.rotation.set(
+        Math.random() * Math.PI,
+        Math.random() * Math.PI,
+        Math.random() * Math.PI
+      );
+      mesh.scale.setScalar(Math.random() * 0.8 + 0.4);
+      cubesGroup.add(mesh);
+      cubeMeshes.push(mesh);
+    }
 
-    // Dynamic Connecting Lines
-    const maxConnections = 160;
-    const linePositions = new Float32Array(maxConnections * 6);
-    const lineColors = new Float32Array(maxConnections * 6);
+    // 5. Ambient Quantum Floating Energy Particles
+    const particleCount = 200;
+    const particleGeo = new THREE.BufferGeometry();
+    const particlePos = new Float32Array(particleCount * 3);
+    const particleColors = new Float32Array(particleCount * 3);
 
-    const lineGeometry = new THREE.BufferGeometry();
-    lineGeometry.setAttribute(
+    const cRed = new THREE.Color("#DB4338");
+    const cCyan = new THREE.Color("#00F2FE");
+    const cWhite = new THREE.Color("#FFFFFF");
+
+    for (let i = 0; i < particleCount; i++) {
+      const i3 = i * 3;
+      particlePos[i3] = (Math.random() - 0.5) * 80;
+      particlePos[i3 + 1] = (Math.random() - 0.5) * 55;
+      particlePos[i3 + 2] = -10 + (Math.random() - 0.5) * 25;
+
+      const randColor = i % 3 === 0 ? cRed : i % 3 === 1 ? cCyan : cWhite;
+      particleColors[i3] = randColor.r;
+      particleColors[i3 + 1] = randColor.g;
+      particleColors[i3 + 2] = randColor.b;
+    }
+
+    particleGeo.setAttribute(
       "position",
-      new THREE.BufferAttribute(linePositions, 3)
+      new THREE.BufferAttribute(particlePos, 3)
     );
-    lineGeometry.setAttribute(
+    particleGeo.setAttribute(
       "color",
-      new THREE.BufferAttribute(lineColors, 3)
+      new THREE.BufferAttribute(particleColors, 3)
     );
 
-    const lineMaterial = new THREE.LineBasicMaterial({
+    const particleMat = new THREE.PointsMaterial({
+      size: 0.25,
       vertexColors: true,
       transparent: true,
-      opacity: 0.18,
+      opacity: 0.6,
       blending: THREE.AdditiveBlending,
     });
 
-    const linesMesh = new THREE.LineSegments(lineGeometry, lineMaterial);
-    scene.add(linesMesh);
+    const particles = new THREE.Points(particleGeo, particleMat);
+    scene.add(particles);
 
-    // 5. Mouse Parallax Reaction
+    // 6. Interactive Mouse Parallax
     let mouseX = 0;
     let mouseY = 0;
     let targetMouseX = 0;
@@ -138,90 +174,45 @@ export default function ThreeGalaxyCanvas() {
     window.addEventListener("mousemove", handleMouseMove);
     window.addEventListener("resize", handleResize);
 
-    // 6. Animation Loop
+    // 7. Animation Loop
     let animationFrameId: number;
     const clock = new THREE.Clock();
 
     const animate = () => {
       const elapsedTime = clock.getElapsedTime();
 
-      // Rotate geometric shapes slowly in the far margins
-      meshIco.rotation.x = elapsedTime * 0.1;
-      meshIco.rotation.y = elapsedTime * 0.12;
-      meshTorus.rotation.z = elapsedTime * 0.08;
-      meshTorus.rotation.y = elapsedTime * 0.1;
+      // Continuous 3D Hologram Rotation
+      ring1.rotation.x = elapsedTime * 0.12;
+      ring1.rotation.y = elapsedTime * 0.15;
 
-      // Update Node positions & bounds checking
-      const posArr = nodeGeometry.attributes.position.array as Float32Array;
+      ring2.rotation.y = -elapsedTime * 0.18;
+      ring2.rotation.z = elapsedTime * 0.1;
 
-      for (let i = 0; i < nodeCount; i++) {
+      ring3.rotation.z = elapsedTime * 0.08;
+
+      // Animate Quantum Floating Cubes
+      cubeMeshes.forEach((cube, idx) => {
+        cube.rotation.x += 0.005 * (idx % 2 === 0 ? 1 : -1);
+        cube.rotation.y += 0.008 * (idx % 3 === 0 ? 1 : -1);
+        cube.position.y += Math.sin(elapsedTime + idx) * 0.008;
+      });
+
+      // Slowly Drift Energy Particles Upwards
+      const posArr = particleGeo.attributes.position.array as Float32Array;
+      for (let i = 0; i < particleCount; i++) {
         const i3 = i * 3;
-        posArr[i3] += nodeVelocities[i].x;
-        posArr[i3 + 1] += nodeVelocities[i].y;
-        posArr[i3 + 2] += nodeVelocities[i].z;
-
-        // Bounce back inside 3D volume
-        if (Math.abs(posArr[i3]) > 40) nodeVelocities[i].x *= -1;
-        if (Math.abs(posArr[i3 + 1]) > 25) nodeVelocities[i].y *= -1;
-        if (posArr[i3 + 2] > -5 || posArr[i3 + 2] < -30) nodeVelocities[i].z *= -1;
+        posArr[i3 + 1] += 0.015; // float upwards
+        if (posArr[i3 + 1] > 28) posArr[i3 + 1] = -28; // reset loop
       }
-      nodeGeometry.attributes.position.needsUpdate = true;
+      particleGeo.attributes.position.needsUpdate = true;
 
-      // Update Connecting Lines
-      let vertexIdx = 0;
-      let colorIdx = 0;
-      let connections = 0;
+      // Smooth Mouse Parallax
+      mouseX += (targetMouseX - mouseX) * 0.04;
+      mouseY += (targetMouseY - mouseY) * 0.04;
 
-      const cRed = new THREE.Color("#DB4338");
-      const cCyan = new THREE.Color("#00F2FE");
-
-      for (let i = 0; i < nodeCount; i++) {
-        for (let j = i + 1; j < nodeCount; j++) {
-          if (connections >= maxConnections) break;
-
-          const i3 = i * 3;
-          const j3 = j * 3;
-
-          const dx = posArr[i3] - posArr[j3];
-          const dy = posArr[i3 + 1] - posArr[j3 + 1];
-          const dz = posArr[i3 + 2] - posArr[j3 + 2];
-          const dist = Math.sqrt(dx * dx + dy * dy + dz * dz);
-
-          if (dist < 12) {
-            linePositions[vertexIdx++] = posArr[i3];
-            linePositions[vertexIdx++] = posArr[i3 + 1];
-            linePositions[vertexIdx++] = posArr[i3 + 2];
-
-            linePositions[vertexIdx++] = posArr[j3];
-            linePositions[vertexIdx++] = posArr[j3 + 1];
-            linePositions[vertexIdx++] = posArr[j3 + 2];
-
-            const alpha = (1 - dist / 12) * 0.7;
-            const mixColor = i % 2 === 0 ? cRed : cCyan;
-
-            lineColors[colorIdx++] = mixColor.r * alpha;
-            lineColors[colorIdx++] = mixColor.g * alpha;
-            lineColors[colorIdx++] = mixColor.b * alpha;
-
-            lineColors[colorIdx++] = mixColor.r * alpha;
-            lineColors[colorIdx++] = mixColor.g * alpha;
-            lineColors[colorIdx++] = mixColor.b * alpha;
-
-            connections++;
-          }
-        }
-      }
-
-      lineGeometry.attributes.position.needsUpdate = true;
-      lineGeometry.attributes.color.needsUpdate = true;
-
-      // Subtle Mouse Parallax
-      mouseX += (targetMouseX - mouseX) * 0.03;
-      mouseY += (targetMouseY - mouseY) * 0.03;
-
-      camera.position.x = mouseX * 2;
-      camera.position.y = -mouseY * 2;
-      camera.lookAt(0, 0, -15);
+      camera.position.x = mouseX * 2.5;
+      camera.position.y = -mouseY * 2.5;
+      camera.lookAt(0, 0, -10);
 
       renderer.render(scene, camera);
       animationFrameId = requestAnimationFrame(animate);
@@ -229,7 +220,7 @@ export default function ThreeGalaxyCanvas() {
 
     animate();
 
-    // 7. Cleanup
+    // 8. Cleanup
     return () => {
       window.removeEventListener("mousemove", handleMouseMove);
       window.removeEventListener("resize", handleResize);
@@ -237,14 +228,17 @@ export default function ThreeGalaxyCanvas() {
       if (container.contains(renderer.domElement)) {
         container.removeChild(renderer.domElement);
       }
-      geoIco.dispose();
-      matIco.dispose();
-      geoTorus.dispose();
-      matTorus.dispose();
-      nodeGeometry.dispose();
-      nodeMaterial.dispose();
-      lineGeometry.dispose();
-      lineMaterial.dispose();
+      geoRing1.dispose();
+      matRing1.dispose();
+      geoRing2.dispose();
+      matRing2.dispose();
+      geoRing3.dispose();
+      matRing3.dispose();
+      geoCube.dispose();
+      matCubeRed.dispose();
+      matCubeCyan.dispose();
+      particleGeo.dispose();
+      particleMat.dispose();
       renderer.dispose();
     };
   }, []);
@@ -252,7 +246,7 @@ export default function ThreeGalaxyCanvas() {
   return (
     <div
       ref={containerRef}
-      className="fixed inset-0 pointer-events-none -z-10 opacity-40 dark:opacity-60 transition-opacity duration-500"
+      className="fixed inset-0 pointer-events-none -z-10 opacity-40 dark:opacity-65 transition-opacity duration-500"
     />
   );
 }
