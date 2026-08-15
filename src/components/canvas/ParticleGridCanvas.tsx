@@ -1,7 +1,7 @@
 "use client";
 
-import ThreeGalaxyCanvas from "./ThreeGalaxyCanvas";
+import AmbientGradientsCanvas from "./AmbientGradientsCanvas";
 
 export default function ParticleGridCanvas() {
-  return <ThreeGalaxyCanvas />;
+  return <AmbientGradientsCanvas />;
 }
