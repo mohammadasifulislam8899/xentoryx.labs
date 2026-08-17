@@ -2,22 +2,30 @@ import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
 export function middleware(request: NextRequest) {
-  const { pathname } = request.nextUrl;
+  const url = request.nextUrl;
+  const hostname = request.headers.get("host") || "";
 
-  // Protect /api/admin/data POST/PUT/DELETE operations if not authenticated
-  if (pathname.startsWith("/api/admin/data") && request.method !== "GET") {
-    const authHeader = request.headers.get("authorization");
-    const cookieToken = request.cookies.get("xentoryx-admin-token")?.value;
-
-    // Check if token matches
-    if (!authHeader?.includes("xentoryx-admin-token-2026") && cookieToken !== "xentoryx-admin-token-2026") {
-      // In development / local testing, allow if session cookie or custom header is valid
-    }
+  // If host is asif.xentoryxlabs.site or asif.localhost, route root '/' directly to '/founder'
+  if (
+    (hostname.startsWith("asif.") || hostname.startsWith("founder.")) &&
+    url.pathname === "/"
+  ) {
+    return NextResponse.rewrite(new URL("/founder", request.url));
   }
 
   return NextResponse.next();
 }
 
 export const config = {
-  matcher: ["/admin/:path*", "/api/admin/:path*"],
+  matcher: [
+    /*
+     * Match all request paths except for the ones starting with:
+     * - api (API routes)
+     * - _next/static (static files)
+     * - _next/image (image optimization files)
+     * - favicon.ico (favicon file)
+     * - assets (public image files)
+     */
+    "/((?!api|_next/static|_next/image|favicon.ico|assets).*)",
+  ],
 };

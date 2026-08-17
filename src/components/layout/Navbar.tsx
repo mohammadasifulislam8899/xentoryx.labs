@@ -49,6 +49,7 @@ export default function Navbar({ onOpenCmdk, onOpenAi, onTriggerConsole }: Navba
     { label: "Projects", href: "/projects" },
     { label: "Labs", href: "/labs" },
     { label: "Console", href: "/labs/console", badge: "DEV" },
+    { label: "Founder", href: "/founder", badge: "ASIF" },
     { label: "Contact", href: "/#contact" },
   ];
 
