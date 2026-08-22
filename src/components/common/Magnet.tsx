@@ -1,86 +1,66 @@
 "use client";
 
-import React, { useState, useEffect, useRef } from "react";
+import React, { useRef, useState, useEffect } from "react";
 
 interface MagnetProps {
   children: React.ReactNode;
   padding?: number;
-  disabled?: boolean;
   strength?: number;
   activeTransition?: string;
   inactiveTransition?: string;
   className?: string;
-  style?: React.CSSProperties;
 }
 
 export default function Magnet({
   children,
-  padding = 100,
-  disabled = false,
-  strength = 15,
-  activeTransition = "transform 0.2s ease-out",
-  inactiveTransition = "transform 0.5s ease-in-out",
+  padding = 150,
+  strength = 3,
+  activeTransition = "transform 0.3s ease-out",
+  inactiveTransition = "transform 0.6s ease-in-out",
   className = "",
-  style = {},
 }: MagnetProps) {
+  const ref = useRef<HTMLDivElement>(null);
   const [position, setPosition] = useState({ x: 0, y: 0 });
-  const [isTouchDevice, setIsTouchDevice] = useState(false);
-  const magnetRef = useRef<HTMLDivElement>(null);
+  const [isActive, setIsActive] = useState(false);
 
   useEffect(() => {
-    // Detect touch device or pointer: coarse to disable mouse magnetic effect
-    const isTouch =
-      typeof window !== "undefined" &&
-      ("ontouchstart" in window ||
-        navigator.maxTouchPoints > 0 ||
-        window.matchMedia("(pointer: coarse)").matches);
-    setIsTouchDevice(isTouch);
-  }, []);
+    const handleMouseMove = (e: MouseEvent) => {
+      if (!ref.current) return;
+      const rect = ref.current.getBoundingClientRect();
+      const centerX = rect.left + rect.width / 2;
+      const centerY = rect.top + rect.height / 2;
 
-  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (disabled || isTouchDevice || !magnetRef.current) return;
+      const distX = e.clientX - centerX;
+      const distY = e.clientY - centerY;
 
-    const { left, top, width, height } = magnetRef.current.getBoundingClientRect();
-    const centerX = left + width / 2;
-    const centerY = top + height / 2;
+      const withinX = Math.abs(distX) <= rect.width / 2 + padding;
+      const withinY = Math.abs(distY) <= rect.height / 2 + padding;
 
-    const distanceX = e.clientX - centerX;
-    const distanceY = e.clientY - centerY;
+      if (withinX && withinY) {
+        setIsActive(true);
+        setPosition({
+          x: distX / strength,
+          y: distY / strength,
+        });
+      } else {
+        setIsActive(false);
+        setPosition({ x: 0, y: 0 });
+      }
+    };
 
-    if (
-      Math.abs(distanceX) < width / 2 + padding &&
-      Math.abs(distanceY) < height / 2 + padding
-    ) {
-      setPosition({
-        x: distanceX / strength,
-        y: distanceY / strength,
-      });
-    } else {
-      setPosition({ x: 0, y: 0 });
-    }
-  };
-
-  const handleMouseLeave = () => {
-    setPosition({ x: 0, y: 0 });
-  };
-
-  const isMoved = position.x !== 0 || position.y !== 0;
+    window.addEventListener("mousemove", handleMouseMove, { passive: true });
+    return () => window.removeEventListener("mousemove", handleMouseMove);
+  }, [padding, strength]);
 
   return (
     <div
-      ref={magnetRef}
-      onMouseMove={handleMouseMove}
-      onMouseLeave={handleMouseLeave}
-      className={className}
+      ref={ref}
       style={{
-        ...style,
-        transform:
-          !disabled && !isTouchDevice && isMoved
-            ? `translate3d(${position.x}px, ${position.y}px, 0)`
-            : "translate3d(0, 0, 0)",
-        transition: isMoved ? activeTransition : inactiveTransition,
-        willChange: isTouchDevice ? "auto" : "transform",
+        transform: `translate3d(${position.x}px, ${position.y}px, 0)`,
+        transition: isActive ? activeTransition : inactiveTransition,
+        willChange: "transform",
       }}
+      className={className}
     >
       {children}
     </div>

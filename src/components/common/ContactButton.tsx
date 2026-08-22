@@ -24,7 +24,7 @@ export default function ContactButton({
           outline: "2px solid white",
           outlineOffset: "-3px",
         }}
-        className={`min-h-[44px] min-w-[120px] rounded-full px-5 py-3 sm:px-8 sm:py-3.5 md:px-10 md:py-4 text-white font-medium uppercase tracking-widest text-[11px] sm:text-xs md:text-sm active:scale-95 transition-all duration-300 select-none cursor-pointer shadow-xl inline-flex items-center justify-center touch-manipulation ${className}`}
+        className={`rounded-full px-5 py-2.5 sm:px-8 sm:py-3.5 md:px-10 md:py-4 text-white font-medium uppercase tracking-widest text-[11px] sm:text-xs md:text-sm hover:scale-105 active:scale-95 transition-all duration-300 select-none cursor-pointer shadow-xl ${className}`}
       >
         {children}
       </button>

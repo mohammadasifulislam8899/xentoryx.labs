@@ -11,8 +11,7 @@ export default function MarqueeSection() {
       if (!sectionRef.current) return;
       const rect = sectionRef.current.getBoundingClientRect();
       const sectionTop = window.scrollY + rect.top;
-      const multiplier = window.innerWidth < 640 ? 0.2 : 0.3;
-      const offset = (window.scrollY - sectionTop + window.innerHeight) * multiplier;
+      const offset = (window.scrollY - sectionTop + window.innerHeight) * 0.3;
       setScrollOffset(offset);
     };
 
@@ -44,33 +43,33 @@ export default function MarqueeSection() {
   return (
     <section
       ref={sectionRef}
-      className="w-full bg-[var(--bg-primary)] pt-14 sm:pt-28 md:pt-36 pb-8 sm:pb-12 overflow-hidden select-none transition-colors duration-300"
+      className="w-full bg-[var(--bg-primary)] pt-24 sm:pt-32 md:pt-40 pb-10 overflow-hidden select-none transition-colors duration-300"
     >
-      <div className="flex flex-col gap-2.5 sm:gap-3">
+      <div className="flex flex-col gap-3">
         {/* Row 1: Moves RIGHT on scroll */}
         <div
           style={{
-            transform: `translateX(${scrollOffset - 150}px)`,
+            transform: `translateX(${scrollOffset - 200}px)`,
             willChange: "transform",
           }}
-          className="flex gap-2.5 sm:gap-3 whitespace-nowrap"
+          className="flex gap-3 whitespace-nowrap"
         >
           {tripledRow1.map((item, idx) => (
             <div
               key={idx}
-              className={`w-[240px] h-[155px] xs:w-[260px] xs:h-[170px] sm:w-[360px] sm:h-[230px] md:w-[420px] md:h-[270px] rounded-2xl bg-gradient-to-br ${item.bg} border border-[var(--border-color)] bg-[var(--bg-card)] p-4 sm:p-6 flex flex-col justify-between shrink-0 shadow-lg relative overflow-hidden group`}
+              className={`w-[320px] h-[200px] sm:w-[420px] sm:h-[270px] rounded-2xl bg-gradient-to-br ${item.bg} border border-[var(--border-color)] bg-[var(--bg-card)] p-6 flex flex-col justify-between shrink-0 shadow-lg relative overflow-hidden group`}
             >
               <div className="flex items-center justify-between z-10">
-                <span className="text-[9px] sm:text-xs font-mono font-bold uppercase tracking-widest px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-full bg-[var(--bg-primary)] text-[var(--text-primary)] border border-[var(--border-color)]">
+                <span className="text-[10px] sm:text-xs font-mono font-bold uppercase tracking-widest px-2.5 py-1 rounded-full bg-[var(--bg-primary)] text-[var(--text-primary)] border border-[var(--border-color)]">
                   {item.category}
                 </span>
-                <span className="text-[9px] sm:text-[10px] font-mono text-[var(--text-secondary)] uppercase">
+                <span className="text-[10px] font-mono text-[var(--text-secondary)] uppercase">
                   {item.tag}
                 </span>
               </div>
 
               <div className="z-10">
-                <h3 className="font-sans font-bold text-sm xs:text-base sm:text-lg md:text-xl text-[var(--text-primary)] tracking-tight line-clamp-2">
+                <h3 className="font-sans font-bold text-lg sm:text-xl text-[var(--text-primary)] tracking-tight">
                   {item.title}
                 </h3>
               </div>
@@ -84,27 +83,27 @@ export default function MarqueeSection() {
         {/* Row 2: Moves LEFT on scroll */}
         <div
           style={{
-            transform: `translateX(${-(scrollOffset - 150)}px)`,
+            transform: `translateX(${-(scrollOffset - 200)}px)`,
             willChange: "transform",
           }}
-          className="flex gap-2.5 sm:gap-3 whitespace-nowrap"
+          className="flex gap-3 whitespace-nowrap"
         >
           {tripledRow2.map((item, idx) => (
             <div
               key={idx}
-              className={`w-[240px] h-[155px] xs:w-[260px] xs:h-[170px] sm:w-[360px] sm:h-[230px] md:w-[420px] md:h-[270px] rounded-2xl bg-gradient-to-br ${item.bg} border border-[var(--border-color)] bg-[var(--bg-card)] p-4 sm:p-6 flex flex-col justify-between shrink-0 shadow-lg relative overflow-hidden group`}
+              className={`w-[320px] h-[200px] sm:w-[420px] sm:h-[270px] rounded-2xl bg-gradient-to-br ${item.bg} border border-[var(--border-color)] bg-[var(--bg-card)] p-6 flex flex-col justify-between shrink-0 shadow-lg relative overflow-hidden group`}
             >
               <div className="flex items-center justify-between z-10">
-                <span className="text-[9px] sm:text-xs font-mono font-bold uppercase tracking-widest px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-full bg-[var(--bg-primary)] text-[var(--text-primary)] border border-[var(--border-color)]">
+                <span className="text-[10px] sm:text-xs font-mono font-bold uppercase tracking-widest px-2.5 py-1 rounded-full bg-[var(--bg-primary)] text-[var(--text-primary)] border border-[var(--border-color)]">
                   {item.category}
                 </span>
-                <span className="text-[9px] sm:text-[10px] font-mono text-[var(--text-secondary)] uppercase">
+                <span className="text-[10px] font-mono text-[var(--text-secondary)] uppercase">
                   {item.tag}
                 </span>
               </div>
 
               <div className="z-10">
-                <h3 className="font-sans font-bold text-sm xs:text-base sm:text-lg md:text-xl text-[var(--text-primary)] tracking-tight line-clamp-2">
+                <h3 className="font-sans font-bold text-lg sm:text-xl text-[var(--text-primary)] tracking-tight">
                   {item.title}
                 </h3>
               </div>
