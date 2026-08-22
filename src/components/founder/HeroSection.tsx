@@ -6,50 +6,54 @@ import Link from "next/link";
 import FadeIn from "@/components/common/FadeIn";
 import Magnet from "@/components/common/Magnet";
 import ContactButton from "@/components/common/ContactButton";
+import ThemeToggle from "@/components/common/ThemeToggle";
 
 export default function HeroSection() {
   return (
-    <section className="relative h-screen w-full flex flex-col justify-between overflow-x-clip bg-[#0C0C0C] text-[#D7E2EA] px-6 md:px-10 select-none">
+    <section className="relative h-screen w-full flex flex-col justify-between overflow-x-clip bg-[var(--bg-primary)] text-[var(--text-primary)] px-6 md:px-10 select-none transition-colors duration-300">
       
       {/* 1. Top Navbar */}
       <FadeIn delay={0} y={-20} className="w-full pt-6 md:pt-8 z-40">
         <nav className="w-full flex items-center justify-between">
           {/* Logo / Wordmark */}
           <Link href="/" className="flex items-center gap-1.5 group cursor-pointer">
-            <span className="font-sans font-black tracking-tighter text-lg sm:text-2xl text-[#D7E2EA] group-hover:opacity-80 transition-opacity">
+            <span className="font-sans font-black tracking-tighter text-lg sm:text-2xl text-[var(--text-primary)] group-hover:opacity-80 transition-opacity">
               XENTORYX
             </span>
-            <span className="text-[10px] sm:text-xs font-mono font-bold tracking-widest px-1.5 py-0.5 rounded bg-[#D7E2EA]/10 text-[#BBCCD7] border border-[#D7E2EA]/20">
+            <span className="text-[10px] sm:text-xs font-mono font-bold tracking-widest px-1.5 py-0.5 rounded bg-[var(--border-subtle)] text-[var(--text-heading-gradient-end)] border border-[var(--border-color)]">
               LABS
             </span>
           </Link>
 
-          {/* 4 Nav Links */}
-          <div className="flex items-center gap-5 sm:gap-8 md:gap-12 lg:gap-16">
+          {/* 4 Nav Links + Theme Toggle */}
+          <div className="flex items-center gap-4 sm:gap-7 md:gap-10 lg:gap-14">
             <a
               href="#about"
-              className="text-xs sm:text-sm md:text-lg lg:text-[1.4rem] font-medium uppercase tracking-wider text-[#D7E2EA] hover:opacity-70 transition-opacity duration-200"
+              className="text-xs sm:text-sm md:text-lg lg:text-[1.4rem] font-medium uppercase tracking-wider text-[var(--text-primary)] hover:opacity-70 transition-opacity duration-200"
             >
               About
             </a>
             <a
               href="#services"
-              className="text-xs sm:text-sm md:text-lg lg:text-[1.4rem] font-medium uppercase tracking-wider text-[#D7E2EA] hover:opacity-70 transition-opacity duration-200"
+              className="text-xs sm:text-sm md:text-lg lg:text-[1.4rem] font-medium uppercase tracking-wider text-[var(--text-primary)] hover:opacity-70 transition-opacity duration-200"
             >
               Services
             </a>
             <a
               href="#projects"
-              className="text-xs sm:text-sm md:text-lg lg:text-[1.4rem] font-medium uppercase tracking-wider text-[#D7E2EA] hover:opacity-70 transition-opacity duration-200"
+              className="text-xs sm:text-sm md:text-lg lg:text-[1.4rem] font-medium uppercase tracking-wider text-[var(--text-primary)] hover:opacity-70 transition-opacity duration-200"
             >
               Projects
             </a>
             <a
               href="#contact"
-              className="text-xs sm:text-sm md:text-lg lg:text-[1.4rem] font-medium uppercase tracking-wider text-[#D7E2EA] hover:opacity-70 transition-opacity duration-200"
+              className="text-xs sm:text-sm md:text-lg lg:text-[1.4rem] font-medium uppercase tracking-wider text-[var(--text-primary)] hover:opacity-70 transition-opacity duration-200"
             >
               Contact
             </a>
+
+            {/* GSAP Powered Dark/Light Theme Toggle */}
+            <ThemeToggle size="md" />
           </div>
         </nav>
       </FadeIn>
@@ -82,7 +86,7 @@ export default function HeroSection() {
                 unoptimized
                 quality={100}
                 sizes="100vw"
-                className="object-contain object-bottom filter contrast-[1.03] brightness-[1.02] drop-shadow-[0_45px_120px_rgba(0,0,0,0.99)]"
+                className="object-contain object-bottom filter contrast-[1.03] brightness-[1.02] drop-shadow-[0_45px_120px_var(--shadow-color)]"
               />
             </div>
           </Magnet>
@@ -95,7 +99,7 @@ export default function HeroSection() {
         <FadeIn delay={0.35} y={20}>
           <p
             style={{ fontSize: "clamp(0.75rem, 1.4vw, 1.5rem)" }}
-            className="text-[#D7E2EA] font-light uppercase tracking-wide leading-snug max-w-[160px] sm:max-w-[220px] md:max-w-[280px]"
+            className="text-[var(--text-primary)] font-light uppercase tracking-wide leading-snug max-w-[160px] sm:max-w-[220px] md:max-w-[280px]"
           >
             founder building scalable software, intelligent iot hardware, and modern web experiences at xentoryx labs
           </p>

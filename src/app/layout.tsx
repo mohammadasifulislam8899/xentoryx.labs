@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Kanit } from "next/font/google";
 import "./globals.css";
 import ClientLayoutWrapper from "./ClientLayoutWrapper";
+import { ThemeProvider } from "@/context/ThemeContext";
 
 const kanit = Kanit({
   weight: ["300", "400", "500", "600", "700", "800", "900"],
@@ -73,11 +74,37 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="dark scroll-smooth">
+    <html lang="en" suppressHydrationWarning className="dark scroll-smooth">
+      <head>
+        {/* Blocking script to prevent flash-of-wrong-theme on page load */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              (function() {
+                try {
+                  var saved = localStorage.getItem('xentoryx-theme');
+                  var prefersLight = window.matchMedia('(prefers-color-scheme: light)').matches;
+                  var theme = saved === 'light' || saved === 'dark' ? saved : (prefersLight ? 'light' : 'dark');
+                  document.documentElement.setAttribute('data-theme', theme);
+                  if (theme === 'dark') {
+                    document.documentElement.classList.add('dark');
+                    document.documentElement.classList.remove('light');
+                  } else {
+                    document.documentElement.classList.add('light');
+                    document.documentElement.classList.remove('dark');
+                  }
+                } catch(e) {}
+              })();
+            `,
+          }}
+        />
+      </head>
       <body
-        className={`${kanit.variable} font-sans antialiased bg-[#0C0C0C] text-[#D7E2EA] selection:bg-[#BBCCD7] selection:text-[#0C0C0C] overflow-x-hidden`}
+        className={`${kanit.variable} font-sans antialiased bg-[var(--bg-primary)] text-[var(--text-primary)] selection:bg-[var(--text-heading-gradient-end)] selection:text-[var(--bg-primary)] overflow-x-hidden`}
       >
-        <ClientLayoutWrapper>{children}</ClientLayoutWrapper>
+        <ThemeProvider>
+          <ClientLayoutWrapper>{children}</ClientLayoutWrapper>
+        </ThemeProvider>
       </body>
     </html>
   );

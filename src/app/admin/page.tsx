@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
@@ -10,15 +10,12 @@ import {
   Save,
   Plus,
   Trash2,
-  Cpu,
   Layers,
-  Sliders,
   CheckCircle2,
   AlertCircle,
   ExternalLink,
   ShieldCheck,
   FolderKanban,
-  Mail,
   Images,
   Sparkles,
   Film,
@@ -29,11 +26,11 @@ import {
   Eye,
   GripVertical,
   X,
-  UploadCloud,
   Loader2,
 } from "lucide-react";
 import FadeIn from "@/components/common/FadeIn";
 import CloudinaryDropzone from "@/components/admin/CloudinaryDropzone";
+import ThemeToggle from "@/components/common/ThemeToggle";
 
 type SectionTab = "hero" | "marquee" | "about" | "services" | "projects" | "media" | "settings";
 
@@ -324,10 +321,10 @@ export default function AdminPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-[#0C0C0C] text-[#D7E2EA] flex items-center justify-center font-sans">
+      <div className="min-h-screen bg-[var(--bg-primary)] text-[var(--text-primary)] flex items-center justify-center font-sans">
         <div className="flex flex-col items-center gap-4">
-          <div className="w-10 h-10 border-2 border-[#D7E2EA]/20 border-t-[#BBCCD7] rounded-full animate-spin" />
-          <span className="font-mono text-xs uppercase tracking-widest text-[#BBCCD7]">
+          <div className="w-10 h-10 border-2 border-[var(--border-color)] border-t-[var(--text-heading-gradient-end)] rounded-full animate-spin" />
+          <span className="font-mono text-xs uppercase tracking-widest text-[var(--text-heading-gradient-end)]">
             Opening Xentoryx Admin Console...
           </span>
         </div>
@@ -340,27 +337,27 @@ export default function AdminPage() {
   // ==========================================
   if (!isAuthenticated) {
     return (
-      <div className="min-h-screen bg-[#0C0C0C] text-[#D7E2EA] flex items-center justify-center p-4 selection:bg-[#BBCCD7] selection:text-[#0C0C0C] font-sans">
+      <div className="min-h-screen bg-[var(--bg-primary)] text-[var(--text-primary)] flex items-center justify-center p-4 selection:bg-[var(--text-heading-gradient-end)] selection:text-[var(--bg-primary)] font-sans transition-colors duration-300">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
-          className="w-full max-w-md bg-[#0C0C0C] border-2 border-[#D7E2EA]/20 rounded-[32px] p-8 sm:p-10 shadow-2xl space-y-8"
+          className="w-full max-w-md bg-[var(--bg-secondary)] border-2 border-[var(--border-color)] rounded-[32px] p-8 sm:p-10 shadow-2xl space-y-8"
         >
           <div className="text-center space-y-2">
-            <div className="w-14 h-14 rounded-2xl bg-[#D7E2EA]/10 border border-[#D7E2EA]/20 flex items-center justify-center mx-auto text-[#BBCCD7]">
+            <div className="w-14 h-14 rounded-2xl bg-[var(--border-subtle)] border border-[var(--border-color)] flex items-center justify-center mx-auto text-[var(--text-heading-gradient-end)]">
               <ShieldCheck className="w-7 h-7" />
             </div>
             <h1 className="hero-heading font-black text-3xl sm:text-4xl uppercase tracking-tight">
               Admin Access
             </h1>
-            <p className="text-xs font-mono text-[#D7E2EA]/60 uppercase tracking-wider">
+            <p className="text-xs font-mono text-[var(--text-secondary)] uppercase tracking-wider">
               Xentoryx Labs // Content Management System
             </p>
           </div>
 
           <form onSubmit={handleLogin} className="space-y-5">
             <div className="space-y-2">
-              <label className="text-xs font-mono font-bold uppercase tracking-wider text-[#BBCCD7] block">
+              <label className="text-xs font-mono font-bold uppercase tracking-wider text-[var(--text-heading-gradient-end)] block">
                 Admin Password
               </label>
               <div className="relative">
@@ -369,10 +366,10 @@ export default function AdminPage() {
                   value={authPassword}
                   onChange={(e) => setAuthPassword(e.target.value)}
                   placeholder="Enter Master Password..."
-                  className="w-full bg-[#151515] border border-[#D7E2EA]/30 rounded-full px-5 py-3.5 text-sm text-[#D7E2EA] font-sans focus:outline-none focus:border-[#BBCCD7] transition-colors"
+                  className="w-full bg-[var(--bg-input)] border border-[var(--border-color)] rounded-full px-5 py-3.5 text-sm text-[var(--text-primary)] font-sans focus:outline-none focus:border-[var(--text-heading-gradient-end)] transition-colors"
                   required
                 />
-                <Lock className="w-4 h-4 text-[#D7E2EA]/40 absolute right-5 top-1/2 -translate-y-1/2" />
+                <Lock className="w-4 h-4 text-[var(--text-muted)] absolute right-5 top-1/2 -translate-y-1/2" />
               </div>
             </div>
 
@@ -386,7 +383,7 @@ export default function AdminPage() {
             <button
               type="submit"
               style={{
-                background: "linear-gradient(123deg, #18011F 7%, #B600A8 37%, #7621B0 72%, #BE4C00 100%)",
+                background: "var(--accent-gradient)",
                 boxShadow: "0px 4px 4px rgba(181, 1, 167, 0.25), 4px 4px 12px #7721B1 inset",
                 outline: "2px solid white",
                 outlineOffset: "-3px",
@@ -397,13 +394,15 @@ export default function AdminPage() {
             </button>
           </form>
 
-          <div className="text-center pt-2">
+          <div className="text-center pt-2 flex items-center justify-between">
             <Link
               href="/"
-              className="text-xs font-mono text-[#D7E2EA]/60 hover:text-[#BBCCD7] transition-colors"
+              className="text-xs font-mono text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors"
             >
               &larr; Return to Public Website
             </Link>
+
+            <ThemeToggle size="sm" />
           </div>
         </motion.div>
       </div>
@@ -424,17 +423,17 @@ export default function AdminPage() {
   ];
 
   return (
-    <div className="min-h-screen bg-[#0C0C0C] text-[#D7E2EA] selection:bg-[#BBCCD7] selection:text-[#0C0C0C] font-sans flex flex-col md:flex-row">
+    <div className="min-h-screen bg-[var(--bg-primary)] text-[var(--text-primary)] selection:bg-[var(--text-heading-gradient-end)] selection:text-[var(--bg-primary)] font-sans flex flex-col md:flex-row transition-colors duration-300">
       
       {/* LEFT SIDEBAR (Fixed w-64) */}
-      <aside className="w-full md:w-64 bg-[#0C0C0C] border-r border-[#D7E2EA]/10 p-6 flex flex-col justify-between shrink-0 md:h-screen md:sticky md:top-0">
+      <aside className="w-full md:w-64 bg-[var(--bg-primary)] border-r border-[var(--border-color)] p-6 flex flex-col justify-between shrink-0 md:h-screen md:sticky md:top-0">
         <div className="space-y-8">
           {/* Brand Wordmark */}
           <Link href="/" className="flex items-center gap-2 group">
-            <span className="font-black tracking-tighter text-xl text-[#D7E2EA]">
+            <span className="font-black tracking-tighter text-xl text-[var(--text-primary)]">
               XENTORYX
             </span>
-            <span className="text-[10px] font-mono font-bold tracking-widest px-1.5 py-0.5 rounded bg-[#D7E2EA]/10 text-[#BBCCD7] border border-[#D7E2EA]/20">
+            <span className="text-[10px] font-mono font-bold tracking-widest px-1.5 py-0.5 rounded bg-[var(--border-subtle)] text-[var(--text-heading-gradient-end)] border border-[var(--border-color)]">
               CMS
             </span>
           </Link>
@@ -450,12 +449,12 @@ export default function AdminPage() {
                   onClick={() => setActiveTab(item.id)}
                   className={`w-full flex items-center justify-between px-4 py-3 rounded-2xl text-xs font-medium uppercase tracking-wider transition-all cursor-pointer ${
                     isActive
-                      ? "bg-[#151515] text-white border-l-4 border-l-[#B600A8] font-bold shadow-md"
-                      : "text-[#D7E2EA]/70 hover:text-white hover:bg-[#151515]/60"
+                      ? "bg-[var(--bg-secondary)] text-[var(--text-primary)] border-l-4 border-l-[#B600A8] font-bold shadow-md"
+                      : "text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-secondary)]/60"
                   }`}
                 >
                   <div className="flex items-center gap-3">
-                    <Icon className={`w-4 h-4 ${isActive ? "text-[#BBCCD7]" : "text-[#D7E2EA]/60"}`} />
+                    <Icon className={`w-4 h-4 ${isActive ? "text-[var(--text-heading-gradient-end)]" : "text-[var(--text-muted)]"}`} />
                     <span>{item.label}</span>
                   </div>
                   {hasUnsavedChanges && isActive && (
@@ -468,13 +467,13 @@ export default function AdminPage() {
         </div>
 
         {/* Sidebar Footer */}
-        <div className="pt-6 border-t border-[#D7E2EA]/10 flex items-center justify-between">
-          <div className="text-[11px] font-mono text-[#D7E2EA]/50">
-            Node: Cloudinary Active
+        <div className="pt-6 border-t border-[var(--border-color)] flex items-center justify-between">
+          <div className="text-[11px] font-mono text-[var(--text-muted)]">
+            Cloudinary Active
           </div>
           <button
             onClick={handleLogout}
-            className="p-2 rounded-xl text-[#D7E2EA]/60 hover:text-rose-400 hover:bg-rose-950/30 transition-colors cursor-pointer"
+            className="p-2 rounded-xl text-[var(--text-secondary)] hover:text-rose-400 hover:bg-rose-950/30 transition-colors cursor-pointer"
             title="Logout"
           >
             <LogOut className="w-4 h-4" />
@@ -486,7 +485,7 @@ export default function AdminPage() {
       <div className="flex-1 flex flex-col min-h-screen">
         
         {/* TOP BAR */}
-        <header className="sticky top-0 z-30 bg-[#0C0C0C]/90 backdrop-blur-md border-b border-[#D7E2EA]/10 px-6 sm:px-10 py-4 flex items-center justify-between">
+        <header className="sticky top-0 z-30 bg-[var(--bg-primary)]/90 backdrop-blur-md border-b border-[var(--border-color)] px-6 sm:px-10 py-4 flex items-center justify-between">
           <div>
             <h2 className="hero-heading font-black text-xl sm:text-2xl uppercase tracking-tight">
               {navItems.find((n) => n.id === activeTab)?.label}
@@ -498,18 +497,21 @@ export default function AdminPage() {
             <Link
               href="/"
               target="_blank"
-              className="hidden sm:inline-flex rounded-full border-2 border-[#D7E2EA] text-[#D7E2EA] px-5 py-2 text-xs font-medium uppercase tracking-widest hover:bg-[#D7E2EA]/10 transition-colors items-center gap-1.5"
+              className="hidden sm:inline-flex rounded-full border-2 border-[var(--border-color)] text-[var(--text-primary)] px-5 py-2 text-xs font-medium uppercase tracking-widest hover:bg-[var(--btn-ghost-hover)] transition-colors items-center gap-1.5"
             >
               <span>View Live Site</span>
               <ExternalLink className="w-3 h-3" />
             </Link>
+
+            {/* Dark/Light Theme Toggle in Admin Top Bar */}
+            <ThemeToggle size="md" />
 
             {/* Publish Changes Primary Gradient Button */}
             <button
               onClick={handleSave}
               disabled={saving}
               style={{
-                background: "linear-gradient(123deg, #18011F 7%, #B600A8 37%, #7621B0 72%, #BE4C00 100%)",
+                background: "var(--accent-gradient)",
                 boxShadow: "0px 4px 4px rgba(181, 1, 167, 0.25), 4px 4px 12px #7721B1 inset",
                 outline: "2px solid white",
                 outlineOffset: "-3px",
@@ -538,7 +540,7 @@ export default function AdminPage() {
               initial={{ opacity: 0, y: -20 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -20 }}
-              className="fixed top-20 right-6 z-50 p-4 rounded-2xl bg-[#151515] border-l-4 border-l-emerald-500 border border-[#D7E2EA]/20 shadow-2xl flex items-center gap-3 text-xs font-mono text-emerald-300"
+              className="fixed top-20 right-6 z-50 p-4 rounded-2xl bg-[var(--bg-secondary)] border-l-4 border-l-emerald-500 border border-[var(--border-color)] shadow-2xl flex items-center gap-3 text-xs font-mono text-emerald-400"
             >
               <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
               <span>{saveToast}</span>
@@ -550,7 +552,7 @@ export default function AdminPage() {
               initial={{ opacity: 0, y: -20 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -20 }}
-              className="fixed top-20 right-6 z-50 p-4 rounded-2xl bg-[#151515] border-l-4 border-l-rose-500 border border-[#D7E2EA]/20 shadow-2xl flex items-center gap-3 text-xs font-mono text-rose-300"
+              className="fixed top-20 right-6 z-50 p-4 rounded-2xl bg-[var(--bg-secondary)] border-l-4 border-l-rose-500 border border-[var(--border-color)] shadow-2xl flex items-center gap-3 text-xs font-mono text-rose-400"
             >
               <AlertCircle className="w-4 h-4 text-rose-400 shrink-0" />
               <span>{errorToast}</span>
@@ -566,38 +568,38 @@ export default function AdminPage() {
           {/* ========================================== */}
           {activeTab === "hero" && (
             <FadeIn delay={0.05} className="space-y-8">
-              <div className="bg-[#0C0C0C] border-2 border-[#D7E2EA]/20 rounded-[32px] p-6 sm:p-8 space-y-6 shadow-2xl">
+              <div className="bg-[var(--bg-secondary)] border-2 border-[var(--border-color)] rounded-[32px] p-6 sm:p-8 space-y-6 shadow-2xl">
                 <div className="space-y-1">
                   <h3 className="hero-heading font-black text-2xl uppercase tracking-tight">
                     Hero Section Configuration
                   </h3>
-                  <p className="text-xs font-mono text-[#D7E2EA]/60 uppercase tracking-wider">
+                  <p className="text-xs font-mono text-[var(--text-secondary)] uppercase tracking-wider">
                     Edit the main landing viewport headline, description, and high-res portrait.
                   </p>
                 </div>
 
                 <div className="space-y-5">
                   <div className="space-y-2">
-                    <label className="text-xs font-mono font-bold uppercase tracking-wider text-[#BBCCD7] block">
+                    <label className="text-xs font-mono font-bold uppercase tracking-wider text-[var(--text-heading-gradient-end)] block">
                       Main Headline Text
                     </label>
                     <input
                       type="text"
                       value={cms.hero?.headline || ""}
                       onChange={(e) => updateSection("hero", "headline", e.target.value)}
-                      className="w-full bg-[#151515] border border-[#D7E2EA]/20 rounded-2xl px-5 py-3 text-sm text-[#D7E2EA] font-sans focus:outline-none focus:border-[#BBCCD7]"
+                      className="w-full bg-[var(--bg-input)] border border-[var(--border-color)] rounded-2xl px-5 py-3 text-sm text-[var(--text-primary)] font-sans focus:outline-none focus:border-[var(--text-heading-gradient-end)]"
                     />
                   </div>
 
                   <div className="space-y-2">
-                    <label className="text-xs font-mono font-bold uppercase tracking-wider text-[#BBCCD7] block">
+                    <label className="text-xs font-mono font-bold uppercase tracking-wider text-[var(--text-heading-gradient-end)] block">
                       Description Monograph
                     </label>
                     <textarea
                       rows={3}
                       value={cms.hero?.description || ""}
                       onChange={(e) => updateSection("hero", "description", e.target.value)}
-                      className="w-full bg-[#151515] border border-[#D7E2EA]/20 rounded-2xl p-5 text-sm text-[#D7E2EA] font-sans focus:outline-none focus:border-[#BBCCD7] leading-relaxed"
+                      className="w-full bg-[var(--bg-input)] border border-[var(--border-color)] rounded-2xl p-5 text-sm text-[var(--text-primary)] font-sans focus:outline-none focus:border-[var(--text-heading-gradient-end)] leading-relaxed"
                     />
                   </div>
 
@@ -620,13 +622,13 @@ export default function AdminPage() {
           {/* ========================================== */}
           {activeTab === "marquee" && (
             <FadeIn delay={0.05} className="space-y-8">
-              <div className="bg-[#0C0C0C] border-2 border-[#D7E2EA]/20 rounded-[32px] p-6 sm:p-8 space-y-6 shadow-2xl">
+              <div className="bg-[var(--bg-secondary)] border-2 border-[var(--border-color)] rounded-[32px] p-6 sm:p-8 space-y-6 shadow-2xl">
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                   <div className="space-y-1">
                     <h3 className="hero-heading font-black text-2xl uppercase tracking-tight">
                       Marquee Parallax Gallery
                     </h3>
-                    <p className="text-xs font-mono text-[#D7E2EA]/60 uppercase tracking-wider">
+                    <p className="text-xs font-mono text-[var(--text-secondary)] uppercase tracking-wider">
                       Manage tiles scrolling across Row 1 (Right) and Row 2 (Left).
                     </p>
                   </div>
@@ -643,7 +645,7 @@ export default function AdminPage() {
                       setCms({ ...cms, marquee: [...(cms.marquee || []), newTile] });
                       setHasUnsavedChanges(true);
                     }}
-                    className="px-5 py-2.5 rounded-full border-2 border-[#D7E2EA] hover:bg-[#D7E2EA]/10 text-xs font-medium uppercase tracking-wider text-[#D7E2EA] flex items-center gap-2 cursor-pointer transition-colors"
+                    className="px-5 py-2.5 rounded-full border-2 border-[var(--border-color)] hover:bg-[var(--btn-ghost-hover)] text-xs font-medium uppercase tracking-wider text-[var(--text-primary)] flex items-center gap-2 cursor-pointer transition-colors"
                   >
                     <Plus className="w-4 h-4" />
                     <span>Add Marquee Tile</span>
@@ -655,10 +657,10 @@ export default function AdminPage() {
                   {(cms.marquee || []).map((item: any, idx: number) => (
                     <div
                       key={item.id || idx}
-                      className="bg-[#151515] border border-[#D7E2EA]/20 rounded-[24px] p-5 space-y-4 relative shadow-lg group"
+                      className="bg-[var(--bg-input)] border border-[var(--border-color)] rounded-[24px] p-5 space-y-4 relative shadow-lg group"
                     >
                       <div className="flex items-center justify-between">
-                        <span className="text-xs font-mono font-bold text-[#BBCCD7]">
+                        <span className="text-xs font-mono font-bold text-[var(--text-heading-gradient-end)]">
                           #{idx + 1 < 10 ? `0${idx + 1}` : idx + 1}
                         </span>
 
@@ -672,7 +674,7 @@ export default function AdminPage() {
                               setCms({ ...cms, marquee: updated });
                               setHasUnsavedChanges(true);
                             }}
-                            className="px-3 py-1 rounded-full text-[10px] font-mono uppercase bg-[#0C0C0C] border border-[#D7E2EA]/30 text-[#BBCCD7] hover:border-[#D7E2EA] transition-colors"
+                            className="px-3 py-1 rounded-full text-[10px] font-mono uppercase bg-[var(--bg-secondary)] border border-[var(--border-color)] text-[var(--text-primary)] hover:border-[var(--text-heading-gradient-end)] transition-colors"
                           >
                             Row {item.row || 1}
                           </button>
@@ -714,7 +716,7 @@ export default function AdminPage() {
                       />
 
                       <div className="space-y-1">
-                        <label className="text-[10px] font-mono uppercase text-[#D7E2EA]/60">
+                        <label className="text-[10px] font-mono uppercase text-[var(--text-secondary)]">
                           Tile Caption Title
                         </label>
                         <input
@@ -726,7 +728,7 @@ export default function AdminPage() {
                             setCms({ ...cms, marquee: updated });
                             setHasUnsavedChanges(true);
                           }}
-                          className="w-full bg-[#0C0C0C] border border-[#D7E2EA]/20 rounded-xl px-4 py-2 text-xs text-[#D7E2EA] font-sans focus:outline-none focus:border-[#BBCCD7]"
+                          className="w-full bg-[var(--bg-secondary)] border border-[var(--border-color)] rounded-xl px-4 py-2 text-xs text-[var(--text-primary)] font-sans focus:outline-none focus:border-[var(--text-heading-gradient-end)]"
                         />
                       </div>
                     </div>
@@ -741,50 +743,50 @@ export default function AdminPage() {
           {/* ========================================== */}
           {activeTab === "about" && (
             <FadeIn delay={0.05} className="space-y-8">
-              <div className="bg-[#0C0C0C] border-2 border-[#D7E2EA]/20 rounded-[32px] p-6 sm:p-8 space-y-6 shadow-2xl">
+              <div className="bg-[var(--bg-secondary)] border-2 border-[var(--border-color)] rounded-[32px] p-6 sm:p-8 space-y-6 shadow-2xl">
                 <div className="space-y-1">
                   <h3 className="hero-heading font-black text-2xl uppercase tracking-tight">
                     About Section Configuration
                   </h3>
-                  <p className="text-xs font-mono text-[#D7E2EA]/60 uppercase tracking-wider">
+                  <p className="text-xs font-mono text-[var(--text-secondary)] uppercase tracking-wider">
                     Edit the animated character-reveal monograph and 4 corner tech badge icons.
                   </p>
                 </div>
 
                 <div className="space-y-5">
                   <div className="space-y-2">
-                    <label className="text-xs font-mono font-bold uppercase tracking-wider text-[#BBCCD7] block">
+                    <label className="text-xs font-mono font-bold uppercase tracking-wider text-[var(--text-heading-gradient-end)] block">
                       Heading Title
                     </label>
                     <input
                       type="text"
                       value={cms.about?.heading || "About me"}
                       onChange={(e) => updateSection("about", "heading", e.target.value)}
-                      className="w-full bg-[#151515] border border-[#D7E2EA]/20 rounded-2xl px-5 py-3 text-sm text-[#D7E2EA] font-sans focus:outline-none focus:border-[#BBCCD7]"
+                      className="w-full bg-[var(--bg-input)] border border-[var(--border-color)] rounded-2xl px-5 py-3 text-sm text-[var(--text-primary)] font-sans focus:outline-none focus:border-[var(--text-heading-gradient-end)]"
                     />
                   </div>
 
                   <div className="space-y-2">
-                    <label className="text-xs font-mono font-bold uppercase tracking-wider text-[#BBCCD7] block">
+                    <label className="text-xs font-mono font-bold uppercase tracking-wider text-[var(--text-heading-gradient-end)] block">
                       Animated Reveal Paragraph (Character-by-character animation)
                     </label>
                     <textarea
                       rows={5}
                       value={cms.about?.paragraph || ""}
                       onChange={(e) => updateSection("about", "paragraph", e.target.value)}
-                      className="w-full bg-[#151515] border border-[#D7E2EA]/20 rounded-2xl p-5 text-sm text-[#D7E2EA] font-sans focus:outline-none focus:border-[#BBCCD7] leading-relaxed"
+                      className="w-full bg-[var(--bg-input)] border border-[var(--border-color)] rounded-2xl p-5 text-sm text-[var(--text-primary)] font-sans focus:outline-none focus:border-[var(--text-heading-gradient-end)] leading-relaxed"
                     />
                   </div>
 
                   {/* 4 Corner Decoration Image Uploads */}
                   <div className="pt-4 space-y-3">
-                    <label className="text-xs font-mono font-bold uppercase tracking-wider text-[#BBCCD7] block">
+                    <label className="text-xs font-mono font-bold uppercase tracking-wider text-[var(--text-heading-gradient-end)] block">
                       4 Corner Tech Badge Icons (Cloudinary Uploads)
                     </label>
 
                     <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
                       <div>
-                        <span className="text-[10px] font-mono text-[#D7E2EA]/60 uppercase block mb-1.5">
+                        <span className="text-[10px] font-mono text-[var(--text-secondary)] uppercase block mb-1.5">
                           Top-Left Badge
                         </span>
                         <CloudinaryDropzone
@@ -805,7 +807,7 @@ export default function AdminPage() {
                       </div>
 
                       <div>
-                        <span className="text-[10px] font-mono text-[#D7E2EA]/60 uppercase block mb-1.5">
+                        <span className="text-[10px] font-mono text-[var(--text-secondary)] uppercase block mb-1.5">
                           Top-Right Badge
                         </span>
                         <CloudinaryDropzone
@@ -826,7 +828,7 @@ export default function AdminPage() {
                       </div>
 
                       <div>
-                        <span className="text-[10px] font-mono text-[#D7E2EA]/60 uppercase block mb-1.5">
+                        <span className="text-[10px] font-mono text-[var(--text-secondary)] uppercase block mb-1.5">
                           Bottom-Left Badge
                         </span>
                         <CloudinaryDropzone
@@ -847,7 +849,7 @@ export default function AdminPage() {
                       </div>
 
                       <div>
-                        <span className="text-[10px] font-mono text-[#D7E2EA]/60 uppercase block mb-1.5">
+                        <span className="text-[10px] font-mono text-[var(--text-secondary)] uppercase block mb-1.5">
                           Bottom-Right Badge
                         </span>
                         <CloudinaryDropzone
@@ -878,13 +880,13 @@ export default function AdminPage() {
           {/* ========================================== */}
           {activeTab === "services" && (
             <FadeIn delay={0.05} className="space-y-8">
-              <div className="bg-[#0C0C0C] border-2 border-[#D7E2EA]/20 rounded-[32px] p-6 sm:p-8 space-y-6 shadow-2xl">
+              <div className="bg-[var(--bg-secondary)] border-2 border-[var(--border-color)] rounded-[32px] p-6 sm:p-8 space-y-6 shadow-2xl">
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                   <div className="space-y-1">
                     <h3 className="hero-heading font-black text-2xl uppercase tracking-tight">
                       Services & Engineering Capabilities
                     </h3>
-                    <p className="text-xs font-mono text-[#D7E2EA]/60 uppercase tracking-wider">
+                    <p className="text-xs font-mono text-[var(--text-secondary)] uppercase tracking-wider">
                       Repeatable engineering practices listed with bold numbered indexes.
                     </p>
                   </div>
@@ -901,7 +903,7 @@ export default function AdminPage() {
                       setCms({ ...cms, services: [...(cms.services || []), newSvc] });
                       setHasUnsavedChanges(true);
                     }}
-                    className="px-5 py-2.5 rounded-full border-2 border-[#D7E2EA] hover:bg-[#D7E2EA]/10 text-xs font-medium uppercase tracking-wider text-[#D7E2EA] flex items-center gap-2 cursor-pointer transition-colors"
+                    className="px-5 py-2.5 rounded-full border-2 border-[var(--border-color)] hover:bg-[var(--btn-ghost-hover)] text-xs font-medium uppercase tracking-wider text-[var(--text-primary)] flex items-center gap-2 cursor-pointer transition-colors"
                   >
                     <Plus className="w-4 h-4" />
                     <span>Add Service</span>
@@ -913,12 +915,12 @@ export default function AdminPage() {
                   {(cms.services || []).map((svc: any, idx: number) => (
                     <div
                       key={idx}
-                      className="bg-[#151515] border border-[#D7E2EA]/20 rounded-[24px] p-5 sm:p-6 space-y-4 shadow-lg"
+                      className="bg-[var(--bg-input)] border border-[var(--border-color)] rounded-[24px] p-5 sm:p-6 space-y-4 shadow-lg"
                     >
-                      <div className="flex items-center justify-between border-b border-[#D7E2EA]/10 pb-3">
+                      <div className="flex items-center justify-between border-b border-[var(--border-color)] pb-3">
                         <div className="flex items-center gap-3">
-                          <GripVertical className="w-4 h-4 text-[#D7E2EA]/40" />
-                          <span className="font-mono text-lg font-black text-[#BBCCD7]">
+                          <GripVertical className="w-4 h-4 text-[var(--text-muted)]" />
+                          <span className="font-mono text-lg font-black text-[var(--text-heading-gradient-end)]">
                             {svc.num || `0${idx + 1}`}
                           </span>
                         </div>
@@ -946,7 +948,7 @@ export default function AdminPage() {
 
                       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                         <div className="space-y-1">
-                          <label className="text-[10px] font-mono uppercase text-[#D7E2EA]/60">
+                          <label className="text-[10px] font-mono uppercase text-[var(--text-secondary)]">
                             Service Name
                           </label>
                           <input
@@ -958,12 +960,12 @@ export default function AdminPage() {
                               setCms({ ...cms, services: updated });
                               setHasUnsavedChanges(true);
                             }}
-                            className="w-full bg-[#0C0C0C] border border-[#D7E2EA]/20 rounded-xl px-4 py-2 text-xs text-[#D7E2EA] font-sans focus:outline-none focus:border-[#BBCCD7]"
+                            className="w-full bg-[var(--bg-secondary)] border border-[var(--border-color)] rounded-xl px-4 py-2 text-xs text-[var(--text-primary)] font-sans focus:outline-none focus:border-[var(--text-heading-gradient-end)]"
                           />
                         </div>
 
                         <div className="sm:col-span-2 space-y-1">
-                          <label className="text-[10px] font-mono uppercase text-[#D7E2EA]/60">
+                          <label className="text-[10px] font-mono uppercase text-[var(--text-secondary)]">
                             Detailed Description
                           </label>
                           <input
@@ -975,7 +977,7 @@ export default function AdminPage() {
                               setCms({ ...cms, services: updated });
                               setHasUnsavedChanges(true);
                             }}
-                            className="w-full bg-[#0C0C0C] border border-[#D7E2EA]/20 rounded-xl px-4 py-2 text-xs text-[#D7E2EA] font-sans focus:outline-none focus:border-[#BBCCD7]"
+                            className="w-full bg-[var(--bg-secondary)] border border-[var(--border-color)] rounded-xl px-4 py-2 text-xs text-[var(--text-primary)] font-sans focus:outline-none focus:border-[var(--text-heading-gradient-end)]"
                           />
                         </div>
                       </div>
@@ -991,13 +993,13 @@ export default function AdminPage() {
           {/* ========================================== */}
           {activeTab === "projects" && (
             <FadeIn delay={0.05} className="space-y-8">
-              <div className="bg-[#0C0C0C] border-2 border-[#D7E2EA]/20 rounded-[32px] p-6 sm:p-8 space-y-6 shadow-2xl">
+              <div className="bg-[var(--bg-secondary)] border-2 border-[var(--border-color)] rounded-[32px] p-6 sm:p-8 space-y-6 shadow-2xl">
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                   <div className="space-y-1">
                     <h3 className="hero-heading font-black text-2xl uppercase tracking-tight">
                       Projects & Sticky Stacking Cards
                     </h3>
-                    <p className="text-xs font-mono text-[#D7E2EA]/60 uppercase tracking-wider">
+                    <p className="text-xs font-mono text-[var(--text-secondary)] uppercase tracking-wider">
                       Configure fullstack products, 3 image slots, and live repository links.
                     </p>
                   </div>
@@ -1020,7 +1022,7 @@ export default function AdminPage() {
                       setCms({ ...cms, projects: [...(cms.projects || []), newProj] });
                       setHasUnsavedChanges(true);
                     }}
-                    className="px-5 py-2.5 rounded-full border-2 border-[#D7E2EA] hover:bg-[#D7E2EA]/10 text-xs font-medium uppercase tracking-wider text-[#D7E2EA] flex items-center gap-2 cursor-pointer transition-colors"
+                    className="px-5 py-2.5 rounded-full border-2 border-[var(--border-color)] hover:bg-[var(--btn-ghost-hover)] text-xs font-medium uppercase tracking-wider text-[var(--text-primary)] flex items-center gap-2 cursor-pointer transition-colors"
                   >
                     <Plus className="w-4 h-4" />
                     <span>Add Project Card</span>
@@ -1032,14 +1034,14 @@ export default function AdminPage() {
                   {(cms.projects || []).map((proj: any, idx: number) => (
                     <div
                       key={proj.id || idx}
-                      className="bg-[#151515] border border-[#D7E2EA]/20 rounded-[28px] p-6 sm:p-8 space-y-6 shadow-xl relative"
+                      className="bg-[var(--bg-input)] border border-[var(--border-color)] rounded-[28px] p-6 sm:p-8 space-y-6 shadow-xl relative"
                     >
-                      <div className="flex items-center justify-between border-b border-[#D7E2EA]/10 pb-4">
+                      <div className="flex items-center justify-between border-b border-[var(--border-color)] pb-4">
                         <div className="flex items-center gap-3">
-                          <span className="font-mono text-xl font-black text-[#BBCCD7]">
+                          <span className="font-mono text-xl font-black text-[var(--text-heading-gradient-end)]">
                             {proj.num || `0${idx + 1}`}
                           </span>
-                          <h4 className="font-bold text-lg text-white">{proj.name}</h4>
+                          <h4 className="font-bold text-lg text-[var(--text-primary)]">{proj.name}</h4>
                         </div>
 
                         <button
@@ -1066,7 +1068,7 @@ export default function AdminPage() {
                       {/* General Fields */}
                       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                         <div className="space-y-1">
-                          <label className="text-[10px] font-mono uppercase text-[#D7E2EA]/60">
+                          <label className="text-[10px] font-mono uppercase text-[var(--text-secondary)]">
                             Project Title
                           </label>
                           <input
@@ -1078,12 +1080,12 @@ export default function AdminPage() {
                               setCms({ ...cms, projects: updated });
                               setHasUnsavedChanges(true);
                             }}
-                            className="w-full bg-[#0C0C0C] border border-[#D7E2EA]/20 rounded-xl px-4 py-2 text-xs text-[#D7E2EA] font-sans focus:outline-none focus:border-[#BBCCD7]"
+                            className="w-full bg-[var(--bg-secondary)] border border-[var(--border-color)] rounded-xl px-4 py-2 text-xs text-[var(--text-primary)] font-sans focus:outline-none focus:border-[var(--text-heading-gradient-end)]"
                           />
                         </div>
 
                         <div className="space-y-1">
-                          <label className="text-[10px] font-mono uppercase text-[#D7E2EA]/60">
+                          <label className="text-[10px] font-mono uppercase text-[var(--text-secondary)]">
                             Category
                           </label>
                           <select
@@ -1094,7 +1096,7 @@ export default function AdminPage() {
                               setCms({ ...cms, projects: updated });
                               setHasUnsavedChanges(true);
                             }}
-                            className="w-full bg-[#0C0C0C] border border-[#D7E2EA]/20 rounded-xl px-4 py-2 text-xs text-[#D7E2EA] font-sans focus:outline-none focus:border-[#BBCCD7]"
+                            className="w-full bg-[var(--bg-secondary)] border border-[var(--border-color)] rounded-xl px-4 py-2 text-xs text-[var(--text-primary)] font-sans focus:outline-none focus:border-[var(--text-heading-gradient-end)]"
                           >
                             <option value="Product">Product</option>
                             <option value="Client">Client</option>
@@ -1103,7 +1105,7 @@ export default function AdminPage() {
                         </div>
 
                         <div className="space-y-1">
-                          <label className="text-[10px] font-mono uppercase text-[#D7E2EA]/60">
+                          <label className="text-[10px] font-mono uppercase text-[var(--text-secondary)]">
                             Live URL
                           </label>
                           <input
@@ -1115,21 +1117,21 @@ export default function AdminPage() {
                               setCms({ ...cms, projects: updated });
                               setHasUnsavedChanges(true);
                             }}
-                            className="w-full bg-[#0C0C0C] border border-[#D7E2EA]/20 rounded-xl px-4 py-2 text-xs text-[#D7E2EA] font-sans focus:outline-none focus:border-[#BBCCD7]"
+                            className="w-full bg-[var(--bg-secondary)] border border-[var(--border-color)] rounded-xl px-4 py-2 text-xs text-[var(--text-primary)] font-sans focus:outline-none focus:border-[var(--text-heading-gradient-end)]"
                           />
                         </div>
                       </div>
 
                       {/* 3 Image Upload Slots */}
                       <div className="space-y-3 pt-2">
-                        <label className="text-xs font-mono font-bold uppercase tracking-wider text-[#BBCCD7] block">
+                        <label className="text-xs font-mono font-bold uppercase tracking-wider text-[var(--text-heading-gradient-end)] block">
                           3 Project Visuals (Cloudinary Upload Slots)
                         </label>
 
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                           {/* Col 1 Image 1 */}
                           <div className="space-y-2">
-                            <span className="text-[10px] font-mono text-[#D7E2EA]/60 uppercase block">
+                            <span className="text-[10px] font-mono text-[var(--text-secondary)] uppercase block">
                               Slot 1: Col 1 Top (40%)
                             </span>
                             <CloudinaryDropzone
@@ -1153,13 +1155,13 @@ export default function AdminPage() {
                                 setCms({ ...cms, projects: updated });
                                 setHasUnsavedChanges(true);
                               }}
-                              className="w-full bg-[#0C0C0C] border border-[#D7E2EA]/20 rounded-lg px-3 py-1.5 text-xs text-[#D7E2EA]"
+                              className="w-full bg-[var(--bg-secondary)] border border-[var(--border-color)] rounded-lg px-3 py-1.5 text-xs text-[var(--text-primary)]"
                             />
                           </div>
 
                           {/* Col 1 Image 2 */}
                           <div className="space-y-2">
-                            <span className="text-[10px] font-mono text-[#D7E2EA]/60 uppercase block">
+                            <span className="text-[10px] font-mono text-[var(--text-secondary)] uppercase block">
                               Slot 2: Col 1 Bottom (40%)
                             </span>
                             <CloudinaryDropzone
@@ -1183,13 +1185,13 @@ export default function AdminPage() {
                                 setCms({ ...cms, projects: updated });
                                 setHasUnsavedChanges(true);
                               }}
-                              className="w-full bg-[#0C0C0C] border border-[#D7E2EA]/20 rounded-lg px-3 py-1.5 text-xs text-[#D7E2EA]"
+                              className="w-full bg-[var(--bg-secondary)] border border-[var(--border-color)] rounded-lg px-3 py-1.5 text-xs text-[var(--text-primary)]"
                             />
                           </div>
 
                           {/* Col 2 Tall Image */}
                           <div className="space-y-2">
-                            <span className="text-[10px] font-mono text-[#D7E2EA]/60 uppercase block">
+                            <span className="text-[10px] font-mono text-[var(--text-secondary)] uppercase block">
                               Slot 3: Col 2 Tall Feature (60%)
                             </span>
                             <CloudinaryDropzone
@@ -1213,7 +1215,7 @@ export default function AdminPage() {
                                 setCms({ ...cms, projects: updated });
                                 setHasUnsavedChanges(true);
                               }}
-                              className="w-full bg-[#0C0C0C] border border-[#D7E2EA]/20 rounded-lg px-3 py-1.5 text-xs text-[#D7E2EA]"
+                              className="w-full bg-[var(--bg-secondary)] border border-[var(--border-color)] rounded-lg px-3 py-1.5 text-xs text-[var(--text-primary)]"
                             />
                           </div>
                         </div>
@@ -1230,13 +1232,13 @@ export default function AdminPage() {
           {/* ========================================== */}
           {activeTab === "media" && (
             <FadeIn delay={0.05} className="space-y-8">
-              <div className="bg-[#0C0C0C] border-2 border-[#D7E2EA]/20 rounded-[32px] p-6 sm:p-8 space-y-6 shadow-2xl">
+              <div className="bg-[var(--bg-secondary)] border-2 border-[var(--border-color)] rounded-[32px] p-6 sm:p-8 space-y-6 shadow-2xl">
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                   <div className="space-y-1">
                     <h3 className="hero-heading font-black text-2xl uppercase tracking-tight">
                       Cloudinary Media Library
                     </h3>
-                    <p className="text-xs font-mono text-[#D7E2EA]/60 uppercase tracking-wider">
+                    <p className="text-xs font-mono text-[var(--text-secondary)] uppercase tracking-wider">
                       Browse, copy CDN URLs, and manage all assets stored in Cloudinary ({mediaItems.length} items).
                     </p>
                   </div>
@@ -1249,8 +1251,8 @@ export default function AdminPage() {
                         onClick={() => setMediaFilter(f === "all" ? "all" : `xentoryx/${f}`)}
                         className={`px-3 py-1 rounded-full text-xs font-mono uppercase transition-all ${
                           mediaFilter === f || mediaFilter === `xentoryx/${f}`
-                            ? "bg-[#D7E2EA] text-[#0C0C0C] font-bold"
-                            : "bg-[#151515] text-[#D7E2EA]/70 hover:text-white"
+                            ? "bg-[var(--text-primary)] text-[var(--bg-primary)] font-bold"
+                            : "bg-[var(--bg-input)] text-[var(--text-secondary)] hover:text-[var(--text-primary)]"
                         }`}
                       >
                         {f}
@@ -1260,7 +1262,7 @@ export default function AdminPage() {
                 </div>
 
                 {/* Direct Upload Widget in Media Library */}
-                <div className="p-5 rounded-2xl bg-[#151515] border border-[#D7E2EA]/20">
+                <div className="p-5 rounded-2xl bg-[var(--bg-input)] border border-[var(--border-color)]">
                   <CloudinaryDropzone
                     label="Upload New Media File Directly to Cloudinary"
                     folder="xentoryx/general"
@@ -1273,13 +1275,13 @@ export default function AdminPage() {
                 {/* Media Assets Grid */}
                 {mediaLoading ? (
                   <div className="py-16 flex flex-col items-center justify-center gap-3">
-                    <Loader2 className="w-8 h-8 animate-spin text-[#BBCCD7]" />
-                    <span className="text-xs font-mono uppercase tracking-widest text-[#D7E2EA]/60">
+                    <Loader2 className="w-8 h-8 animate-spin text-[var(--text-heading-gradient-end)]" />
+                    <span className="text-xs font-mono uppercase tracking-widest text-[var(--text-muted)]">
                       Syncing with Cloudinary API...
                     </span>
                   </div>
                 ) : mediaItems.length === 0 ? (
-                  <div className="p-12 text-center bg-[#151515] rounded-2xl border border-[#D7E2EA]/10 text-xs font-mono text-[#D7E2EA]/50">
+                  <div className="p-12 text-center bg-[var(--bg-input)] rounded-2xl border border-[var(--border-subtle)] text-xs font-mono text-[var(--text-muted)]">
                     No media items found in this Cloudinary folder. Upload new files above!
                   </div>
                 ) : (
@@ -1287,7 +1289,7 @@ export default function AdminPage() {
                     {mediaItems.map((item) => (
                       <div
                         key={item.public_id}
-                        className="group relative bg-[#151515] border border-[#D7E2EA]/20 rounded-2xl overflow-hidden aspect-square shadow-md flex flex-col justify-end"
+                        className="group relative bg-[var(--bg-input)] border border-[var(--border-color)] rounded-2xl overflow-hidden aspect-square shadow-md flex flex-col justify-end"
                       >
                         <Image
                           src={item.secure_url}
@@ -1298,9 +1300,9 @@ export default function AdminPage() {
                         />
 
                         {/* Hover Overlay */}
-                        <div className="absolute inset-0 bg-[#0C0C0C]/85 opacity-0 group-hover:opacity-100 transition-opacity p-3 flex flex-col justify-between backdrop-blur-xs">
+                        <div className="absolute inset-0 bg-[var(--bg-primary)]/90 opacity-0 group-hover:opacity-100 transition-opacity p-3 flex flex-col justify-between backdrop-blur-xs">
                           <div className="flex items-center justify-between">
-                            <span className="text-[9px] font-mono text-[#BBCCD7] truncate max-w-[80%]">
+                            <span className="text-[9px] font-mono text-[var(--text-heading-gradient-end)] truncate max-w-[80%]">
                               {item.format?.toUpperCase()} • {Math.round((item.bytes || 0) / 1024)} KB
                             </span>
                             <button
@@ -1329,7 +1331,7 @@ export default function AdminPage() {
                           <div className="flex items-center gap-1.5">
                             <button
                               onClick={() => copyToClipboard(item.secure_url)}
-                              className="flex-1 py-1.5 rounded-lg bg-[#D7E2EA]/20 hover:bg-[#D7E2EA] hover:text-[#0C0C0C] text-[10px] font-mono font-bold uppercase tracking-wider flex items-center justify-center gap-1 transition-colors"
+                              className="flex-1 py-1.5 rounded-lg bg-[var(--border-subtle)] hover:bg-[var(--text-primary)] hover:text-[var(--bg-primary)] text-[10px] font-mono font-bold uppercase tracking-wider flex items-center justify-center gap-1 transition-colors"
                             >
                               {copiedUrl === item.secure_url ? (
                                 <>
@@ -1346,7 +1348,7 @@ export default function AdminPage() {
 
                             <button
                               onClick={() => setSelectedMediaPreview(item)}
-                              className="p-1.5 rounded-lg bg-[#D7E2EA]/20 hover:bg-white text-[#D7E2EA] hover:text-[#0C0C0C]"
+                              className="p-1.5 rounded-lg bg-[var(--border-subtle)] hover:bg-white text-[var(--text-primary)] hover:text-[#0C0C0C]"
                               title="Preview Full Size"
                             >
                               <Eye className="w-3.5 h-3.5" />
@@ -1366,12 +1368,12 @@ export default function AdminPage() {
           {/* ========================================== */}
           {activeTab === "settings" && (
             <FadeIn delay={0.05} className="space-y-8">
-              <div className="bg-[#0C0C0C] border-2 border-[#D7E2EA]/20 rounded-[32px] p-6 sm:p-8 space-y-6 shadow-2xl">
+              <div className="bg-[var(--bg-secondary)] border-2 border-[var(--border-color)] rounded-[32px] p-6 sm:p-8 space-y-6 shadow-2xl">
                 <div className="space-y-1">
                   <h3 className="hero-heading font-black text-2xl uppercase tracking-tight">
                     Site Settings & SEO Engine
                   </h3>
-                  <p className="text-xs font-mono text-[#D7E2EA]/60 uppercase tracking-wider">
+                  <p className="text-xs font-mono text-[var(--text-secondary)] uppercase tracking-wider">
                     Configure global metadata, OpenGraph preview cards, social URLs, and contact info.
                   </p>
                 </div>
@@ -1379,39 +1381,39 @@ export default function AdminPage() {
                 <div className="space-y-5">
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div className="space-y-2">
-                      <label className="text-xs font-mono font-bold uppercase tracking-wider text-[#BBCCD7] block">
+                      <label className="text-xs font-mono font-bold uppercase tracking-wider text-[var(--text-heading-gradient-end)] block">
                         Page Title
                       </label>
                       <input
                         type="text"
                         value={cms.settings?.siteTitle || ""}
                         onChange={(e) => updateSection("settings", "siteTitle", e.target.value)}
-                        className="w-full bg-[#151515] border border-[#D7E2EA]/20 rounded-2xl px-5 py-3 text-sm text-[#D7E2EA] font-sans focus:outline-none focus:border-[#BBCCD7]"
+                        className="w-full bg-[var(--bg-input)] border border-[var(--border-color)] rounded-2xl px-5 py-3 text-sm text-[var(--text-primary)] font-sans focus:outline-none focus:border-[var(--text-heading-gradient-end)]"
                       />
                     </div>
 
                     <div className="space-y-2">
-                      <label className="text-xs font-mono font-bold uppercase tracking-wider text-[#BBCCD7] block">
+                      <label className="text-xs font-mono font-bold uppercase tracking-wider text-[var(--text-heading-gradient-end)] block">
                         Contact Email
                       </label>
                       <input
                         type="text"
                         value={cms.settings?.email || ""}
                         onChange={(e) => updateSection("settings", "email", e.target.value)}
-                        className="w-full bg-[#151515] border border-[#D7E2EA]/20 rounded-2xl px-5 py-3 text-sm text-[#D7E2EA] font-sans focus:outline-none focus:border-[#BBCCD7]"
+                        className="w-full bg-[var(--bg-input)] border border-[var(--border-color)] rounded-2xl px-5 py-3 text-sm text-[var(--text-primary)] font-sans focus:outline-none focus:border-[var(--text-heading-gradient-end)]"
                       />
                     </div>
                   </div>
 
                   <div className="space-y-2">
-                    <label className="text-xs font-mono font-bold uppercase tracking-wider text-[#BBCCD7] block">
+                    <label className="text-xs font-mono font-bold uppercase tracking-wider text-[var(--text-heading-gradient-end)] block">
                       SEO Description
                     </label>
                     <textarea
                       rows={2}
                       value={cms.settings?.siteDescription || ""}
                       onChange={(e) => updateSection("settings", "siteDescription", e.target.value)}
-                      className="w-full bg-[#151515] border border-[#D7E2EA]/20 rounded-2xl p-5 text-sm text-[#D7E2EA] font-sans focus:outline-none focus:border-[#BBCCD7]"
+                      className="w-full bg-[var(--bg-input)] border border-[var(--border-color)] rounded-2xl p-5 text-sm text-[var(--text-primary)] font-sans focus:outline-none focus:border-[var(--text-heading-gradient-end)]"
                     />
                   </div>
 
@@ -1426,13 +1428,13 @@ export default function AdminPage() {
 
                   {/* Social Links Grid */}
                   <div className="pt-4 space-y-3">
-                    <label className="text-xs font-mono font-bold uppercase tracking-wider text-[#BBCCD7] block">
+                    <label className="text-xs font-mono font-bold uppercase tracking-wider text-[var(--text-heading-gradient-end)] block">
                       Social Network Profiles
                     </label>
 
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                       <div className="space-y-1">
-                        <span className="text-[10px] font-mono text-[#D7E2EA]/60 uppercase block">GitHub</span>
+                        <span className="text-[10px] font-mono text-[var(--text-secondary)] uppercase block">GitHub</span>
                         <input
                           type="text"
                           value={cms.settings?.socials?.github || ""}
@@ -1446,12 +1448,12 @@ export default function AdminPage() {
                             });
                             setHasUnsavedChanges(true);
                           }}
-                          className="w-full bg-[#151515] border border-[#D7E2EA]/20 rounded-xl px-4 py-2 text-xs text-[#D7E2EA]"
+                          className="w-full bg-[var(--bg-input)] border border-[var(--border-color)] rounded-xl px-4 py-2 text-xs text-[var(--text-primary)]"
                         />
                       </div>
 
                       <div className="space-y-1">
-                        <span className="text-[10px] font-mono text-[#D7E2EA]/60 uppercase block">LinkedIn</span>
+                        <span className="text-[10px] font-mono text-[var(--text-secondary)] uppercase block">LinkedIn</span>
                         <input
                           type="text"
                           value={cms.settings?.socials?.linkedin || ""}
@@ -1465,12 +1467,12 @@ export default function AdminPage() {
                             });
                             setHasUnsavedChanges(true);
                           }}
-                          className="w-full bg-[#151515] border border-[#D7E2EA]/20 rounded-xl px-4 py-2 text-xs text-[#D7E2EA]"
+                          className="w-full bg-[var(--bg-input)] border border-[var(--border-color)] rounded-xl px-4 py-2 text-xs text-[var(--text-primary)]"
                         />
                       </div>
 
                       <div className="space-y-1">
-                        <span className="text-[10px] font-mono text-[#D7E2EA]/60 uppercase block">Facebook</span>
+                        <span className="text-[10px] font-mono text-[var(--text-secondary)] uppercase block">Facebook</span>
                         <input
                           type="text"
                           value={cms.settings?.socials?.facebook || ""}
@@ -1484,12 +1486,12 @@ export default function AdminPage() {
                             });
                             setHasUnsavedChanges(true);
                           }}
-                          className="w-full bg-[#151515] border border-[#D7E2EA]/20 rounded-xl px-4 py-2 text-xs text-[#D7E2EA]"
+                          className="w-full bg-[var(--bg-input)] border border-[var(--border-color)] rounded-xl px-4 py-2 text-xs text-[var(--text-primary)]"
                         />
                       </div>
 
                       <div className="space-y-1">
-                        <span className="text-[10px] font-mono text-[#D7E2EA]/60 uppercase block">Twitter / X</span>
+                        <span className="text-[10px] font-mono text-[var(--text-secondary)] uppercase block">Twitter / X</span>
                         <input
                           type="text"
                           value={cms.settings?.socials?.twitter || ""}
@@ -1503,7 +1505,7 @@ export default function AdminPage() {
                             });
                             setHasUnsavedChanges(true);
                           }}
-                          className="w-full bg-[#151515] border border-[#D7E2EA]/20 rounded-xl px-4 py-2 text-xs text-[#D7E2EA]"
+                          className="w-full bg-[var(--bg-input)] border border-[var(--border-color)] rounded-xl px-4 py-2 text-xs text-[var(--text-primary)]"
                         />
                       </div>
                     </div>
@@ -1520,17 +1522,17 @@ export default function AdminPage() {
       {/* CONFIRMATION MODAL */}
       {/* ========================================== */}
       {confirmModal.open && (
-        <div className="fixed inset-0 z-50 bg-[#0C0C0C]/80 backdrop-blur-md flex items-center justify-center p-4">
-          <div className="bg-[#151515] border-2 border-[#D7E2EA]/20 rounded-[28px] p-6 max-w-md w-full space-y-4 shadow-2xl">
-            <h4 className="font-bold text-lg text-white">{confirmModal.title}</h4>
-            <p className="text-xs text-[#D7E2EA]/70 font-sans leading-relaxed">
+        <div className="fixed inset-0 z-50 bg-[var(--bg-primary)]/80 backdrop-blur-md flex items-center justify-center p-4">
+          <div className="bg-[var(--bg-secondary)] border-2 border-[var(--border-color)] rounded-[28px] p-6 max-w-md w-full space-y-4 shadow-2xl">
+            <h4 className="font-bold text-lg text-[var(--text-primary)]">{confirmModal.title}</h4>
+            <p className="text-xs text-[var(--text-secondary)] font-sans leading-relaxed">
               {confirmModal.description}
             </p>
             <div className="flex items-center justify-end gap-3 pt-2">
               <button
                 type="button"
                 onClick={() => setConfirmModal({ ...confirmModal, open: false })}
-                className="px-4 py-2 rounded-full border border-[#D7E2EA]/30 text-xs font-mono uppercase text-[#D7E2EA] hover:bg-[#D7E2EA]/10 transition-colors"
+                className="px-4 py-2 rounded-full border border-[var(--border-color)] text-xs font-mono uppercase text-[var(--text-primary)] hover:bg-[var(--btn-ghost-hover)] transition-colors cursor-pointer"
               >
                 Cancel
               </button>
@@ -1540,7 +1542,7 @@ export default function AdminPage() {
                   confirmModal.onConfirm();
                   setConfirmModal({ ...confirmModal, open: false });
                 }}
-                className="px-5 py-2 rounded-full bg-rose-600 hover:bg-rose-500 text-white text-xs font-mono uppercase font-bold transition-colors"
+                className="px-5 py-2 rounded-full bg-rose-600 hover:bg-rose-500 text-white text-xs font-mono uppercase font-bold transition-colors cursor-pointer"
               >
                 Confirm Delete
               </button>
@@ -1553,12 +1555,12 @@ export default function AdminPage() {
       {selectedMediaPreview && (
         <div
           onClick={() => setSelectedMediaPreview(null)}
-          className="fixed inset-0 z-50 bg-[#0C0C0C]/90 backdrop-blur-md flex items-center justify-center p-6"
+          className="fixed inset-0 z-50 bg-[var(--bg-primary)]/90 backdrop-blur-md flex items-center justify-center p-6"
         >
           <div className="relative max-w-4xl max-h-[85vh] w-full h-full flex flex-col items-center justify-center">
             <button
               onClick={() => setSelectedMediaPreview(null)}
-              className="absolute top-0 right-0 p-2 text-white/80 hover:text-white"
+              className="absolute top-0 right-0 p-2 text-[var(--text-primary)] hover:opacity-70 cursor-pointer"
             >
               <X className="w-6 h-6" />
             </button>
@@ -1572,7 +1574,7 @@ export default function AdminPage() {
               />
             </div>
             <div className="text-center pt-4">
-              <span className="text-xs font-mono text-[#BBCCD7]">
+              <span className="text-xs font-mono text-[var(--text-heading-gradient-end)]">
                 {selectedMediaPreview.public_id} ({selectedMediaPreview.width}x{selectedMediaPreview.height})
               </span>
             </div>

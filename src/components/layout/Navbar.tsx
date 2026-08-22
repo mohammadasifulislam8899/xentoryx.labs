@@ -5,6 +5,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { Menu, X } from "lucide-react";
+import ThemeToggle from "@/components/common/ThemeToggle";
 import CommandPalette from "./CommandPalette";
 import AiAssistantModal from "@/components/ui/AiAssistantModal";
 import EngineeringConsoleModal from "./EngineeringConsoleModal";
@@ -59,8 +60,8 @@ export default function Navbar({ onOpenCmdk, onOpenAi, onTriggerConsole }: Navba
         <nav
           className={`pointer-events-auto flex items-center justify-between w-full max-w-5xl px-6 py-2.5 rounded-full transition-all duration-300 ${
             isScrolled
-              ? "bg-[#FFFFFF]/95 dark:bg-[#141414]/95 backdrop-blur-md shadow-card border border-[#0A0A0A]/10"
-              : "bg-[#FFFFFF] dark:bg-[#141414] shadow-card border border-[#0A0A0A]/8"
+              ? "bg-[var(--bg-secondary)]/95 backdrop-blur-md shadow-lg border border-[var(--border-color)]"
+              : "bg-[var(--bg-secondary)] shadow-md border border-[var(--border-color)]"
           }`}
         >
           {/* Far Left: Minimal Logo */}
@@ -90,15 +91,15 @@ export default function Navbar({ onOpenCmdk, onOpenAi, onTriggerConsole }: Navba
           </div>
 
           {/* Center: Nav Links */}
-          <div className="hidden md:flex items-center gap-7 text-[13px] font-sans font-medium text-[#0A0A0A] dark:text-[#F5F1E8]">
+          <div className="hidden md:flex items-center gap-7 text-[13px] font-sans font-medium text-[var(--text-primary)]">
             {navLinks.map((item) => {
               const isActive = pathname === item.href;
               return (
                 <Link
                   key={item.label}
                   href={item.href}
-                  className={`transition-colors py-1 hover:text-[#0A0A0A] ${
-                    isActive ? "font-bold text-[#0A0A0A] dark:text-[#F5F1E8]" : "opacity-75 hover:opacity-100"
+                  className={`transition-colors py-1 hover:text-[var(--text-primary)] ${
+                    isActive ? "font-bold text-[var(--text-primary)]" : "opacity-75 hover:opacity-100"
                   }`}
                 >
                   {item.label}
@@ -107,11 +108,11 @@ export default function Navbar({ onOpenCmdk, onOpenAi, onTriggerConsole }: Navba
             })}
           </div>
 
-          {/* Far Right: Clean Profile / Status Chip */}
-          <div className="flex items-center gap-3">
-            <div className="flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#F5F1E8] dark:bg-[#202020] text-[12px] font-sans text-[#0A0A0A] dark:text-[#F5F1E8] border border-[#0A0A0A]/5">
+          {/* Far Right: Clean Profile / Status Chip + ThemeToggle */}
+          <div className="flex items-center gap-2.5">
+            <div className="hidden sm:flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[var(--bg-primary)] text-[12px] font-sans text-[var(--text-primary)] border border-[var(--border-color)]">
               <span className="w-2 h-2 rounded-full bg-[#D9A648]" />
-              <span className="font-medium text-[#0A0A0A]/80 dark:text-[#F5F1E8]/90">Sala Canal, 22 Nov 23</span>
+              <span className="font-medium opacity-90">Sala Canal, 22 Nov</span>
               <div className="relative w-4 h-4 rounded-full overflow-hidden ml-0.5">
                 <Image
                   src="/assets/founder-asif.jpg"
@@ -122,10 +123,13 @@ export default function Navbar({ onOpenCmdk, onOpenAi, onTriggerConsole }: Navba
               </div>
             </div>
 
+            {/* Dark/Light Mode GSAP Toggle */}
+            <ThemeToggle size="sm" />
+
             {/* Mobile Menu Toggle */}
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="md:hidden p-1.5 rounded-full text-[#0A0A0A] dark:text-[#F5F1E8]"
+              className="md:hidden p-1.5 rounded-full text-[var(--text-primary)] cursor-pointer"
               aria-label="Toggle Menu"
             >
               {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
@@ -136,14 +140,14 @@ export default function Navbar({ onOpenCmdk, onOpenAi, onTriggerConsole }: Navba
 
       {/* Mobile Drawer */}
       {mobileMenuOpen && (
-        <div className="fixed inset-0 z-40 bg-[#0A0A0A]/90 backdrop-blur-md md:hidden pt-24 px-6 pb-12 flex flex-col justify-between">
+        <div className="fixed inset-0 z-40 bg-[var(--bg-primary)]/95 backdrop-blur-md md:hidden pt-24 px-6 pb-12 flex flex-col justify-between">
           <div className="space-y-4">
             {navLinks.map((item) => (
               <Link
                 key={item.label}
                 href={item.href}
                 onClick={() => setMobileMenuOpen(false)}
-                className="block text-2xl font-display font-black text-[#F5F1E8] hover:text-[#D9A648] py-2 border-b border-[#F5F1E8]/10"
+                className="block text-2xl font-display font-black text-[var(--text-primary)] hover:text-[#D9A648] py-2 border-b border-[var(--border-color)]"
               >
                 {item.label}
               </Link>

@@ -8,29 +8,72 @@
   padding: 0;
 }
 
+:root, [data-theme="dark"], .dark {
+  --bg-primary: #0C0C0C;
+  --bg-secondary: #151515;
+  --bg-card: #141414;
+  --bg-input: #151515;
+  --text-primary: #D7E2EA;
+  --text-secondary: rgba(215, 226, 234, 0.7);
+  --text-muted: rgba(215, 226, 234, 0.5);
+  --text-heading-gradient-start: #646973;
+  --text-heading-gradient-end: #BBCCD7;
+  --border-color: rgba(215, 226, 234, 0.2);
+  --border-subtle: rgba(215, 226, 234, 0.1);
+  --accent-gradient: linear-gradient(123deg, #18011F 7%, #B600A8 37%, #7621B0 72%, #BE4C00 100%);
+  --btn-ghost-hover: rgba(215, 226, 234, 0.1);
+  --services-bg: #FFFFFF;
+  --services-text: #0C0C0C;
+  --services-desc: rgba(12, 12, 12, 0.6);
+  --services-border: rgba(12, 12, 12, 0.15);
+  --shadow-color: rgba(0, 0, 0, 0.6);
+}
+
+[data-theme="light"], .light {
+  --bg-primary: #F7F5F2;
+  --bg-secondary: #FFFFFF;
+  --bg-card: #FFFFFF;
+  --bg-input: #FFFFFF;
+  --text-primary: #1A1A1A;
+  --text-secondary: rgba(26, 26, 26, 0.75);
+  --text-muted: rgba(26, 26, 26, 0.5);
+  --text-heading-gradient-start: #2E3338;
+  --text-heading-gradient-end: #55606A;
+  --border-color: rgba(26, 26, 26, 0.15);
+  --border-subtle: rgba(26, 26, 26, 0.08);
+  --accent-gradient: linear-gradient(123deg, #2E0038 7%, #D6009C 37%, #8E2FD6 72%, #E06A00 100%) ;
+  --btn-ghost-hover: rgba(26, 26, 26, 0.08);
+  --services-bg: #151515;
+  --services-text: #F7F5F2;
+  --services-desc: rgba(247, 245, 242, 0.6);
+  --services-border: rgba(247, 245, 242, 0.15);
+  --shadow-color: rgba(0, 0, 0, 0.08);
+}
+
 html, body, #root, .main-wrapper {
-  background-color: #0C0C0C;
-  color: #D7E2EA;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
   font-family: var(--font-kanit), 'Kanit', sans-serif;
   overflow-x: clip;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .hero-heading {
-  background: linear-gradient(180deg, #646973 0%, #BBCCD7 100%);
+  background: linear-gradient(180deg, var(--text-heading-gradient-start) 0%, var(--text-heading-gradient-end) 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
-/* Minimal dark scrollbar */
+/* Minimal themeable scrollbar */
 ::-webkit-scrollbar {
   width: 6px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #0C0C0C;
+  background: var(--bg-primary);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #2A2F38;
+  background: var(--border-color);
   border-radius: 3px;
 }
