@@ -14,13 +14,13 @@ export default function ThemeToggle({ className = "", size = "md" }: ThemeToggle
   const iconRef = useRef<HTMLDivElement>(null);
 
   const sizeClasses = {
-    sm: "w-8 h-8 p-1.5",
-    md: "w-9 h-9 sm:w-10 sm:h-10 p-2",
-    lg: "w-11 h-11 p-2.5",
+    sm: "w-11 h-11 p-2.5 sm:w-9 sm:h-9 sm:p-2",
+    md: "w-11 h-11 p-2.5 sm:w-10 sm:h-10 sm:p-2",
+    lg: "w-12 h-12 p-3",
   }[size];
 
   const iconSizes = {
-    sm: "w-4 h-4",
+    sm: "w-4 h-4 sm:w-4 sm:h-4",
     md: "w-4 h-4 sm:w-5 sm:h-5",
     lg: "w-5 h-5",
   }[size];
@@ -36,7 +36,7 @@ export default function ThemeToggle({ className = "", size = "md" }: ThemeToggle
       disabled={isTransitioning}
       aria-label={`Switch to ${theme === "dark" ? "light" : "dark"} mode`}
       title={`Switch to ${theme === "dark" ? "light" : "dark"} mode`}
-      className={`rounded-full border border-[var(--border-color)] bg-[var(--bg-secondary)] text-[var(--text-primary)] hover:border-[var(--text-primary)] hover:scale-105 active:scale-95 transition-all duration-200 flex items-center justify-center cursor-pointer shadow-sm disabled:pointer-events-none ${sizeClasses} ${className}`}
+      className={`min-w-[44px] min-h-[44px] rounded-full border border-[var(--border-color)] bg-[var(--bg-secondary)] text-[var(--text-primary)] hover:border-[var(--text-primary)] active:scale-95 transition-all duration-200 flex items-center justify-center cursor-pointer shadow-sm disabled:pointer-events-none touch-manipulation ${sizeClasses} ${className}`}
     >
       <div ref={iconRef} className="flex items-center justify-center">
         {theme === "dark" ? (

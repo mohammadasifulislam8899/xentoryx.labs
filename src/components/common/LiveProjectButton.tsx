@@ -19,7 +19,7 @@ export default function LiveProjectButton({
   const content = (
     <button
       onClick={onClick}
-      className={`rounded-full border-2 border-[var(--border-color)] text-[var(--text-primary)] font-medium uppercase tracking-widest px-5 py-2 sm:px-8 sm:py-3 md:px-10 md:py-3.5 text-xs sm:text-sm md:text-base hover:bg-[var(--btn-ghost-hover)] active:scale-95 transition-all duration-300 inline-flex items-center justify-center select-none cursor-pointer shadow-sm ${className}`}
+      className={`min-h-[44px] rounded-full border-2 border-[var(--border-color)] text-[var(--text-primary)] font-medium uppercase tracking-widest px-5 py-2.5 sm:px-8 sm:py-3 md:px-10 md:py-3.5 text-[11px] sm:text-xs md:text-sm hover:bg-[var(--btn-ghost-hover)] active:scale-95 transition-all duration-300 inline-flex items-center justify-center select-none cursor-pointer shadow-sm touch-manipulation ${className}`}
     >
       {children}
     </button>

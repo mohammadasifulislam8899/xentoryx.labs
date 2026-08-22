@@ -27,6 +27,7 @@ import {
   GripVertical,
   X,
   Loader2,
+  Menu,
 } from "lucide-react";
 import FadeIn from "@/components/common/FadeIn";
 import CloudinaryDropzone from "@/components/admin/CloudinaryDropzone";
@@ -39,6 +40,7 @@ export default function AdminPage() {
   const [authPassword, setAuthPassword] = useState("");
   const [authError, setAuthError] = useState("");
   const [activeTab, setActiveTab] = useState<SectionTab>("hero");
+  const [mobileSidebarOpen, setMobileSidebarOpen] = useState(false);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [saveToast, setSaveToast] = useState<string | null>(null);
@@ -321,7 +323,7 @@ export default function AdminPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-[var(--bg-primary)] text-[var(--text-primary)] flex items-center justify-center font-sans">
+      <div className="min-h-[100dvh] bg-[var(--bg-primary)] text-[var(--text-primary)] flex items-center justify-center font-sans">
         <div className="flex flex-col items-center gap-4">
           <div className="w-10 h-10 border-2 border-[var(--border-color)] border-t-[var(--text-heading-gradient-end)] rounded-full animate-spin" />
           <span className="font-mono text-xs uppercase tracking-widest text-[var(--text-heading-gradient-end)]">
@@ -337,27 +339,27 @@ export default function AdminPage() {
   // ==========================================
   if (!isAuthenticated) {
     return (
-      <div className="min-h-screen bg-[var(--bg-primary)] text-[var(--text-primary)] flex items-center justify-center p-4 selection:bg-[var(--text-heading-gradient-end)] selection:text-[var(--bg-primary)] font-sans transition-colors duration-300">
+      <div className="min-h-[100dvh] bg-[var(--bg-primary)] text-[var(--text-primary)] flex items-center justify-center p-4 selection:bg-[var(--text-heading-gradient-end)] selection:text-[var(--bg-primary)] font-sans transition-colors duration-300">
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 25 }}
           animate={{ opacity: 1, y: 0 }}
-          className="w-full max-w-md bg-[var(--bg-secondary)] border-2 border-[var(--border-color)] rounded-[32px] p-8 sm:p-10 shadow-2xl space-y-8"
+          className="w-full max-w-md bg-[var(--bg-secondary)] border-2 border-[var(--border-color)] rounded-[28px] sm:rounded-[32px] p-6 sm:p-10 shadow-2xl space-y-6 sm:space-y-8"
         >
           <div className="text-center space-y-2">
-            <div className="w-14 h-14 rounded-2xl bg-[var(--border-subtle)] border border-[var(--border-color)] flex items-center justify-center mx-auto text-[var(--text-heading-gradient-end)]">
-              <ShieldCheck className="w-7 h-7" />
+            <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-[var(--border-subtle)] border border-[var(--border-color)] flex items-center justify-center mx-auto text-[var(--text-heading-gradient-end)]">
+              <ShieldCheck className="w-6 h-6 sm:w-7 sm:h-7" />
             </div>
-            <h1 className="hero-heading font-black text-3xl sm:text-4xl uppercase tracking-tight">
+            <h1 className="hero-heading font-black text-2xl xs:text-3xl sm:text-4xl uppercase tracking-tight">
               Admin Access
             </h1>
-            <p className="text-xs font-mono text-[var(--text-secondary)] uppercase tracking-wider">
+            <p className="text-[11px] sm:text-xs font-mono text-[var(--text-secondary)] uppercase tracking-wider">
               Xentoryx Labs // Content Management System
             </p>
           </div>
 
-          <form onSubmit={handleLogin} className="space-y-5">
+          <form onSubmit={handleLogin} className="space-y-4 sm:space-y-5">
             <div className="space-y-2">
-              <label className="text-xs font-mono font-bold uppercase tracking-wider text-[var(--text-heading-gradient-end)] block">
+              <label className="text-[11px] sm:text-xs font-mono font-bold uppercase tracking-wider text-[var(--text-heading-gradient-end)] block">
                 Admin Password
               </label>
               <div className="relative">
@@ -366,7 +368,7 @@ export default function AdminPage() {
                   value={authPassword}
                   onChange={(e) => setAuthPassword(e.target.value)}
                   placeholder="Enter Master Password..."
-                  className="w-full bg-[var(--bg-input)] border border-[var(--border-color)] rounded-full px-5 py-3.5 text-sm text-[var(--text-primary)] font-sans focus:outline-none focus:border-[var(--text-heading-gradient-end)] transition-colors"
+                  className="w-full bg-[var(--bg-input)] border border-[var(--border-color)] rounded-full px-5 py-3.5 text-sm text-[var(--text-primary)] font-sans focus:outline-none focus:border-[var(--text-heading-gradient-end)] transition-colors min-h-[44px]"
                   required
                 />
                 <Lock className="w-4 h-4 text-[var(--text-muted)] absolute right-5 top-1/2 -translate-y-1/2" />
@@ -388,7 +390,7 @@ export default function AdminPage() {
                 outline: "2px solid white",
                 outlineOffset: "-3px",
               }}
-              className="w-full py-4 rounded-full text-white font-medium uppercase tracking-widest text-xs hover:scale-102 active:scale-98 transition-all cursor-pointer shadow-xl"
+              className="w-full min-h-[44px] py-3.5 sm:py-4 rounded-full text-white font-medium uppercase tracking-widest text-xs hover:scale-102 active:scale-98 transition-all cursor-pointer shadow-xl"
             >
               Enter Dashboard
             </button>
@@ -423,10 +425,10 @@ export default function AdminPage() {
   ];
 
   return (
-    <div className="min-h-screen bg-[var(--bg-primary)] text-[var(--text-primary)] selection:bg-[var(--text-heading-gradient-end)] selection:text-[var(--bg-primary)] font-sans flex flex-col md:flex-row transition-colors duration-300">
+    <div className="min-h-[100dvh] bg-[var(--bg-primary)] text-[var(--text-primary)] selection:bg-[var(--text-heading-gradient-end)] selection:text-[var(--bg-primary)] font-sans flex flex-col md:flex-row transition-colors duration-300">
       
-      {/* LEFT SIDEBAR (Fixed w-64) */}
-      <aside className="w-full md:w-64 bg-[var(--bg-primary)] border-r border-[var(--border-color)] p-6 flex flex-col justify-between shrink-0 md:h-screen md:sticky md:top-0">
+      {/* DESKTOP LEFT SIDEBAR (Hidden on mobile) */}
+      <aside className="hidden md:flex md:w-64 bg-[var(--bg-primary)] border-r border-[var(--border-color)] p-6 flex-col justify-between shrink-0 h-screen sticky top-0">
         <div className="space-y-8">
           {/* Brand Wordmark */}
           <Link href="/" className="flex items-center gap-2 group">
@@ -447,7 +449,7 @@ export default function AdminPage() {
                 <button
                   key={item.id}
                   onClick={() => setActiveTab(item.id)}
-                  className={`w-full flex items-center justify-between px-4 py-3 rounded-2xl text-xs font-medium uppercase tracking-wider transition-all cursor-pointer ${
+                  className={`w-full min-h-[44px] flex items-center justify-between px-4 py-3 rounded-2xl text-xs font-medium uppercase tracking-wider transition-all cursor-pointer ${
                     isActive
                       ? "bg-[var(--bg-secondary)] text-[var(--text-primary)] border-l-4 border-l-[#B600A8] font-bold shadow-md"
                       : "text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-secondary)]/60"
@@ -473,7 +475,7 @@ export default function AdminPage() {
           </div>
           <button
             onClick={handleLogout}
-            className="p-2 rounded-xl text-[var(--text-secondary)] hover:text-rose-400 hover:bg-rose-950/30 transition-colors cursor-pointer"
+            className="w-10 h-10 rounded-xl text-[var(--text-secondary)] hover:text-rose-400 hover:bg-rose-950/30 transition-colors cursor-pointer flex items-center justify-center"
             title="Logout"
           >
             <LogOut className="w-4 h-4" />
@@ -481,30 +483,98 @@ export default function AdminPage() {
         </div>
       </aside>
 
+      {/* MOBILE SLIDE-IN DRAWER */}
+      {mobileSidebarOpen && (
+        <div className="md:hidden fixed inset-0 z-50 bg-[var(--bg-primary)]/95 backdrop-blur-xl flex flex-col justify-between p-6 animate-in fade-in zoom-in-95 duration-200">
+          <div className="flex items-center justify-between border-b border-[var(--border-color)] pb-4">
+            <Link href="/" className="flex items-center gap-2">
+              <span className="font-black tracking-tighter text-xl text-[var(--text-primary)]">
+                XENTORYX
+              </span>
+              <span className="text-[10px] font-mono font-bold tracking-widest px-1.5 py-0.5 rounded bg-[var(--border-subtle)] text-[var(--text-heading-gradient-end)] border border-[var(--border-color)]">
+                CMS
+              </span>
+            </Link>
+            <button
+              onClick={() => setMobileSidebarOpen(false)}
+              className="w-11 h-11 rounded-full border border-[var(--border-color)] bg-[var(--bg-secondary)] flex items-center justify-center"
+            >
+              <X className="w-5 h-5" />
+            </button>
+          </div>
+
+          <nav className="space-y-2 py-6 overflow-y-auto">
+            {navItems.map((item) => {
+              const Icon = item.icon;
+              const isActive = activeTab === item.id;
+              return (
+                <button
+                  key={item.id}
+                  onClick={() => {
+                    setActiveTab(item.id);
+                    setMobileSidebarOpen(false);
+                  }}
+                  className={`w-full min-h-[48px] flex items-center justify-between px-4 py-3 rounded-2xl text-sm font-medium uppercase tracking-wider transition-all ${
+                    isActive
+                      ? "bg-[var(--bg-secondary)] text-[var(--text-primary)] border-l-4 border-l-[#B600A8] font-bold shadow-md"
+                      : "text-[var(--text-secondary)] hover:text-[var(--text-primary)]"
+                  }`}
+                >
+                  <div className="flex items-center gap-3">
+                    <Icon className="w-4 h-4" />
+                    <span>{item.label}</span>
+                  </div>
+                </button>
+              );
+            })}
+          </nav>
+
+          <div className="pt-4 border-t border-[var(--border-color)] flex items-center justify-between">
+            <button
+              onClick={handleLogout}
+              className="flex items-center gap-2 text-rose-400 text-xs font-mono uppercase"
+            >
+              <LogOut className="w-4 h-4" />
+              <span>Logout</span>
+            </button>
+            <ThemeToggle size="sm" />
+          </div>
+        </div>
+      )}
+
       {/* MAIN CONTENT AREA */}
       <div className="flex-1 flex flex-col min-h-screen">
         
         {/* TOP BAR */}
-        <header className="sticky top-0 z-30 bg-[var(--bg-primary)]/90 backdrop-blur-md border-b border-[var(--border-color)] px-6 sm:px-10 py-4 flex items-center justify-between">
-          <div>
-            <h2 className="hero-heading font-black text-xl sm:text-2xl uppercase tracking-tight">
+        <header className="sticky top-0 z-30 bg-[var(--bg-primary)]/90 backdrop-blur-md border-b border-[var(--border-color)] px-4 sm:px-10 py-3 sm:py-4 flex items-center justify-between gap-2">
+          <div className="flex items-center gap-2.5 min-w-0">
+            {/* Mobile Hamburger to trigger navigation drawer */}
+            <button
+              onClick={() => setMobileSidebarOpen(true)}
+              className="md:hidden w-10 h-10 rounded-full border border-[var(--border-color)] bg-[var(--bg-secondary)] flex items-center justify-center text-[var(--text-primary)] shrink-0 touch-manipulation"
+              aria-label="Open Admin Menu"
+            >
+              <Menu className="w-5 h-5" />
+            </button>
+
+            <h2 className="hero-heading font-black text-base xs:text-lg sm:text-2xl uppercase tracking-tight truncate">
               {navItems.find((n) => n.id === activeTab)?.label}
             </h2>
           </div>
 
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2 sm:gap-3 shrink-0">
             {/* View Live Site Ghost Button */}
             <Link
               href="/"
               target="_blank"
-              className="hidden sm:inline-flex rounded-full border-2 border-[var(--border-color)] text-[var(--text-primary)] px-5 py-2 text-xs font-medium uppercase tracking-widest hover:bg-[var(--btn-ghost-hover)] transition-colors items-center gap-1.5"
+              className="hidden sm:inline-flex min-h-[40px] rounded-full border-2 border-[var(--border-color)] text-[var(--text-primary)] px-4 py-2 text-xs font-medium uppercase tracking-widest hover:bg-[var(--btn-ghost-hover)] transition-colors items-center gap-1.5"
             >
-              <span>View Live Site</span>
+              <span>Live Site</span>
               <ExternalLink className="w-3 h-3" />
             </Link>
 
             {/* Dark/Light Theme Toggle in Admin Top Bar */}
-            <ThemeToggle size="md" />
+            <ThemeToggle size="sm" />
 
             {/* Publish Changes Primary Gradient Button */}
             <button
@@ -516,17 +586,17 @@ export default function AdminPage() {
                 outline: "2px solid white",
                 outlineOffset: "-3px",
               }}
-              className="px-6 py-2.5 rounded-full text-white text-xs font-medium uppercase tracking-widest flex items-center gap-2 hover:scale-105 active:scale-95 transition-all shadow-lg cursor-pointer disabled:opacity-50"
+              className="min-h-[40px] px-4 sm:px-6 py-2 rounded-full text-white text-[11px] sm:text-xs font-medium uppercase tracking-widest flex items-center gap-1.5 sm:gap-2 active:scale-95 transition-all shadow-lg cursor-pointer disabled:opacity-50 touch-manipulation shrink-0"
             >
               {saving ? (
                 <>
                   <Loader2 className="w-3.5 h-3.5 animate-spin" />
-                  <span>Saving...</span>
+                  <span className="hidden xs:inline">Saving...</span>
                 </>
               ) : (
                 <>
                   <Save className="w-3.5 h-3.5" />
-                  <span>Save Changes</span>
+                  <span>Save</span>
                 </>
               )}
             </button>
@@ -540,7 +610,7 @@ export default function AdminPage() {
               initial={{ opacity: 0, y: -20 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -20 }}
-              className="fixed top-20 right-6 z-50 p-4 rounded-2xl bg-[var(--bg-secondary)] border-l-4 border-l-emerald-500 border border-[var(--border-color)] shadow-2xl flex items-center gap-3 text-xs font-mono text-emerald-400"
+              className="fixed top-16 sm:top-20 right-4 sm:right-6 z-50 p-3 sm:p-4 rounded-2xl bg-[var(--bg-secondary)] border-l-4 border-l-emerald-500 border border-[var(--border-color)] shadow-2xl flex items-center gap-3 text-xs font-mono text-emerald-400 max-w-[90vw]"
             >
               <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
               <span>{saveToast}</span>
@@ -552,7 +622,7 @@ export default function AdminPage() {
               initial={{ opacity: 0, y: -20 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -20 }}
-              className="fixed top-20 right-6 z-50 p-4 rounded-2xl bg-[var(--bg-secondary)] border-l-4 border-l-rose-500 border border-[var(--border-color)] shadow-2xl flex items-center gap-3 text-xs font-mono text-rose-400"
+              className="fixed top-16 sm:top-20 right-4 sm:right-6 z-50 p-3 sm:p-4 rounded-2xl bg-[var(--bg-secondary)] border-l-4 border-l-rose-500 border border-[var(--border-color)] shadow-2xl flex items-center gap-3 text-xs font-mono text-rose-400 max-w-[90vw]"
             >
               <AlertCircle className="w-4 h-4 text-rose-400 shrink-0" />
               <span>{errorToast}</span>
@@ -561,45 +631,45 @@ export default function AdminPage() {
         </AnimatePresence>
 
         {/* MAIN BODY CONTAINER */}
-        <main className="flex-1 px-6 sm:px-10 py-10 max-w-5xl w-full mx-auto space-y-10">
+        <main className="flex-1 px-4 sm:px-10 py-6 sm:py-10 max-w-5xl w-full mx-auto space-y-8">
           
           {/* ========================================== */}
           {/* 1. HERO EDITOR */}
           {/* ========================================== */}
           {activeTab === "hero" && (
-            <FadeIn delay={0.05} className="space-y-8">
-              <div className="bg-[var(--bg-secondary)] border-2 border-[var(--border-color)] rounded-[32px] p-6 sm:p-8 space-y-6 shadow-2xl">
+            <FadeIn delay={0.05} className="space-y-6 sm:space-y-8">
+              <div className="bg-[var(--bg-secondary)] border-2 border-[var(--border-color)] rounded-[24px] sm:rounded-[32px] p-5 sm:p-8 space-y-5 sm:space-y-6 shadow-2xl">
                 <div className="space-y-1">
-                  <h3 className="hero-heading font-black text-2xl uppercase tracking-tight">
+                  <h3 className="hero-heading font-black text-xl sm:text-2xl uppercase tracking-tight">
                     Hero Section Configuration
                   </h3>
-                  <p className="text-xs font-mono text-[var(--text-secondary)] uppercase tracking-wider">
+                  <p className="text-[11px] sm:text-xs font-mono text-[var(--text-secondary)] uppercase tracking-wider">
                     Edit the main landing viewport headline, description, and high-res portrait.
                   </p>
                 </div>
 
-                <div className="space-y-5">
-                  <div className="space-y-2">
-                    <label className="text-xs font-mono font-bold uppercase tracking-wider text-[var(--text-heading-gradient-end)] block">
+                <div className="space-y-4 sm:space-y-5">
+                  <div className="space-y-1.5">
+                    <label className="text-[11px] sm:text-xs font-mono font-bold uppercase tracking-wider text-[var(--text-heading-gradient-end)] block">
                       Main Headline Text
                     </label>
                     <input
                       type="text"
                       value={cms.hero?.headline || ""}
                       onChange={(e) => updateSection("hero", "headline", e.target.value)}
-                      className="w-full bg-[var(--bg-input)] border border-[var(--border-color)] rounded-2xl px-5 py-3 text-sm text-[var(--text-primary)] font-sans focus:outline-none focus:border-[var(--text-heading-gradient-end)]"
+                      className="w-full min-h-[44px] bg-[var(--bg-input)] border border-[var(--border-color)] rounded-2xl px-4 sm:px-5 py-2.5 sm:py-3 text-sm text-[var(--text-primary)] font-sans focus:outline-none focus:border-[var(--text-heading-gradient-end)]"
                     />
                   </div>
 
-                  <div className="space-y-2">
-                    <label className="text-xs font-mono font-bold uppercase tracking-wider text-[var(--text-heading-gradient-end)] block">
+                  <div className="space-y-1.5">
+                    <label className="text-[11px] sm:text-xs font-mono font-bold uppercase tracking-wider text-[var(--text-heading-gradient-end)] block">
                       Description Monograph
                     </label>
                     <textarea
                       rows={3}
                       value={cms.hero?.description || ""}
                       onChange={(e) => updateSection("hero", "description", e.target.value)}
-                      className="w-full bg-[var(--bg-input)] border border-[var(--border-color)] rounded-2xl p-5 text-sm text-[var(--text-primary)] font-sans focus:outline-none focus:border-[var(--text-heading-gradient-end)] leading-relaxed"
+                      className="w-full bg-[var(--bg-input)] border border-[var(--border-color)] rounded-2xl p-4 sm:p-5 text-sm text-[var(--text-primary)] font-sans focus:outline-none focus:border-[var(--text-heading-gradient-end)] leading-relaxed"
                     />
                   </div>
 
@@ -621,14 +691,14 @@ export default function AdminPage() {
           {/* 2. MARQUEE EDITOR */}
           {/* ========================================== */}
           {activeTab === "marquee" && (
-            <FadeIn delay={0.05} className="space-y-8">
-              <div className="bg-[var(--bg-secondary)] border-2 border-[var(--border-color)] rounded-[32px] p-6 sm:p-8 space-y-6 shadow-2xl">
-                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <FadeIn delay={0.05} className="space-y-6 sm:space-y-8">
+              <div className="bg-[var(--bg-secondary)] border-2 border-[var(--border-color)] rounded-[24px] sm:rounded-[32px] p-5 sm:p-8 space-y-5 sm:space-y-6 shadow-2xl">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                   <div className="space-y-1">
-                    <h3 className="hero-heading font-black text-2xl uppercase tracking-tight">
+                    <h3 className="hero-heading font-black text-xl sm:text-2xl uppercase tracking-tight">
                       Marquee Parallax Gallery
                     </h3>
-                    <p className="text-xs font-mono text-[var(--text-secondary)] uppercase tracking-wider">
+                    <p className="text-[11px] sm:text-xs font-mono text-[var(--text-secondary)] uppercase tracking-wider">
                       Manage tiles scrolling across Row 1 (Right) and Row 2 (Left).
                     </p>
                   </div>
@@ -645,19 +715,19 @@ export default function AdminPage() {
                       setCms({ ...cms, marquee: [...(cms.marquee || []), newTile] });
                       setHasUnsavedChanges(true);
                     }}
-                    className="px-5 py-2.5 rounded-full border-2 border-[var(--border-color)] hover:bg-[var(--btn-ghost-hover)] text-xs font-medium uppercase tracking-wider text-[var(--text-primary)] flex items-center gap-2 cursor-pointer transition-colors"
+                    className="min-h-[44px] px-4 py-2 rounded-full border-2 border-[var(--border-color)] hover:bg-[var(--btn-ghost-hover)] text-xs font-medium uppercase tracking-wider text-[var(--text-primary)] flex items-center justify-center gap-2 cursor-pointer transition-colors"
                   >
                     <Plus className="w-4 h-4" />
-                    <span>Add Marquee Tile</span>
+                    <span>Add Tile</span>
                   </button>
                 </div>
 
                 {/* Marquee Tiles Grid */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5">
                   {(cms.marquee || []).map((item: any, idx: number) => (
                     <div
                       key={item.id || idx}
-                      className="bg-[var(--bg-input)] border border-[var(--border-color)] rounded-[24px] p-5 space-y-4 relative shadow-lg group"
+                      className="bg-[var(--bg-input)] border border-[var(--border-color)] rounded-[20px] sm:rounded-[24px] p-4 sm:p-5 space-y-3.5 relative shadow-lg group"
                     >
                       <div className="flex items-center justify-between">
                         <span className="text-xs font-mono font-bold text-[var(--text-heading-gradient-end)]">
@@ -674,7 +744,7 @@ export default function AdminPage() {
                               setCms({ ...cms, marquee: updated });
                               setHasUnsavedChanges(true);
                             }}
-                            className="px-3 py-1 rounded-full text-[10px] font-mono uppercase bg-[var(--bg-secondary)] border border-[var(--border-color)] text-[var(--text-primary)] hover:border-[var(--text-heading-gradient-end)] transition-colors"
+                            className="px-3 py-1.5 rounded-full text-[10px] font-mono uppercase bg-[var(--bg-secondary)] border border-[var(--border-color)] text-[var(--text-primary)] hover:border-[var(--text-heading-gradient-end)] transition-colors min-h-[32px]"
                           >
                             Row {item.row || 1}
                           </button>
@@ -695,7 +765,7 @@ export default function AdminPage() {
                                 },
                               });
                             }}
-                            className="p-1.5 rounded-lg text-rose-400 hover:bg-rose-950/40 transition-colors"
+                            className="w-8 h-8 rounded-lg text-rose-400 hover:bg-rose-950/40 transition-colors flex items-center justify-center"
                           >
                             <Trash2 className="w-4 h-4" />
                           </button>
@@ -728,7 +798,7 @@ export default function AdminPage() {
                             setCms({ ...cms, marquee: updated });
                             setHasUnsavedChanges(true);
                           }}
-                          className="w-full bg-[var(--bg-secondary)] border border-[var(--border-color)] rounded-xl px-4 py-2 text-xs text-[var(--text-primary)] font-sans focus:outline-none focus:border-[var(--text-heading-gradient-end)]"
+                          className="w-full bg-[var(--bg-secondary)] border border-[var(--border-color)] rounded-xl px-4 py-2 text-xs text-[var(--text-primary)] font-sans focus:outline-none focus:border-[var(--text-heading-gradient-end)] min-h-[40px]"
                         />
                       </div>
                     </div>
@@ -742,52 +812,52 @@ export default function AdminPage() {
           {/* 3. ABOUT EDITOR */}
           {/* ========================================== */}
           {activeTab === "about" && (
-            <FadeIn delay={0.05} className="space-y-8">
-              <div className="bg-[var(--bg-secondary)] border-2 border-[var(--border-color)] rounded-[32px] p-6 sm:p-8 space-y-6 shadow-2xl">
+            <FadeIn delay={0.05} className="space-y-6 sm:space-y-8">
+              <div className="bg-[var(--bg-secondary)] border-2 border-[var(--border-color)] rounded-[24px] sm:rounded-[32px] p-5 sm:p-8 space-y-5 sm:space-y-6 shadow-2xl">
                 <div className="space-y-1">
-                  <h3 className="hero-heading font-black text-2xl uppercase tracking-tight">
+                  <h3 className="hero-heading font-black text-xl sm:text-2xl uppercase tracking-tight">
                     About Section Configuration
                   </h3>
-                  <p className="text-xs font-mono text-[var(--text-secondary)] uppercase tracking-wider">
+                  <p className="text-[11px] sm:text-xs font-mono text-[var(--text-secondary)] uppercase tracking-wider">
                     Edit the animated character-reveal monograph and 4 corner tech badge icons.
                   </p>
                 </div>
 
-                <div className="space-y-5">
-                  <div className="space-y-2">
-                    <label className="text-xs font-mono font-bold uppercase tracking-wider text-[var(--text-heading-gradient-end)] block">
+                <div className="space-y-4 sm:space-y-5">
+                  <div className="space-y-1.5">
+                    <label className="text-[11px] sm:text-xs font-mono font-bold uppercase tracking-wider text-[var(--text-heading-gradient-end)] block">
                       Heading Title
                     </label>
                     <input
                       type="text"
                       value={cms.about?.heading || "About me"}
                       onChange={(e) => updateSection("about", "heading", e.target.value)}
-                      className="w-full bg-[var(--bg-input)] border border-[var(--border-color)] rounded-2xl px-5 py-3 text-sm text-[var(--text-primary)] font-sans focus:outline-none focus:border-[var(--text-heading-gradient-end)]"
+                      className="w-full min-h-[44px] bg-[var(--bg-input)] border border-[var(--border-color)] rounded-2xl px-4 sm:px-5 py-2.5 sm:py-3 text-sm text-[var(--text-primary)] font-sans focus:outline-none focus:border-[var(--text-heading-gradient-end)]"
                     />
                   </div>
 
-                  <div className="space-y-2">
-                    <label className="text-xs font-mono font-bold uppercase tracking-wider text-[var(--text-heading-gradient-end)] block">
+                  <div className="space-y-1.5">
+                    <label className="text-[11px] sm:text-xs font-mono font-bold uppercase tracking-wider text-[var(--text-heading-gradient-end)] block">
                       Animated Reveal Paragraph (Character-by-character animation)
                     </label>
                     <textarea
                       rows={5}
                       value={cms.about?.paragraph || ""}
                       onChange={(e) => updateSection("about", "paragraph", e.target.value)}
-                      className="w-full bg-[var(--bg-input)] border border-[var(--border-color)] rounded-2xl p-5 text-sm text-[var(--text-primary)] font-sans focus:outline-none focus:border-[var(--text-heading-gradient-end)] leading-relaxed"
+                      className="w-full bg-[var(--bg-input)] border border-[var(--border-color)] rounded-2xl p-4 sm:p-5 text-sm text-[var(--text-primary)] font-sans focus:outline-none focus:border-[var(--text-heading-gradient-end)] leading-relaxed"
                     />
                   </div>
 
                   {/* 4 Corner Decoration Image Uploads */}
-                  <div className="pt-4 space-y-3">
-                    <label className="text-xs font-mono font-bold uppercase tracking-wider text-[var(--text-heading-gradient-end)] block">
-                      4 Corner Tech Badge Icons (Cloudinary Uploads)
+                  <div className="pt-2 sm:pt-4 space-y-3">
+                    <label className="text-[11px] sm:text-xs font-mono font-bold uppercase tracking-wider text-[var(--text-heading-gradient-end)] block">
+                      Corner Tech Badge Icons
                     </label>
 
-                    <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+                    <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4">
                       <div>
-                        <span className="text-[10px] font-mono text-[var(--text-secondary)] uppercase block mb-1.5">
-                          Top-Left Badge
+                        <span className="text-[9px] sm:text-[10px] font-mono text-[var(--text-secondary)] uppercase block mb-1">
+                          Top-Left
                         </span>
                         <CloudinaryDropzone
                           folder="xentoryx/about"
@@ -807,8 +877,8 @@ export default function AdminPage() {
                       </div>
 
                       <div>
-                        <span className="text-[10px] font-mono text-[var(--text-secondary)] uppercase block mb-1.5">
-                          Top-Right Badge
+                        <span className="text-[9px] sm:text-[10px] font-mono text-[var(--text-secondary)] uppercase block mb-1">
+                          Top-Right
                         </span>
                         <CloudinaryDropzone
                           folder="xentoryx/about"
@@ -828,8 +898,8 @@ export default function AdminPage() {
                       </div>
 
                       <div>
-                        <span className="text-[10px] font-mono text-[var(--text-secondary)] uppercase block mb-1.5">
-                          Bottom-Left Badge
+                        <span className="text-[9px] sm:text-[10px] font-mono text-[var(--text-secondary)] uppercase block mb-1">
+                          Bottom-Left
                         </span>
                         <CloudinaryDropzone
                           folder="xentoryx/about"
@@ -849,8 +919,8 @@ export default function AdminPage() {
                       </div>
 
                       <div>
-                        <span className="text-[10px] font-mono text-[var(--text-secondary)] uppercase block mb-1.5">
-                          Bottom-Right Badge
+                        <span className="text-[9px] sm:text-[10px] font-mono text-[var(--text-secondary)] uppercase block mb-1">
+                          Bottom-Right
                         </span>
                         <CloudinaryDropzone
                           folder="xentoryx/about"
@@ -879,14 +949,14 @@ export default function AdminPage() {
           {/* 4. SERVICES EDITOR */}
           {/* ========================================== */}
           {activeTab === "services" && (
-            <FadeIn delay={0.05} className="space-y-8">
-              <div className="bg-[var(--bg-secondary)] border-2 border-[var(--border-color)] rounded-[32px] p-6 sm:p-8 space-y-6 shadow-2xl">
-                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <FadeIn delay={0.05} className="space-y-6 sm:space-y-8">
+              <div className="bg-[var(--bg-secondary)] border-2 border-[var(--border-color)] rounded-[24px] sm:rounded-[32px] p-5 sm:p-8 space-y-5 sm:space-y-6 shadow-2xl">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                   <div className="space-y-1">
-                    <h3 className="hero-heading font-black text-2xl uppercase tracking-tight">
-                      Services & Engineering Capabilities
+                    <h3 className="hero-heading font-black text-xl sm:text-2xl uppercase tracking-tight">
+                      Services & Capabilities
                     </h3>
-                    <p className="text-xs font-mono text-[var(--text-secondary)] uppercase tracking-wider">
+                    <p className="text-[11px] sm:text-xs font-mono text-[var(--text-secondary)] uppercase tracking-wider">
                       Repeatable engineering practices listed with bold numbered indexes.
                     </p>
                   </div>
@@ -903,7 +973,7 @@ export default function AdminPage() {
                       setCms({ ...cms, services: [...(cms.services || []), newSvc] });
                       setHasUnsavedChanges(true);
                     }}
-                    className="px-5 py-2.5 rounded-full border-2 border-[var(--border-color)] hover:bg-[var(--btn-ghost-hover)] text-xs font-medium uppercase tracking-wider text-[var(--text-primary)] flex items-center gap-2 cursor-pointer transition-colors"
+                    className="min-h-[44px] px-4 py-2 rounded-full border-2 border-[var(--border-color)] hover:bg-[var(--btn-ghost-hover)] text-xs font-medium uppercase tracking-wider text-[var(--text-primary)] flex items-center justify-center gap-2 cursor-pointer transition-colors"
                   >
                     <Plus className="w-4 h-4" />
                     <span>Add Service</span>
@@ -911,16 +981,16 @@ export default function AdminPage() {
                 </div>
 
                 {/* Repeatable Services List */}
-                <div className="space-y-4">
+                <div className="space-y-3.5 sm:space-y-4">
                   {(cms.services || []).map((svc: any, idx: number) => (
                     <div
                       key={idx}
-                      className="bg-[var(--bg-input)] border border-[var(--border-color)] rounded-[24px] p-5 sm:p-6 space-y-4 shadow-lg"
+                      className="bg-[var(--bg-input)] border border-[var(--border-color)] rounded-[20px] sm:rounded-[24px] p-4 sm:p-6 space-y-3.5 shadow-lg"
                     >
                       <div className="flex items-center justify-between border-b border-[var(--border-color)] pb-3">
-                        <div className="flex items-center gap-3">
+                        <div className="flex items-center gap-2.5">
                           <GripVertical className="w-4 h-4 text-[var(--text-muted)]" />
-                          <span className="font-mono text-lg font-black text-[var(--text-heading-gradient-end)]">
+                          <span className="font-mono text-base sm:text-lg font-black text-[var(--text-heading-gradient-end)]">
                             {svc.num || `0${idx + 1}`}
                           </span>
                         </div>
@@ -940,13 +1010,13 @@ export default function AdminPage() {
                               },
                             });
                           }}
-                          className="p-1.5 rounded-lg text-rose-400 hover:bg-rose-950/40 transition-colors"
+                          className="w-8 h-8 rounded-lg text-rose-400 hover:bg-rose-950/40 transition-colors flex items-center justify-center"
                         >
                           <Trash2 className="w-4 h-4" />
                         </button>
                       </div>
 
-                      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                      <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4">
                         <div className="space-y-1">
                           <label className="text-[10px] font-mono uppercase text-[var(--text-secondary)]">
                             Service Name
@@ -960,7 +1030,7 @@ export default function AdminPage() {
                               setCms({ ...cms, services: updated });
                               setHasUnsavedChanges(true);
                             }}
-                            className="w-full bg-[var(--bg-secondary)] border border-[var(--border-color)] rounded-xl px-4 py-2 text-xs text-[var(--text-primary)] font-sans focus:outline-none focus:border-[var(--text-heading-gradient-end)]"
+                            className="w-full min-h-[40px] bg-[var(--bg-secondary)] border border-[var(--border-color)] rounded-xl px-4 py-2 text-xs text-[var(--text-primary)] font-sans focus:outline-none focus:border-[var(--text-heading-gradient-end)]"
                           />
                         </div>
 
@@ -977,7 +1047,7 @@ export default function AdminPage() {
                               setCms({ ...cms, services: updated });
                               setHasUnsavedChanges(true);
                             }}
-                            className="w-full bg-[var(--bg-secondary)] border border-[var(--border-color)] rounded-xl px-4 py-2 text-xs text-[var(--text-primary)] font-sans focus:outline-none focus:border-[var(--text-heading-gradient-end)]"
+                            className="w-full min-h-[40px] bg-[var(--bg-secondary)] border border-[var(--border-color)] rounded-xl px-4 py-2 text-xs text-[var(--text-primary)] font-sans focus:outline-none focus:border-[var(--text-heading-gradient-end)]"
                           />
                         </div>
                       </div>
@@ -992,15 +1062,15 @@ export default function AdminPage() {
           {/* 5. PROJECTS EDITOR */}
           {/* ========================================== */}
           {activeTab === "projects" && (
-            <FadeIn delay={0.05} className="space-y-8">
-              <div className="bg-[var(--bg-secondary)] border-2 border-[var(--border-color)] rounded-[32px] p-6 sm:p-8 space-y-6 shadow-2xl">
-                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <FadeIn delay={0.05} className="space-y-6 sm:space-y-8">
+              <div className="bg-[var(--bg-secondary)] border-2 border-[var(--border-color)] rounded-[24px] sm:rounded-[32px] p-5 sm:p-8 space-y-5 sm:space-y-6 shadow-2xl">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                   <div className="space-y-1">
-                    <h3 className="hero-heading font-black text-2xl uppercase tracking-tight">
-                      Projects & Sticky Stacking Cards
+                    <h3 className="hero-heading font-black text-xl sm:text-2xl uppercase tracking-tight">
+                      Projects & Sticky Cards
                     </h3>
-                    <p className="text-xs font-mono text-[var(--text-secondary)] uppercase tracking-wider">
-                      Configure fullstack products, 3 image slots, and live repository links.
+                    <p className="text-[11px] sm:text-xs font-mono text-[var(--text-secondary)] uppercase tracking-wider">
+                      Configure products, 3 image slots, and live links.
                     </p>
                   </div>
 
@@ -1022,26 +1092,26 @@ export default function AdminPage() {
                       setCms({ ...cms, projects: [...(cms.projects || []), newProj] });
                       setHasUnsavedChanges(true);
                     }}
-                    className="px-5 py-2.5 rounded-full border-2 border-[var(--border-color)] hover:bg-[var(--btn-ghost-hover)] text-xs font-medium uppercase tracking-wider text-[var(--text-primary)] flex items-center gap-2 cursor-pointer transition-colors"
+                    className="min-h-[44px] px-4 py-2 rounded-full border-2 border-[var(--border-color)] hover:bg-[var(--btn-ghost-hover)] text-xs font-medium uppercase tracking-wider text-[var(--text-primary)] flex items-center justify-center gap-2 cursor-pointer transition-colors"
                   >
                     <Plus className="w-4 h-4" />
-                    <span>Add Project Card</span>
+                    <span>Add Card</span>
                   </button>
                 </div>
 
                 {/* Repeatable Project Cards */}
-                <div className="space-y-8">
+                <div className="space-y-6 sm:space-y-8">
                   {(cms.projects || []).map((proj: any, idx: number) => (
                     <div
                       key={proj.id || idx}
-                      className="bg-[var(--bg-input)] border border-[var(--border-color)] rounded-[28px] p-6 sm:p-8 space-y-6 shadow-xl relative"
+                      className="bg-[var(--bg-input)] border border-[var(--border-color)] rounded-[20px] sm:rounded-[28px] p-4 sm:p-8 space-y-4 sm:space-y-6 shadow-xl relative"
                     >
-                      <div className="flex items-center justify-between border-b border-[var(--border-color)] pb-4">
-                        <div className="flex items-center gap-3">
-                          <span className="font-mono text-xl font-black text-[var(--text-heading-gradient-end)]">
+                      <div className="flex items-center justify-between border-b border-[var(--border-color)] pb-3 sm:pb-4">
+                        <div className="flex items-center gap-2.5">
+                          <span className="font-mono text-lg sm:text-xl font-black text-[var(--text-heading-gradient-end)]">
                             {proj.num || `0${idx + 1}`}
                           </span>
-                          <h4 className="font-bold text-lg text-[var(--text-primary)]">{proj.name}</h4>
+                          <h4 className="font-bold text-sm sm:text-lg text-[var(--text-primary)] truncate max-w-[180px] sm:max-w-none">{proj.name}</h4>
                         </div>
 
                         <button
@@ -1059,14 +1129,14 @@ export default function AdminPage() {
                               },
                             });
                           }}
-                          className="p-1.5 rounded-lg text-rose-400 hover:bg-rose-950/40 transition-colors"
+                          className="w-8 h-8 rounded-lg text-rose-400 hover:bg-rose-950/40 transition-colors flex items-center justify-center"
                         >
                           <Trash2 className="w-4 h-4" />
                         </button>
                       </div>
 
                       {/* General Fields */}
-                      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                      <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4">
                         <div className="space-y-1">
                           <label className="text-[10px] font-mono uppercase text-[var(--text-secondary)]">
                             Project Title
@@ -1080,7 +1150,7 @@ export default function AdminPage() {
                               setCms({ ...cms, projects: updated });
                               setHasUnsavedChanges(true);
                             }}
-                            className="w-full bg-[var(--bg-secondary)] border border-[var(--border-color)] rounded-xl px-4 py-2 text-xs text-[var(--text-primary)] font-sans focus:outline-none focus:border-[var(--text-heading-gradient-end)]"
+                            className="w-full min-h-[40px] bg-[var(--bg-secondary)] border border-[var(--border-color)] rounded-xl px-4 py-2 text-xs text-[var(--text-primary)] font-sans focus:outline-none focus:border-[var(--text-heading-gradient-end)]"
                           />
                         </div>
 
@@ -1096,7 +1166,7 @@ export default function AdminPage() {
                               setCms({ ...cms, projects: updated });
                               setHasUnsavedChanges(true);
                             }}
-                            className="w-full bg-[var(--bg-secondary)] border border-[var(--border-color)] rounded-xl px-4 py-2 text-xs text-[var(--text-primary)] font-sans focus:outline-none focus:border-[var(--text-heading-gradient-end)]"
+                            className="w-full min-h-[40px] bg-[var(--bg-secondary)] border border-[var(--border-color)] rounded-xl px-4 py-2 text-xs text-[var(--text-primary)] font-sans focus:outline-none focus:border-[var(--text-heading-gradient-end)]"
                           >
                             <option value="Product">Product</option>
                             <option value="Client">Client</option>
@@ -1117,22 +1187,22 @@ export default function AdminPage() {
                               setCms({ ...cms, projects: updated });
                               setHasUnsavedChanges(true);
                             }}
-                            className="w-full bg-[var(--bg-secondary)] border border-[var(--border-color)] rounded-xl px-4 py-2 text-xs text-[var(--text-primary)] font-sans focus:outline-none focus:border-[var(--text-heading-gradient-end)]"
+                            className="w-full min-h-[40px] bg-[var(--bg-secondary)] border border-[var(--border-color)] rounded-xl px-4 py-2 text-xs text-[var(--text-primary)] font-sans focus:outline-none focus:border-[var(--text-heading-gradient-end)]"
                           />
                         </div>
                       </div>
 
                       {/* 3 Image Upload Slots */}
                       <div className="space-y-3 pt-2">
-                        <label className="text-xs font-mono font-bold uppercase tracking-wider text-[var(--text-heading-gradient-end)] block">
+                        <label className="text-[11px] sm:text-xs font-mono font-bold uppercase tracking-wider text-[var(--text-heading-gradient-end)] block">
                           3 Project Visuals (Cloudinary Upload Slots)
                         </label>
 
-                        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4">
                           {/* Col 1 Image 1 */}
                           <div className="space-y-2">
-                            <span className="text-[10px] font-mono text-[var(--text-secondary)] uppercase block">
-                              Slot 1: Col 1 Top (40%)
+                            <span className="text-[9px] sm:text-[10px] font-mono text-[var(--text-secondary)] uppercase block">
+                              Slot 1: Col 1 Top
                             </span>
                             <CloudinaryDropzone
                               folder={`xentoryx/projects/${proj.slug || "project"}`}
@@ -1145,24 +1215,12 @@ export default function AdminPage() {
                                 setHasUnsavedChanges(true);
                               }}
                             />
-                            <input
-                              type="text"
-                              placeholder="Title (e.g. GC9A01A Screen)"
-                              value={proj.col1Top?.title || ""}
-                              onChange={(e) => {
-                                const updated = [...cms.projects];
-                                updated[idx].col1Top = { ...(updated[idx].col1Top || {}), title: e.target.value };
-                                setCms({ ...cms, projects: updated });
-                                setHasUnsavedChanges(true);
-                              }}
-                              className="w-full bg-[var(--bg-secondary)] border border-[var(--border-color)] rounded-lg px-3 py-1.5 text-xs text-[var(--text-primary)]"
-                            />
                           </div>
 
                           {/* Col 1 Image 2 */}
                           <div className="space-y-2">
-                            <span className="text-[10px] font-mono text-[var(--text-secondary)] uppercase block">
-                              Slot 2: Col 1 Bottom (40%)
+                            <span className="text-[9px] sm:text-[10px] font-mono text-[var(--text-secondary)] uppercase block">
+                              Slot 2: Col 1 Bottom
                             </span>
                             <CloudinaryDropzone
                               folder={`xentoryx/projects/${proj.slug || "project"}`}
@@ -1175,24 +1233,12 @@ export default function AdminPage() {
                                 setHasUnsavedChanges(true);
                               }}
                             />
-                            <input
-                              type="text"
-                              placeholder="Title (e.g. Android Companion)"
-                              value={proj.col1Bottom?.title || ""}
-                              onChange={(e) => {
-                                const updated = [...cms.projects];
-                                updated[idx].col1Bottom = { ...(updated[idx].col1Bottom || {}), title: e.target.value };
-                                setCms({ ...cms, projects: updated });
-                                setHasUnsavedChanges(true);
-                              }}
-                              className="w-full bg-[var(--bg-secondary)] border border-[var(--border-color)] rounded-lg px-3 py-1.5 text-xs text-[var(--text-primary)]"
-                            />
                           </div>
 
                           {/* Col 2 Tall Image */}
                           <div className="space-y-2">
-                            <span className="text-[10px] font-mono text-[var(--text-secondary)] uppercase block">
-                              Slot 3: Col 2 Tall Feature (60%)
+                            <span className="text-[9px] sm:text-[10px] font-mono text-[var(--text-secondary)] uppercase block">
+                              Slot 3: Tall Feature
                             </span>
                             <CloudinaryDropzone
                               folder={`xentoryx/projects/${proj.slug || "project"}`}
@@ -1205,18 +1251,6 @@ export default function AdminPage() {
                                 setHasUnsavedChanges(true);
                               }}
                             />
-                            <input
-                              type="text"
-                              placeholder="Title (e.g. 3D Enclosure Render)"
-                              value={proj.col2?.title || ""}
-                              onChange={(e) => {
-                                const updated = [...cms.projects];
-                                updated[idx].col2 = { ...(updated[idx].col2 || {}), title: e.target.value };
-                                setCms({ ...cms, projects: updated });
-                                setHasUnsavedChanges(true);
-                              }}
-                              className="w-full bg-[var(--bg-secondary)] border border-[var(--border-color)] rounded-lg px-3 py-1.5 text-xs text-[var(--text-primary)]"
-                            />
                           </div>
                         </div>
                       </div>
@@ -1228,28 +1262,28 @@ export default function AdminPage() {
           )}
 
           {/* ========================================== */}
-          {/* 6. MEDIA LIBRARY (NEW) */}
+          {/* 6. MEDIA LIBRARY */}
           {/* ========================================== */}
           {activeTab === "media" && (
-            <FadeIn delay={0.05} className="space-y-8">
-              <div className="bg-[var(--bg-secondary)] border-2 border-[var(--border-color)] rounded-[32px] p-6 sm:p-8 space-y-6 shadow-2xl">
-                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <FadeIn delay={0.05} className="space-y-6 sm:space-y-8">
+              <div className="bg-[var(--bg-secondary)] border-2 border-[var(--border-color)] rounded-[24px] sm:rounded-[32px] p-5 sm:p-8 space-y-5 sm:space-y-6 shadow-2xl">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                   <div className="space-y-1">
-                    <h3 className="hero-heading font-black text-2xl uppercase tracking-tight">
+                    <h3 className="hero-heading font-black text-xl sm:text-2xl uppercase tracking-tight">
                       Cloudinary Media Library
                     </h3>
-                    <p className="text-xs font-mono text-[var(--text-secondary)] uppercase tracking-wider">
-                      Browse, copy CDN URLs, and manage all assets stored in Cloudinary ({mediaItems.length} items).
+                    <p className="text-[11px] sm:text-xs font-mono text-[var(--text-secondary)] uppercase tracking-wider">
+                      Browse, copy CDN URLs, and manage all assets ({mediaItems.length} items).
                     </p>
                   </div>
 
                   {/* Folder Filter Bar */}
-                  <div className="flex items-center gap-2">
+                  <div className="flex items-center gap-1.5 overflow-x-auto pb-1 max-w-full">
                     {["all", "hero", "marquee", "about", "projects"].map((f) => (
                       <button
                         key={f}
                         onClick={() => setMediaFilter(f === "all" ? "all" : `xentoryx/${f}`)}
-                        className={`px-3 py-1 rounded-full text-xs font-mono uppercase transition-all ${
+                        className={`min-h-[36px] px-3 py-1 rounded-full text-[11px] font-mono uppercase transition-all shrink-0 ${
                           mediaFilter === f || mediaFilter === `xentoryx/${f}`
                             ? "bg-[var(--text-primary)] text-[var(--bg-primary)] font-bold"
                             : "bg-[var(--bg-input)] text-[var(--text-secondary)] hover:text-[var(--text-primary)]"
@@ -1261,31 +1295,31 @@ export default function AdminPage() {
                   </div>
                 </div>
 
-                {/* Direct Upload Widget in Media Library */}
-                <div className="p-5 rounded-2xl bg-[var(--bg-input)] border border-[var(--border-color)]">
+                {/* Direct Upload Widget */}
+                <div className="p-4 sm:p-5 rounded-2xl bg-[var(--bg-input)] border border-[var(--border-color)]">
                   <CloudinaryDropzone
-                    label="Upload New Media File Directly to Cloudinary"
+                    label="Upload New Media File"
                     folder="xentoryx/general"
-                    aspect="aspect-[5/1]"
+                    aspect="aspect-[4/1]"
                     value=""
                     onChange={() => fetchMediaLibrary()}
                   />
                 </div>
 
-                {/* Media Assets Grid */}
+                {/* Media Assets Grid: 2 columns on mobile */}
                 {mediaLoading ? (
-                  <div className="py-16 flex flex-col items-center justify-center gap-3">
-                    <Loader2 className="w-8 h-8 animate-spin text-[var(--text-heading-gradient-end)]" />
+                  <div className="py-12 flex flex-col items-center justify-center gap-3">
+                    <Loader2 className="w-7 h-7 animate-spin text-[var(--text-heading-gradient-end)]" />
                     <span className="text-xs font-mono uppercase tracking-widest text-[var(--text-muted)]">
                       Syncing with Cloudinary API...
                     </span>
                   </div>
                 ) : mediaItems.length === 0 ? (
-                  <div className="p-12 text-center bg-[var(--bg-input)] rounded-2xl border border-[var(--border-subtle)] text-xs font-mono text-[var(--text-muted)]">
-                    No media items found in this Cloudinary folder. Upload new files above!
+                  <div className="p-8 text-center bg-[var(--bg-input)] rounded-2xl border border-[var(--border-subtle)] text-xs font-mono text-[var(--text-muted)]">
+                    No media items found in this folder.
                   </div>
                 ) : (
-                  <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
+                  <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3 sm:gap-4">
                     {mediaItems.map((item) => (
                       <div
                         key={item.public_id}
@@ -1299,18 +1333,18 @@ export default function AdminPage() {
                           className="object-cover"
                         />
 
-                        {/* Hover Overlay */}
-                        <div className="absolute inset-0 bg-[var(--bg-primary)]/90 opacity-0 group-hover:opacity-100 transition-opacity p-3 flex flex-col justify-between backdrop-blur-xs">
+                        {/* Always accessible actions on mobile / hover overlay */}
+                        <div className="absolute inset-0 bg-[var(--bg-primary)]/90 opacity-0 group-hover:opacity-100 group-active:opacity-100 transition-opacity p-2.5 flex flex-col justify-between backdrop-blur-xs">
                           <div className="flex items-center justify-between">
-                            <span className="text-[9px] font-mono text-[var(--text-heading-gradient-end)] truncate max-w-[80%]">
-                              {item.format?.toUpperCase()} • {Math.round((item.bytes || 0) / 1024)} KB
+                            <span className="text-[8px] font-mono text-[var(--text-heading-gradient-end)] truncate max-w-[70%]">
+                              {item.format?.toUpperCase()}
                             </span>
                             <button
                               onClick={() => {
                                 setConfirmModal({
                                   open: true,
                                   title: "Delete from Cloudinary?",
-                                  description: `Are you sure you want to permanently remove "${item.public_id}" from Cloudinary storage?`,
+                                  description: `Are you sure you want to permanently remove "${item.public_id}"?`,
                                   onConfirm: async () => {
                                     await fetch("/api/admin/upload", {
                                       method: "DELETE",
@@ -1322,34 +1356,28 @@ export default function AdminPage() {
                                 });
                               }}
                               className="p-1 rounded text-rose-400 hover:bg-rose-950/50"
-                              title="Delete from Cloudinary"
                             >
                               <Trash2 className="w-3.5 h-3.5" />
                             </button>
                           </div>
 
-                          <div className="flex items-center gap-1.5">
+                          <div className="flex items-center gap-1">
                             <button
                               onClick={() => copyToClipboard(item.secure_url)}
-                              className="flex-1 py-1.5 rounded-lg bg-[var(--border-subtle)] hover:bg-[var(--text-primary)] hover:text-[var(--bg-primary)] text-[10px] font-mono font-bold uppercase tracking-wider flex items-center justify-center gap-1 transition-colors"
+                              className="flex-1 py-1.5 rounded-lg bg-[var(--border-subtle)] hover:bg-[var(--text-primary)] hover:text-[var(--bg-primary)] text-[9px] font-mono font-bold uppercase tracking-wider flex items-center justify-center gap-1 transition-colors min-h-[32px]"
                             >
                               {copiedUrl === item.secure_url ? (
-                                <>
-                                  <Check className="w-3 h-3 text-emerald-400" />
-                                  <span>Copied</span>
-                                </>
+                                <Check className="w-3 h-3 text-emerald-400" />
                               ) : (
-                                <>
-                                  <Copy className="w-3 h-3" />
-                                  <span>Copy URL</span>
-                                </>
+                                <Copy className="w-3 h-3" />
                               )}
+                              <span>Copy</span>
                             </button>
 
                             <button
                               onClick={() => setSelectedMediaPreview(item)}
-                              className="p-1.5 rounded-lg bg-[var(--border-subtle)] hover:bg-white text-[var(--text-primary)] hover:text-[#0C0C0C]"
-                              title="Preview Full Size"
+                              className="p-1.5 rounded-lg bg-[var(--border-subtle)] hover:bg-white text-[var(--text-primary)] hover:text-[#0C0C0C] min-h-[32px] flex items-center justify-center"
+                              title="Preview"
                             >
                               <Eye className="w-3.5 h-3.5" />
                             </button>
@@ -1367,59 +1395,59 @@ export default function AdminPage() {
           {/* 7. SETTINGS PAGE */}
           {/* ========================================== */}
           {activeTab === "settings" && (
-            <FadeIn delay={0.05} className="space-y-8">
-              <div className="bg-[var(--bg-secondary)] border-2 border-[var(--border-color)] rounded-[32px] p-6 sm:p-8 space-y-6 shadow-2xl">
+            <FadeIn delay={0.05} className="space-y-6 sm:space-y-8">
+              <div className="bg-[var(--bg-secondary)] border-2 border-[var(--border-color)] rounded-[24px] sm:rounded-[32px] p-5 sm:p-8 space-y-5 sm:space-y-6 shadow-2xl">
                 <div className="space-y-1">
-                  <h3 className="hero-heading font-black text-2xl uppercase tracking-tight">
-                    Site Settings & SEO Engine
+                  <h3 className="hero-heading font-black text-xl sm:text-2xl uppercase tracking-tight">
+                    Site Settings & SEO
                   </h3>
-                  <p className="text-xs font-mono text-[var(--text-secondary)] uppercase tracking-wider">
-                    Configure global metadata, OpenGraph preview cards, social URLs, and contact info.
+                  <p className="text-[11px] sm:text-xs font-mono text-[var(--text-secondary)] uppercase tracking-wider">
+                    Configure global metadata, OpenGraph cards, social URLs, and contact email.
                   </p>
                 </div>
 
-                <div className="space-y-5">
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <div className="space-y-2">
-                      <label className="text-xs font-mono font-bold uppercase tracking-wider text-[var(--text-heading-gradient-end)] block">
+                <div className="space-y-4 sm:space-y-5">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
+                    <div className="space-y-1">
+                      <label className="text-[11px] sm:text-xs font-mono font-bold uppercase tracking-wider text-[var(--text-heading-gradient-end)] block">
                         Page Title
                       </label>
                       <input
                         type="text"
                         value={cms.settings?.siteTitle || ""}
                         onChange={(e) => updateSection("settings", "siteTitle", e.target.value)}
-                        className="w-full bg-[var(--bg-input)] border border-[var(--border-color)] rounded-2xl px-5 py-3 text-sm text-[var(--text-primary)] font-sans focus:outline-none focus:border-[var(--text-heading-gradient-end)]"
+                        className="w-full min-h-[40px] bg-[var(--bg-input)] border border-[var(--border-color)] rounded-2xl px-4 sm:px-5 py-2 text-sm text-[var(--text-primary)] font-sans focus:outline-none focus:border-[var(--text-heading-gradient-end)]"
                       />
                     </div>
 
-                    <div className="space-y-2">
-                      <label className="text-xs font-mono font-bold uppercase tracking-wider text-[var(--text-heading-gradient-end)] block">
+                    <div className="space-y-1">
+                      <label className="text-[11px] sm:text-xs font-mono font-bold uppercase tracking-wider text-[var(--text-heading-gradient-end)] block">
                         Contact Email
                       </label>
                       <input
                         type="text"
                         value={cms.settings?.email || ""}
                         onChange={(e) => updateSection("settings", "email", e.target.value)}
-                        className="w-full bg-[var(--bg-input)] border border-[var(--border-color)] rounded-2xl px-5 py-3 text-sm text-[var(--text-primary)] font-sans focus:outline-none focus:border-[var(--text-heading-gradient-end)]"
+                        className="w-full min-h-[40px] bg-[var(--bg-input)] border border-[var(--border-color)] rounded-2xl px-4 sm:px-5 py-2 text-sm text-[var(--text-primary)] font-sans focus:outline-none focus:border-[var(--text-heading-gradient-end)]"
                       />
                     </div>
                   </div>
 
-                  <div className="space-y-2">
-                    <label className="text-xs font-mono font-bold uppercase tracking-wider text-[var(--text-heading-gradient-end)] block">
+                  <div className="space-y-1">
+                    <label className="text-[11px] sm:text-xs font-mono font-bold uppercase tracking-wider text-[var(--text-heading-gradient-end)] block">
                       SEO Description
                     </label>
                     <textarea
                       rows={2}
                       value={cms.settings?.siteDescription || ""}
                       onChange={(e) => updateSection("settings", "siteDescription", e.target.value)}
-                      className="w-full bg-[var(--bg-input)] border border-[var(--border-color)] rounded-2xl p-5 text-sm text-[var(--text-primary)] font-sans focus:outline-none focus:border-[var(--text-heading-gradient-end)]"
+                      className="w-full bg-[var(--bg-input)] border border-[var(--border-color)] rounded-2xl p-4 text-sm text-[var(--text-primary)] font-sans focus:outline-none focus:border-[var(--text-heading-gradient-end)]"
                     />
                   </div>
 
                   {/* OpenGraph Image Upload */}
                   <CloudinaryDropzone
-                    label="OpenGraph Social Banner Image (OG Share Preview)"
+                    label="OpenGraph Social Banner Image"
                     folder="xentoryx/seo"
                     aspect="aspect-[1.91/1] max-w-md"
                     value={cms.settings?.ogImage || ""}
@@ -1427,12 +1455,12 @@ export default function AdminPage() {
                   />
 
                   {/* Social Links Grid */}
-                  <div className="pt-4 space-y-3">
-                    <label className="text-xs font-mono font-bold uppercase tracking-wider text-[var(--text-heading-gradient-end)] block">
+                  <div className="pt-2 sm:pt-4 space-y-3">
+                    <label className="text-[11px] sm:text-xs font-mono font-bold uppercase tracking-wider text-[var(--text-heading-gradient-end)] block">
                       Social Network Profiles
                     </label>
 
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
                       <div className="space-y-1">
                         <span className="text-[10px] font-mono text-[var(--text-secondary)] uppercase block">GitHub</span>
                         <input
@@ -1448,7 +1476,7 @@ export default function AdminPage() {
                             });
                             setHasUnsavedChanges(true);
                           }}
-                          className="w-full bg-[var(--bg-input)] border border-[var(--border-color)] rounded-xl px-4 py-2 text-xs text-[var(--text-primary)]"
+                          className="w-full min-h-[40px] bg-[var(--bg-input)] border border-[var(--border-color)] rounded-xl px-4 py-2 text-xs text-[var(--text-primary)]"
                         />
                       </div>
 
@@ -1467,7 +1495,7 @@ export default function AdminPage() {
                             });
                             setHasUnsavedChanges(true);
                           }}
-                          className="w-full bg-[var(--bg-input)] border border-[var(--border-color)] rounded-xl px-4 py-2 text-xs text-[var(--text-primary)]"
+                          className="w-full min-h-[40px] bg-[var(--bg-input)] border border-[var(--border-color)] rounded-xl px-4 py-2 text-xs text-[var(--text-primary)]"
                         />
                       </div>
 
@@ -1486,7 +1514,7 @@ export default function AdminPage() {
                             });
                             setHasUnsavedChanges(true);
                           }}
-                          className="w-full bg-[var(--bg-input)] border border-[var(--border-color)] rounded-xl px-4 py-2 text-xs text-[var(--text-primary)]"
+                          className="w-full min-h-[40px] bg-[var(--bg-input)] border border-[var(--border-color)] rounded-xl px-4 py-2 text-xs text-[var(--text-primary)]"
                         />
                       </div>
 
@@ -1505,7 +1533,7 @@ export default function AdminPage() {
                             });
                             setHasUnsavedChanges(true);
                           }}
-                          className="w-full bg-[var(--bg-input)] border border-[var(--border-color)] rounded-xl px-4 py-2 text-xs text-[var(--text-primary)]"
+                          className="w-full min-h-[40px] bg-[var(--bg-input)] border border-[var(--border-color)] rounded-xl px-4 py-2 text-xs text-[var(--text-primary)]"
                         />
                       </div>
                     </div>
@@ -1523,8 +1551,8 @@ export default function AdminPage() {
       {/* ========================================== */}
       {confirmModal.open && (
         <div className="fixed inset-0 z-50 bg-[var(--bg-primary)]/80 backdrop-blur-md flex items-center justify-center p-4">
-          <div className="bg-[var(--bg-secondary)] border-2 border-[var(--border-color)] rounded-[28px] p-6 max-w-md w-full space-y-4 shadow-2xl">
-            <h4 className="font-bold text-lg text-[var(--text-primary)]">{confirmModal.title}</h4>
+          <div className="bg-[var(--bg-secondary)] border-2 border-[var(--border-color)] rounded-[24px] sm:rounded-[28px] p-5 sm:p-6 max-w-md w-full space-y-4 shadow-2xl">
+            <h4 className="font-bold text-base sm:text-lg text-[var(--text-primary)]">{confirmModal.title}</h4>
             <p className="text-xs text-[var(--text-secondary)] font-sans leading-relaxed">
               {confirmModal.description}
             </p>
@@ -1532,7 +1560,7 @@ export default function AdminPage() {
               <button
                 type="button"
                 onClick={() => setConfirmModal({ ...confirmModal, open: false })}
-                className="px-4 py-2 rounded-full border border-[var(--border-color)] text-xs font-mono uppercase text-[var(--text-primary)] hover:bg-[var(--btn-ghost-hover)] transition-colors cursor-pointer"
+                className="min-h-[40px] px-4 py-2 rounded-full border border-[var(--border-color)] text-xs font-mono uppercase text-[var(--text-primary)] hover:bg-[var(--btn-ghost-hover)] transition-colors cursor-pointer"
               >
                 Cancel
               </button>
@@ -1542,7 +1570,7 @@ export default function AdminPage() {
                   confirmModal.onConfirm();
                   setConfirmModal({ ...confirmModal, open: false });
                 }}
-                className="px-5 py-2 rounded-full bg-rose-600 hover:bg-rose-500 text-white text-xs font-mono uppercase font-bold transition-colors cursor-pointer"
+                className="min-h-[40px] px-5 py-2 rounded-full bg-rose-600 hover:bg-rose-500 text-white text-xs font-mono uppercase font-bold transition-colors cursor-pointer"
               >
                 Confirm Delete
               </button>
@@ -1555,7 +1583,7 @@ export default function AdminPage() {
       {selectedMediaPreview && (
         <div
           onClick={() => setSelectedMediaPreview(null)}
-          className="fixed inset-0 z-50 bg-[var(--bg-primary)]/90 backdrop-blur-md flex items-center justify-center p-6"
+          className="fixed inset-0 z-50 bg-[var(--bg-primary)]/90 backdrop-blur-md flex items-center justify-center p-4 sm:p-6"
         >
           <div className="relative max-w-4xl max-h-[85vh] w-full h-full flex flex-col items-center justify-center">
             <button
@@ -1574,7 +1602,7 @@ export default function AdminPage() {
               />
             </div>
             <div className="text-center pt-4">
-              <span className="text-xs font-mono text-[var(--text-heading-gradient-end)]">
+              <span className="text-xs font-mono text-[var(--text-heading-gradient-end)] truncate block max-w-xs sm:max-w-none">
                 {selectedMediaPreview.public_id} ({selectedMediaPreview.width}x{selectedMediaPreview.height})
               </span>
             </div>
