@@ -13,12 +13,12 @@ export default function AboutSection() {
   return (
     <section
       id="about"
-      className="relative min-h-screen w-full flex flex-col items-center justify-center bg-[var(--bg-primary)] text-[var(--text-primary)] px-5 sm:px-8 md:px-10 py-20 overflow-hidden select-none transition-colors duration-300"
+      className="relative min-h-[90vh] sm:min-h-screen w-full flex flex-col items-center justify-center bg-[var(--bg-primary)] text-[var(--text-primary)] px-4 sm:px-8 md:px-10 py-16 sm:py-20 overflow-hidden select-none transition-colors duration-300"
     >
-      {/* Corner Tech Decorative Illustrations */}
-      {/* 1. Top-Left: Circuit Board Icon Illustration */}
-      <div className="absolute top-[4%] left-[1%] sm:left-[2%] md:left-[4%] w-[120px] sm:w-[160px] md:w-[210px] pointer-events-none opacity-20 hover:opacity-40 transition-opacity">
-        <FadeIn delay={0.1} x={-80} y={0} duration={0.9}>
+      {/* Corner Tech Decorative Illustrations - Hidden on small mobile to prevent text clash */}
+      {/* 1. Top-Left: Circuit Board Icon */}
+      <div className="hidden md:block absolute top-[4%] left-[2%] lg:left-[4%] w-[140px] lg:w-[200px] pointer-events-none opacity-20 hover:opacity-40 transition-opacity">
+        <FadeIn delay={0.1} x={-60} y={0} duration={0.9}>
           <div className="aspect-square rounded-3xl bg-[var(--border-subtle)] border border-[var(--border-color)] p-6 flex flex-col items-center justify-center">
             <Cpu className="w-full h-full text-[var(--text-heading-gradient-end)]" />
             <span className="text-[10px] font-mono mt-2 tracking-widest uppercase opacity-60">CIRCUIT.IO</span>
@@ -27,8 +27,8 @@ export default function AboutSection() {
       </div>
 
       {/* 2. Bottom-Left: Microchip / ESP32 Icon */}
-      <div className="absolute bottom-[8%] left-[3%] sm:left-[6%] md:left-[10%] w-[100px] sm:w-[140px] md:w-[180px] pointer-events-none opacity-20 hover:opacity-40 transition-opacity">
-        <FadeIn delay={0.25} x={-80} y={0} duration={0.9}>
+      <div className="hidden md:block absolute bottom-[8%] left-[4%] lg:left-[8%] w-[120px] lg:w-[170px] pointer-events-none opacity-20 hover:opacity-40 transition-opacity">
+        <FadeIn delay={0.25} x={-60} y={0} duration={0.9}>
           <div className="aspect-square rounded-3xl bg-[var(--border-subtle)] border border-[var(--border-color)] p-5 flex flex-col items-center justify-center">
             <Radio className="w-full h-full text-[var(--text-heading-gradient-end)]" />
             <span className="text-[10px] font-mono mt-2 tracking-widest uppercase opacity-60">ESP32.MCU</span>
@@ -37,8 +37,8 @@ export default function AboutSection() {
       </div>
 
       {/* 3. Top-Right: Code-Bracket Icon */}
-      <div className="absolute top-[4%] right-[1%] sm:right-[2%] md:right-[4%] w-[120px] sm:w-[160px] md:w-[210px] pointer-events-none opacity-20 hover:opacity-40 transition-opacity">
-        <FadeIn delay={0.15} x={80} y={0} duration={0.9}>
+      <div className="hidden md:block absolute top-[4%] right-[2%] lg:right-[4%] w-[140px] lg:w-[200px] pointer-events-none opacity-20 hover:opacity-40 transition-opacity">
+        <FadeIn delay={0.15} x={60} y={0} duration={0.9}>
           <div className="aspect-square rounded-3xl bg-[var(--border-subtle)] border border-[var(--border-color)] p-6 flex flex-col items-center justify-center">
             <Code2 className="w-full h-full text-[var(--text-heading-gradient-end)]" />
             <span className="text-[10px] font-mono mt-2 tracking-widest uppercase opacity-60">&lt;DEV /&gt;</span>
@@ -47,8 +47,8 @@ export default function AboutSection() {
       </div>
 
       {/* 4. Bottom-Right: Cloud / Server Icon */}
-      <div className="absolute bottom-[8%] right-[3%] sm:right-[6%] md:right-[10%] w-[130px] sm:w-[170px] md:w-[220px] pointer-events-none opacity-20 hover:opacity-40 transition-opacity">
-        <FadeIn delay={0.3} x={80} y={0} duration={0.9}>
+      <div className="hidden md:block absolute bottom-[8%] right-[4%] lg:right-[8%] w-[130px] lg:w-[190px] pointer-events-none opacity-20 hover:opacity-40 transition-opacity">
+        <FadeIn delay={0.3} x={60} y={0} duration={0.9}>
           <div className="aspect-square rounded-3xl bg-[var(--border-subtle)] border border-[var(--border-color)] p-6 flex flex-col items-center justify-center">
             <Server className="w-full h-full text-[var(--text-heading-gradient-end)]" />
             <span className="text-[10px] font-mono mt-2 tracking-widest uppercase opacity-60">CLOUD.API</span>
@@ -57,29 +57,29 @@ export default function AboutSection() {
       </div>
 
       {/* Main Centered Content */}
-      <div className="w-full max-w-4xl flex flex-col items-center text-center z-10 space-y-10 sm:space-y-14 md:space-y-16">
+      <div className="w-full max-w-3xl flex flex-col items-center text-center z-10 space-y-8 sm:space-y-12 md:space-y-16">
         
         {/* Heading */}
-        <FadeIn delay={0} y={40}>
+        <FadeIn delay={0} y={30}>
           <h2
-            style={{ fontSize: "clamp(3rem, 12vw, 160px)" }}
+            style={{ fontSize: "clamp(2.5rem, 10vw, 140px)" }}
             className="hero-heading font-black uppercase leading-none tracking-tight"
           >
             About me
           </h2>
         </FadeIn>
 
-        {/* Animated Paragraph with character-by-character scroll opacity */}
-        <FadeIn delay={0.2} y={30}>
+        {/* Animated Paragraph */}
+        <FadeIn delay={0.2} y={20}>
           <AnimatedText
             text={aboutText}
-            style={{ fontSize: "clamp(1rem, 2vw, 1.35rem)" } as any}
-            className="text-[var(--text-primary)] font-medium leading-relaxed max-w-[560px] mx-auto text-center"
+            style={{ fontSize: "clamp(0.95rem, 1.8vw, 1.3rem)" } as any}
+            className="text-[var(--text-primary)] font-medium leading-relaxed max-w-[540px] mx-auto text-center px-2"
           />
         </FadeIn>
 
         {/* Contact Button */}
-        <FadeIn delay={0.4} y={30} className="pt-6 sm:pt-10 md:pt-12">
+        <FadeIn delay={0.4} y={20} className="pt-2 sm:pt-6">
           <ContactButton href="#contact" />
         </FadeIn>
 

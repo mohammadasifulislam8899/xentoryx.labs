@@ -37,30 +37,30 @@ function Card({
   return (
     <div
       ref={containerRef}
-      className="h-[85vh] flex items-center justify-center sticky top-24 md:top-32"
+      className="min-h-[540px] md:h-[85vh] flex items-center justify-center sticky top-20 md:top-32"
     >
       <motion.div
         style={{
           scale,
-          top: `calc(${index * 28}px)`,
+          top: `calc(${index * 20}px)`,
         }}
-        className="w-full h-full max-h-[720px] rounded-[40px] sm:rounded-[50px] md:rounded-[60px] border-2 border-[var(--border-color)] bg-[var(--bg-primary)] p-4 sm:p-6 md:p-8 flex flex-col justify-between shadow-2xl relative overflow-hidden transition-colors duration-300"
+        className="w-full h-auto md:h-full md:max-h-[720px] rounded-[28px] sm:rounded-[40px] md:rounded-[60px] border-2 border-[var(--border-color)] bg-[var(--bg-primary)] p-4 sm:p-6 md:p-8 flex flex-col justify-between shadow-2xl relative overflow-hidden transition-colors duration-300 gap-4"
       >
         {/* Top Row: Number, Category, Title, Live Project Button */}
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-[var(--border-color)] z-10">
-          <div className="flex items-center gap-4 sm:gap-6">
+        <div className="flex items-center justify-between gap-2 pb-3 md:pb-4 border-b border-[var(--border-color)] z-10">
+          <div className="flex items-center gap-3 sm:gap-6">
             <span
-              style={{ fontSize: "clamp(2rem, 5vw, 4rem)" }}
+              style={{ fontSize: "clamp(1.8rem, 4vw, 3.5rem)" }}
               className="font-black text-[var(--text-primary)] leading-none tracking-tighter"
             >
               {project.num}
             </span>
             <div>
-              <span className="text-[10px] sm:text-xs font-mono font-bold uppercase tracking-widest text-[var(--text-heading-gradient-end)] block">
+              <span className="text-[9px] sm:text-xs font-mono font-bold uppercase tracking-widest text-[var(--text-heading-gradient-end)] block">
                 {project.category}
               </span>
               <h3
-                style={{ fontSize: "clamp(1.2rem, 3vw, 2.5rem)" }}
+                style={{ fontSize: "clamp(1.1rem, 2.5vw, 2.2rem)" }}
                 className="font-black uppercase tracking-tight text-[var(--text-primary)] leading-none mt-0.5"
               >
                 {project.name}
@@ -71,46 +71,45 @@ function Card({
           <LiveProjectButton href={project.liveUrl || "#"} />
         </div>
 
-        {/* Bottom Row: 2-Column Image Grid (40% left, 60% right) */}
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-3 sm:gap-4 flex-1 pt-4 min-h-0">
+        {/* Bottom Row: 2-Column Responsive Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-3 sm:gap-4 flex-1">
           
-          {/* Left Column (40% / 5 cols): 2 Stacked Cards */}
-          <div className="md:col-span-5 flex flex-col gap-3 sm:gap-4 h-full">
+          {/* Left Column (Desktop 40% / 5 cols): Stacked Cards */}
+          <div className="md:col-span-5 flex flex-col gap-3 sm:gap-4">
             {/* Left Top Card */}
             <div
-              style={{ height: "clamp(120px, 16vw, 220px)" }}
-              className={`w-full rounded-[30px] sm:rounded-[40px] md:rounded-[50px] bg-gradient-to-br ${project.col1Top.bg} border border-[var(--border-color)] bg-[var(--bg-card)] p-5 flex flex-col justify-between relative overflow-hidden shadow-md`}
+              className={`w-full h-[110px] sm:h-[140px] md:h-[180px] rounded-[20px] sm:rounded-[30px] md:rounded-[40px] bg-gradient-to-br ${project.col1Top.bg} border border-[var(--border-color)] bg-[var(--bg-card)] p-4 sm:p-5 flex flex-col justify-between relative overflow-hidden shadow-md`}
             >
-              <div className="text-[10px] font-mono uppercase tracking-widest text-[var(--text-primary)] font-bold">
+              <div className="text-[9px] sm:text-[10px] font-mono uppercase tracking-widest text-[var(--text-primary)] font-bold">
                 {project.col1Top.iconText}
               </div>
               <div>
-                <h4 className="font-bold text-sm sm:text-base text-white">{project.col1Top.title}</h4>
-                <p className="text-xs text-white/70 font-light">{project.col1Top.subtitle}</p>
+                <h4 className="font-bold text-xs sm:text-sm md:text-base text-white">{project.col1Top.title}</h4>
+                <p className="text-[10px] sm:text-xs text-white/70 font-light truncate">{project.col1Top.subtitle}</p>
               </div>
             </div>
 
             {/* Left Bottom Card */}
-            <div className={`w-full flex-1 min-h-[140px] rounded-[30px] sm:rounded-[40px] md:rounded-[50px] bg-gradient-to-br ${project.col1Bottom.bg} border border-[var(--border-color)] bg-[var(--bg-card)] p-5 flex flex-col justify-between relative overflow-hidden shadow-md`}>
-              <div className="text-[10px] font-mono uppercase tracking-widest text-[var(--text-primary)] font-bold">
+            <div className={`hidden sm:flex w-full flex-1 min-h-[120px] rounded-[20px] sm:rounded-[30px] md:rounded-[40px] bg-gradient-to-br ${project.col1Bottom.bg} border border-[var(--border-color)] bg-[var(--bg-card)] p-4 sm:p-5 flex-col justify-between relative overflow-hidden shadow-md`}>
+              <div className="text-[9px] sm:text-[10px] font-mono uppercase tracking-widest text-[var(--text-primary)] font-bold">
                 {project.col1Bottom.iconText}
               </div>
               <div>
-                <h4 className="font-bold text-sm sm:text-base text-white">{project.col1Bottom.title}</h4>
-                <p className="text-xs text-white/70 font-light">{project.col1Bottom.subtitle}</p>
+                <h4 className="font-bold text-xs sm:text-sm md:text-base text-white">{project.col1Bottom.title}</h4>
+                <p className="text-[10px] sm:text-xs text-white/70 font-light truncate">{project.col1Bottom.subtitle}</p>
               </div>
             </div>
           </div>
 
-          {/* Right Column (60% / 7 cols): 1 Tall Card */}
-          <div className="md:col-span-7 h-full">
-            <div className={`w-full h-full min-h-[220px] rounded-[30px] sm:rounded-[40px] md:rounded-[50px] bg-gradient-to-br ${project.col2.bg} border border-[var(--border-color)] bg-[var(--bg-card)] p-6 sm:p-8 flex flex-col justify-between relative overflow-hidden shadow-md`}>
-              <div className="text-[10px] font-mono uppercase tracking-widest text-[var(--text-primary)] font-bold">
+          {/* Right Column (Desktop 60% / 7 cols): Tall Featured Card */}
+          <div className="md:col-span-7">
+            <div className={`w-full h-[180px] sm:h-full min-h-[180px] rounded-[20px] sm:rounded-[30px] md:rounded-[40px] bg-gradient-to-br ${project.col2.bg} border border-[var(--border-color)] bg-[var(--bg-card)] p-4 sm:p-6 md:p-8 flex flex-col justify-between relative overflow-hidden shadow-md`}>
+              <div className="text-[9px] sm:text-[10px] font-mono uppercase tracking-widest text-[var(--text-primary)] font-bold">
                 {project.col2.iconText}
               </div>
               <div>
-                <h4 className="font-bold text-lg sm:text-2xl text-white">{project.col2.title}</h4>
-                <p className="text-xs sm:text-sm text-white/80 font-light mt-1 max-w-md">
+                <h4 className="font-bold text-sm sm:text-lg md:text-2xl text-white">{project.col2.title}</h4>
+                <p className="text-[11px] sm:text-xs md:text-sm text-white/80 font-light mt-1 max-w-md line-clamp-2 sm:line-clamp-none">
                   {project.col2.subtitle}
                 </p>
               </div>
@@ -202,14 +201,14 @@ export default function ProjectsSection() {
   return (
     <section
       id="projects"
-      className="w-full bg-[var(--bg-primary)] text-[var(--text-primary)] rounded-t-[40px] sm:rounded-t-[50px] md:rounded-t-[60px] -mt-10 sm:-mt-12 md:-mt-14 pt-20 sm:pt-28 pb-32 px-4 sm:px-6 md:px-10 relative z-10 select-none transition-colors duration-300"
+      className="w-full bg-[var(--bg-primary)] text-[var(--text-primary)] rounded-t-[32px] sm:rounded-t-[50px] md:rounded-t-[60px] -mt-8 sm:-mt-12 md:-mt-14 pt-16 sm:pt-28 pb-24 sm:pb-32 px-3 sm:px-6 md:px-10 relative z-10 select-none transition-colors duration-300"
     >
-      <div className="max-w-6xl mx-auto w-full space-y-16 sm:space-y-24">
+      <div className="max-w-6xl mx-auto w-full space-y-10 sm:space-y-20">
         
         {/* Heading */}
         <FadeIn delay={0} y={40} className="text-center">
           <h2
-            style={{ fontSize: "clamp(3rem, 12vw, 160px)" }}
+            style={{ fontSize: "clamp(2.5rem, 10vw, 140px)" }}
             className="hero-heading font-black uppercase leading-none tracking-tight"
           >
             Project
@@ -217,7 +216,7 @@ export default function ProjectsSection() {
         </FadeIn>
 
         {/* Sticky Stacking Cards */}
-        <div className="space-y-12 pb-12">
+        <div className="space-y-8 sm:space-y-12 pb-8">
           {projects.map((proj, idx) => (
             <Card
               key={proj.num}
