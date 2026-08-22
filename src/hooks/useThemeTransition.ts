@@ -19,6 +19,9 @@ export function useThemeTransition() {
           return;
         }
 
+        const isMobile = typeof window !== "undefined" && window.innerWidth < 640;
+        const duration = isMobile ? 0.5 : 0.75;
+
         // 1. Calculate origin X and Y from click event or center of screen
         let originX = typeof window !== "undefined" ? window.innerWidth / 2 : 0;
         let originY = typeof window !== "undefined" ? window.innerHeight / 2 : 0;
@@ -33,7 +36,7 @@ export function useThemeTransition() {
           gsap.fromTo(
             iconElement,
             { rotate: 0, scale: 0.8 },
-            { rotate: 360, scale: 1, duration: 0.6, ease: "back.out(1.7)" }
+            { rotate: 360, scale: 1, duration: 0.5, ease: "back.out(1.7)" }
           );
         }
 
@@ -56,7 +59,7 @@ export function useThemeTransition() {
           onComplete: () => {
             gsap.to(overlay, {
               opacity: 0,
-              duration: 0.3,
+              duration: 0.25,
               ease: "power2.out",
               onComplete: () => {
                 overlay.remove();
@@ -68,10 +71,9 @@ export function useThemeTransition() {
 
         tl.to(overlay, {
           clipPath: `circle(150% at ${originX}px ${originY}px)`,
-          duration: 0.75,
+          duration: duration,
           ease: "power3.inOut",
           onUpdate: function () {
-            // Swap underlying theme at ~40% of the wipe
             if (this.progress() >= 0.4 && !themeSwapped) {
               themeSwapped = true;
               if (onThemeApply) onThemeApply();

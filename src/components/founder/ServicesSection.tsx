@@ -40,14 +40,14 @@ export default function ServicesSection() {
   return (
     <section
       id="services"
-      className="w-full bg-[var(--services-bg)] text-[var(--services-text)] rounded-t-[40px] sm:rounded-t-[50px] md:rounded-t-[60px] px-5 sm:px-8 md:px-10 py-20 sm:py-24 md:py-32 select-none relative z-0 transition-colors duration-300 shadow-2xl"
+      className="w-full bg-[var(--services-bg)] text-[var(--services-text)] rounded-t-[32px] sm:rounded-t-[50px] md:rounded-t-[60px] px-5 sm:px-8 md:px-10 py-16 sm:py-24 md:py-32 select-none relative z-0 transition-colors duration-300 shadow-2xl"
     >
       <div className="max-w-5xl mx-auto w-full">
         
         {/* Centered Heading */}
-        <FadeIn delay={0} y={40} className="text-center mb-16 sm:mb-20 md:mb-28">
+        <FadeIn delay={0} y={40} className="text-center mb-12 sm:mb-20 md:mb-28">
           <h2
-            style={{ fontSize: "clamp(3rem, 12vw, 160px)" }}
+            style={{ fontSize: "clamp(2.75rem, 11vw, 150px)" }}
             className="font-black uppercase leading-none tracking-tight text-[var(--services-text)]"
           >
             Services
@@ -59,30 +59,21 @@ export default function ServicesSection() {
           {services.map((svc, idx) => (
             <FadeIn
               key={svc.num}
-              delay={idx * 0.1}
+              delay={idx * 0.08}
               y={20}
-              className="py-8 sm:py-10 md:py-12 flex flex-col md:flex-row md:items-center justify-between gap-6 group"
+              className="py-6 sm:py-10 md:py-12 flex flex-col md:flex-row md:items-center justify-between gap-2 sm:gap-4 md:gap-6 group text-left"
             >
-              {/* Huge Number */}
-              <div
-                style={{ fontSize: "clamp(3rem, 10vw, 140px)" }}
-                className="font-black text-[var(--services-text)] leading-none shrink-0 tracking-tighter"
-              >
+              {/* Number */}
+              <div className="font-black text-[var(--services-text)] leading-none shrink-0 tracking-tighter text-3xl sm:text-5xl md:text-7xl lg:text-8xl">
                 {svc.num}
               </div>
 
               {/* Name + Description Stacked */}
-              <div className="flex flex-col space-y-2 md:pl-8 flex-1">
-                <h3
-                  style={{ fontSize: "clamp(1rem, 2.2vw, 2.1rem)" }}
-                  className="font-medium uppercase tracking-tight text-[var(--services-text)]"
-                >
+              <div className="flex flex-col space-y-1 sm:space-y-2 md:pl-8 flex-1">
+                <h3 className="font-medium uppercase tracking-tight text-[var(--services-text)] text-base sm:text-xl md:text-2xl">
                   {svc.name}
                 </h3>
-                <p
-                  style={{ fontSize: "clamp(0.85rem, 1.6vw, 1.25rem)" }}
-                  className="font-light leading-relaxed max-w-2xl text-[var(--services-desc)]"
-                >
+                <p className="font-light leading-relaxed max-w-2xl text-[var(--services-desc)] text-xs sm:text-sm md:text-base">
                   {svc.description}
                 </p>
               </div>

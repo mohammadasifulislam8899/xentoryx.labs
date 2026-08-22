@@ -62,7 +62,7 @@ export default function ClientLayoutWrapper({ children }: { children: React.Reac
 
       <Footer />
 
-      {/* Floating XenAI Assistant Button Badge */}
+      {/* Floating XenAI Assistant Button Badge - Mobile optimized */}
       <button
         onClick={() => setAiOpen(true)}
         style={{
@@ -71,10 +71,12 @@ export default function ClientLayoutWrapper({ children }: { children: React.Reac
           outline: "2px solid white",
           outlineOffset: "-3px",
         }}
-        className="fixed bottom-6 right-6 z-30 px-4 py-2.5 rounded-full text-white text-xs font-mono font-bold flex items-center gap-2 hover:scale-105 transition-all group shadow-2xl cursor-pointer"
+        className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-40 p-2.5 sm:px-4 sm:py-2.5 rounded-full text-white text-xs font-mono font-bold flex items-center justify-center gap-2 hover:scale-105 active:scale-95 transition-all group shadow-2xl cursor-pointer"
+        aria-label="Open XenAI Assistant"
+        title="Open XenAI Assistant"
       >
         <Bot className="w-4 h-4 animate-bounce" />
-        <span>XenAI</span>
+        <span className="hidden sm:inline">XenAI</span>
       </button>
 
       {/* Modals */}
