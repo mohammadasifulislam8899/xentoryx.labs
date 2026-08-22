@@ -1,100 +1,87 @@
 "use client";
 
+import Image from "next/image";
+import Link from "next/link";
 import { motion } from "framer-motion";
-import { Zap, ShieldCheck, Compass, RefreshCw, CheckCircle2 } from "lucide-react";
+import CornerDecorations from "@/components/layout/CornerDecorations";
 import { useCMS } from "@/hooks/useCMS";
 
 export default function PhilosophySection() {
   const { settings } = useCMS();
   const pillars = settings?.philosophy || [
     {
-      title: "Build Fast",
-      subtitle: "Rapid Prototyping to Production",
-      description: "Moving swiftly from initial architectural concept to clean, production-ready code without cutting engineering corners.",
-      points: ["Modular Clean Architecture", "Iterative Sprint Deployment", "Zero Tech Debt Strategy"],
+      title: "Android Architecture",
+      subtitle: "Madrid Gallery, Spain, 21 Nov 2023",
+      description: "Native Kotlin & Jetpack Compose",
     },
     {
-      title: "Think Scalable",
-      subtitle: "Enterprise-Grade Performance",
-      description: "Architecting software microservices and IoT hardware pipelines designed to effortlessly handle exponential user & data growth.",
-      points: ["Offline-First Android Data Caching", "High-Throughput MQTT Brokers", "Database Indexing & Micro-caching"],
-    },
-    {
-      title: "Design for Humans",
-      subtitle: "Apple & Linear Level Polish",
-      description: "Crafting intuitive user interfaces, buttery smooth animations, and ergonomic software designs that wow users at first glance.",
-      points: ["Declarative Jetpack Compose & React 19", "Micro-interactions & Smooth Scroll", "Accessible & Dark Mode First"],
-    },
-    {
-      title: "Automate Everything",
-      subtitle: "Continuous Telemetry & OTA",
-      description: "Automating build pipelines, hardware Over-The-Air (OTA) updates, cloud container deployments, and background monitoring.",
-      points: ["OTA Wireless ESP32 Updating", "Dockerized Container Workflows", "Automated System Diagnostics"],
+      title: "Embedded IoT Firmware",
+      subtitle: "Manchester Museum, UK, 20 Nov 2023",
+      description: "ESP32 C++ & Telemetry Engine",
     },
   ];
 
-  const icons = [Zap, ShieldCheck, Compass, RefreshCw];
-
   return (
-    <section id="philosophy" className="py-24 bg-slate-50 dark:bg-[#07090C] text-slate-900 dark:text-white relative border-t border-slate-200 dark:border-white/5 transition-colors duration-300">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center max-w-3xl mx-auto mb-16 space-y-4">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full glass-panel-red text-xs font-mono text-brand-red font-semibold uppercase tracking-wider">
-            ENGINEERING PHILOSOPHY
+    <section id="philosophy" className="relative bg-[#0A0A0A] text-[#F5F1E8] overflow-hidden py-16 sm:py-24">
+      {/* 7. Corner Decorations on Dark Section: Reticle icons top-left/right, Plus icons bottom-left/right */}
+      <div className="relative px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto">
+        <CornerDecorations />
+
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+          
+          {/* Left Column: Centerpiece Monochrome Visual */}
+          <div className="lg:col-span-6 flex justify-center">
+            <div className="relative w-72 h-80 sm:w-96 sm:h-[420px] rounded-[32px] overflow-hidden border border-[#F5F1E8]/15 bg-[#141414] shadow-card-dark group">
+              <Image
+                src="/assets/founder-asif.jpg"
+                alt="Architecture Monograph"
+                fill
+                className="object-cover filter grayscale contrast-125 group-hover:scale-105 transition-transform duration-700"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#0A0A0A]/80 via-transparent to-transparent" />
+              
+              <div className="absolute bottom-6 left-6 right-6 flex items-center justify-between">
+                <span className="font-mono text-xs text-[#D9A648] font-bold uppercase tracking-widest">
+                  [ 001 // GALLERY ]
+                </span>
+                <span className="text-[10px] font-mono text-[#F5F1E8]/60 uppercase">
+                  Hardware &amp; Software
+                </span>
+              </div>
+            </div>
           </div>
-          <h2 className="font-display text-4xl sm:text-5xl font-extrabold text-slate-900 dark:text-white tracking-tight">
-            How We <span className="text-gradient-red">Architect Systems</span>
-          </h2>
-          <p className="text-base text-slate-600 dark:text-slate-400 leading-relaxed font-sans">
-            Core engineering principles guiding every software application, microservices API, and hardware IoT prototype built by Founder Asif at Xentoryx Labs.
-          </p>
-        </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          {pillars.map((pillar, idx) => {
-            const IconComponent = icons[idx % icons.length];
-            return (
-              <motion.div
-                key={pillar.title}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: idx * 0.1 }}
-                className="glass-panel p-8 sm:p-10 rounded-3xl space-y-5 hover:border-brand-red/40 transition-all"
-              >
-                <div className="flex items-center justify-between">
-                  <div className="w-12 h-12 rounded-2xl bg-brand-red/10 border border-brand-red/30 text-brand-red flex items-center justify-center">
-                    <IconComponent className="w-6 h-6" />
+          {/* Right Column: Exhibition Rows with Pill Buttons ("Buy Ticket" style) */}
+          <div className="lg:col-span-6 space-y-5">
+            <div className="space-y-1 mb-4">
+              <h2 className="font-display font-black text-4xl sm:text-5xl md:text-6xl tracking-[-0.04em] lowercase leading-tight text-[#F5F1E8]">
+                exhibitions
+              </h2>
+            </div>
+
+            <div className="space-y-3">
+              {pillars.map((item, idx) => (
+                <div
+                  key={idx}
+                  className="flex items-center justify-between gap-4 py-4 border-b border-[#F5F1E8]/10"
+                >
+                  <div className="space-y-0.5">
+                    <span className="text-sm font-sans text-[#F5F1E8]/90 font-medium block">
+                      {item.subtitle || item.description}
+                    </span>
                   </div>
-                  <span className="text-xs font-mono font-bold text-brand-red uppercase tracking-widest">
-                    PILLAR 0{idx + 1}
-                  </span>
-                </div>
 
-                <div className="space-y-1">
-                  <h3 className="font-display text-2xl font-bold text-slate-900 dark:text-white">
-                    {pillar.title}
-                  </h3>
-                  <p className="text-xs font-mono text-brand-red font-bold">
-                    {pillar.subtitle}
-                  </p>
+                  <Link
+                    href="/projects"
+                    className="px-5 py-2 rounded-full border border-[#F5F1E8]/30 hover:border-[#D9A648] text-xs font-sans font-medium text-[#F5F1E8] hover:text-[#0A0A0A] hover:bg-[#D9A648] transition-all shrink-0"
+                  >
+                    Buy Ticket
+                  </Link>
                 </div>
+              ))}
+            </div>
+          </div>
 
-                <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed font-mono">
-                  {pillar.description}
-                </p>
-
-                <div className="space-y-2 pt-2 border-t border-slate-200 dark:border-white/10">
-                  {pillar.points.map((pt, pIdx) => (
-                    <div key={pIdx} className="flex items-center gap-2 text-xs font-mono text-slate-700 dark:text-slate-300">
-                      <CheckCircle2 className="w-3.5 h-3.5 text-emerald-500 shrink-0" />
-                      <span>{pt}</span>
-                    </div>
-                  ))}
-                </div>
-              </motion.div>
-            );
-          })}
         </div>
       </div>
     </section>

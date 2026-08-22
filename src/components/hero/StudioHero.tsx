@@ -1,165 +1,155 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import dynamic from "next/dynamic";
 import Image from "next/image";
 import Link from "next/link";
-import { motion } from "framer-motion";
-import { ArrowUpRight, Cpu, Layers, Radio, Activity, Terminal, ExternalLink } from "lucide-react";
+import { ArrowUpRight, Globe } from "lucide-react";
 import { useCMS } from "@/hooks/useCMS";
-
-const Hero3DCanvas = dynamic(() => import("./Hero3DCanvas"), {
-  ssr: false,
-  loading: () => <div className="absolute inset-0 pointer-events-none" />,
-});
+import SectionTickerDivider from "@/components/layout/SectionTickerDivider";
 
 export default function StudioHero() {
-  const { companyName } = useCMS();
+  const { settings } = useCMS();
 
-  const studioRoles = [
-    "Software & Hardware Studio",
-    "Embedded IoT Infrastructure",
-    "Native Android Architectures",
-    "Intelligent Cloud Platforms",
+  const heroConfig = settings?.hero || {
+    headline: "visual\npoetry",
+    description: "Welcome to a visual journey that transcends time and space. Discover the artistry of moments captured in motion.",
+    yearsMetric: "+250k",
+    yearsCaption: "Videos that reaching a wide audience and give lasting impression",
+    uptimeMetric: "+800k",
+    uptimeCaption: "Hours watched, engaging storytelling that captivates viewers",
+  };
+
+  const socialPills = [
+    { label: "yt", href: "https://youtube.com", title: "YouTube" },
+    { label: "ig", href: "https://instagram.com", title: "Instagram" },
+    { label: "fb", href: "https://facebook.com", title: "Facebook" },
+    { label: "x", href: "https://twitter.com", title: "Twitter / X" },
   ];
 
-  const [roleIndex, setRoleIndex] = useState(0);
-
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setRoleIndex((prev) => (prev + 1) % studioRoles.length);
-    }, 2800);
-    return () => clearInterval(timer);
-  }, []);
-
   return (
-    <section className="relative min-h-[90vh] flex items-center justify-center pt-28 pb-20 sm:pt-36 sm:pb-28 overflow-hidden bg-[var(--bg-primary)] text-[var(--text-primary)] transition-colors duration-300">
-      {/* 3D Background Canvas */}
-      <Hero3DCanvas />
+    <div className="relative bg-[#F5F1E8] text-[#0A0A0A]">
+      {/* Hero Section Content */}
+      <section className="pt-24 pb-8 sm:pt-28 sm:pb-12 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto w-full">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+          
+          {/* LEFT COLUMN: Ultra-Bold Tight Headline & Compact Content */}
+          <div className="lg:col-span-6 space-y-4 text-left">
+            {/* 1. Tight 2-line condensed headline */}
+            <h1 className="font-display font-black text-6xl sm:text-7xl md:text-8xl lg:text-[7.4rem] tracking-[-0.055em] leading-[0.82] text-[#0A0A0A] lowercase select-none">
+              visual<br />poetry
+            </h1>
 
-      {/* Ambient Red Glow */}
-      <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[550px] h-[550px] bg-brand-red/12 rounded-full blur-[140px] pointer-events-none" />
-
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 sm:gap-16 items-center">
-          {/* Left Column: Studio Pitch */}
-          <div className="lg:col-span-7 space-y-7 text-left">
-            {/* Status Badge */}
-            <div className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full glass-panel-red border border-brand-red/30">
-              <span className="w-2 h-2 rounded-full bg-brand-red animate-ping" />
-              <span className="text-xs font-mono font-bold text-brand-red uppercase tracking-wider">
-                SOFTWARE & HARDWARE R&amp;D STUDIO
-              </span>
-            </div>
-
-            {/* Main Studio Title */}
-            <div className="space-y-3">
-              <h1 className="font-display text-5xl sm:text-6xl md:text-7xl font-black tracking-tight dark:text-white text-gray-900 leading-[1.05]">
-                {companyName || "XENTORYX LABS"}
-              </h1>
-              <div className="h-10 flex items-center text-xl sm:text-2xl font-mono text-brand-red font-bold">
-                <span className="mr-2">&gt;</span>
-                <motion.span
-                  key={roleIndex}
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -10 }}
-                  transition={{ duration: 0.3 }}
-                >
-                  {studioRoles[roleIndex]}
-                </motion.span>
-              </div>
-            </div>
-
-            {/* Description */}
-            <p className="text-base sm:text-lg dark:text-slate-300 text-slate-700 max-w-2xl leading-relaxed font-sans font-normal">
-              Designing high-performance native Android applications, embedded IoT telemetry hardware, and scalable web infrastructure built for resilience and speed.
+            {/* 2. Short description with small text */}
+            <p className="text-[13px] sm:text-[14px] font-sans text-[#0A0A0A]/85 max-w-[380px] leading-relaxed pt-1">
+              {heroConfig.description}
             </p>
 
-            {/* Action Buttons */}
-            <div className="flex flex-wrap items-center gap-4 pt-2">
-              <Link
-                href="/projects"
-                className="px-6 py-3.5 rounded-2xl bg-gradient-to-r from-brand-red to-[#FF5E50] text-white text-xs font-mono font-bold uppercase tracking-wider flex items-center gap-2 shadow-glow-red hover:shadow-glow-red-lg transition-all"
-              >
-                <span>Studio Projects</span>
-                <ArrowUpRight className="w-4 h-4" />
-              </Link>
-
-              <Link
-                href="/labs"
-                className="px-6 py-3.5 rounded-2xl glass-panel text-slate-900 dark:text-white text-xs font-mono font-bold uppercase tracking-wider flex items-center gap-2 transition-all"
-              >
-                <Terminal className="w-4 h-4 text-cyan-400" />
-                <span>R&amp;D Labs Hub</span>
-              </Link>
+            {/* 3. Small circular social link pills (yt, ig, fb, x) */}
+            <div className="flex items-center gap-1.5 pt-1">
+              {socialPills.map((pill) => (
+                <a
+                  key={pill.label}
+                  href={pill.href}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="w-7 h-7 rounded-full border border-[#0A0A0A]/40 flex items-center justify-center text-[10px] font-sans font-medium lowercase text-[#0A0A0A] hover:bg-[#D9A648] hover:border-[#D9A648] hover:text-[#0A0A0A] transition-all"
+                  title={pill.title}
+                >
+                  {pill.label}
+                </a>
+              ))}
             </div>
 
-            {/* Studio Metrics Row */}
-            <div className="grid grid-cols-3 gap-4 pt-6 border-t border-slate-200 dark:border-white/10 max-w-md">
-              <div>
-                <div className="text-2xl font-display font-bold text-slate-900 dark:text-white">15+</div>
-                <div className="text-[10px] font-mono text-slate-500 dark:text-slate-400 uppercase font-bold">R&amp;D Deployments</div>
+            {/* 4. Two Stat Blocks Side-by-Side (NO horizontal divider above) */}
+            <div className="grid grid-cols-2 gap-4 pt-3 max-w-[420px]">
+              <div className="space-y-0.5">
+                <div className="font-display font-black text-3xl sm:text-4xl text-[#0A0A0A] tracking-[-0.04em] leading-tight">
+                  {heroConfig.yearsMetric || "+250k"}
+                </div>
+                <div className="text-[11px] font-sans text-[#0A0A0A]/70 leading-tight">
+                  {(heroConfig as any).yearsCaption || "Videos that reaching a wide audience and give lasting impression"}
+                </div>
               </div>
-              <div>
-                <div className="text-2xl font-display font-bold text-slate-900 dark:text-white">100%</div>
-                <div className="text-[10px] font-mono text-slate-500 dark:text-slate-400 uppercase font-bold">Native Architecture</div>
-              </div>
-              <div>
-                <div className="text-2xl font-display font-bold text-slate-900 dark:text-white">99.9%</div>
-                <div className="text-[10px] font-mono text-slate-500 dark:text-slate-400 uppercase font-bold">Telemetry Target</div>
-              </div>
-            </div>
 
-            {/* Personal Founder Profile Link Banner */}
-            <div className="pt-2">
-              <Link
-                href="/founder"
-                className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-xs font-mono text-slate-600 dark:text-slate-300 hover:text-brand-red dark:hover:text-brand-red transition-colors"
-              >
-                <span>Looking for Founder Asif&apos;s Personal Portfolio?</span>
-                <span className="font-bold text-brand-red flex items-center gap-1">
-                  Visit Profile <ExternalLink className="w-3 h-3" />
-                </span>
-              </Link>
+              <div className="space-y-0.5">
+                <div className="font-display font-black text-3xl sm:text-4xl text-[#0A0A0A] tracking-[-0.04em] leading-tight">
+                  {heroConfig.uptimeMetric || "+800k"}
+                </div>
+                <div className="text-[11px] font-sans text-[#0A0A0A]/70 leading-tight">
+                  {(heroConfig as any).uptimeCaption || "Hours watched, engaging storytelling that captivates viewers"}
+                </div>
+              </div>
             </div>
           </div>
 
-          {/* Right Column: Studio Logo & Live Telemetry Badge */}
-          <div className="lg:col-span-5 flex justify-center relative">
-            <div className="relative w-72 h-72 sm:w-80 sm:h-80 md:w-96 md:h-96">
-              {/* Outer Energy Ring */}
-              <div className="absolute inset-0 rounded-full border border-brand-red/40 animate-spin-slow" />
-              <div className="absolute -inset-4 rounded-full border border-brand-red/20 blur-sm" />
+          {/* RIGHT COLUMN: Single Full-bleed Portrait in Rounded Mustard Card */}
+          <div className="lg:col-span-6 flex justify-center lg:justify-end">
+            <div className="relative w-full max-w-[420px] h-[460px] sm:h-[500px] rounded-[32px] sm:rounded-[36px] bg-[#D9A648] p-5 shadow-mustard overflow-hidden flex flex-col justify-between group">
+              
+              {/* Top Row: Cursive Signature & Globe Icon */}
+              <div className="flex items-start justify-between z-20">
+                <div className="font-serif italic text-3xl sm:text-4xl text-white/95 font-normal select-none tracking-wide">
+                  Quantum
+                </div>
 
-              {/* Studio Logo Container */}
-              <div className="relative w-full h-full rounded-full overflow-hidden border-2 border-brand-red/60 shadow-2xl p-6 bg-[#07090C] flex items-center justify-center">
+                <Link
+                  href="/projects"
+                  className="w-9 h-9 rounded-full bg-[#0A0A0A] text-[#F5F1E8] flex items-center justify-center hover:scale-105 transition-transform shadow-md"
+                  title="Explore Archive"
+                >
+                  <Globe className="w-4 h-4" />
+                </Link>
+              </div>
+
+              {/* Single Full-bleed Portrait Filling the Card */}
+              <div className="absolute inset-x-0 bottom-0 top-10 overflow-hidden">
                 <Image
-                  src="/assets/logo-dark.png"
-                  alt="Xentoryx Labs Brand Logo"
-                  width={240}
-                  height={240}
+                  src="/assets/founder-asif.jpg"
+                  alt="Creative Portrait"
+                  fill
                   priority
-                  className="object-contain hover:scale-105 transition-transform duration-500"
+                  className="object-cover object-top filter contrast-110 group-hover:scale-102 transition-transform duration-700"
                 />
               </div>
 
-              {/* Minimal Telemetry Status Badge */}
-              <motion.div
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ delay: 0.5 }}
-                className="absolute -bottom-4 left-1/2 -translate-x-1/2 px-4 py-2 rounded-2xl glass-panel-red border border-brand-red/40 flex items-center gap-2 shadow-2xl z-20 whitespace-nowrap"
-              >
-                <Activity className="w-4 h-4 text-brand-red animate-pulse" />
-                <span className="text-xs font-mono text-white font-bold">
-                  Studio Active // Telemetry Online
-                </span>
-              </motion.div>
+              {/* Floating Side Circles on Left Edge (Thumbnail Photos + Diagonal Arrow) */}
+              <div className="absolute left-4 bottom-5 z-20 flex flex-col gap-2">
+                {/* Thumbnail Photo 1 */}
+                <div className="relative w-8 h-8 rounded-full border-2 border-white overflow-hidden shadow-sm">
+                  <Image
+                    src="/assets/projects/dipannita.jpg"
+                    alt="Gallery Preview 1"
+                    fill
+                    className="object-cover"
+                  />
+                </div>
+
+                {/* Thumbnail Photo 2 */}
+                <div className="relative w-8 h-8 rounded-full border-2 border-white overflow-hidden shadow-sm">
+                  <Image
+                    src="/assets/founder-asif.jpg"
+                    alt="Gallery Preview 2"
+                    fill
+                    className="object-cover"
+                  />
+                </div>
+
+                {/* Black Circular Diagonal Arrow Button (↗) */}
+                <Link
+                  href="/founder"
+                  className="w-9 h-9 rounded-full bg-[#0A0A0A] text-[#F5F1E8] flex items-center justify-center hover:bg-white hover:text-[#0A0A0A] transition-colors shadow-md"
+                  title="View Profile"
+                >
+                  <ArrowUpRight className="w-4 h-4" />
+                </Link>
+              </div>
             </div>
           </div>
+
         </div>
-      </div>
-    </section>
+      </section>
+
+      {/* 6. Section Divider Band: 120-150px Black Band with "about . about . about ." */}
+      <SectionTickerDivider word="about" className="h-28 sm:h-36 flex items-center" />
+    </div>
   );
 }

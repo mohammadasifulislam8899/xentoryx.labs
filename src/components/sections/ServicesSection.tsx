@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Smartphone, Cpu, Server, Globe, Cloud, Code, CheckCircle2, ArrowRight } from "lucide-react";
+import { Smartphone, Cpu, Server, Globe, CheckCircle2 } from "lucide-react";
 import { useCMS } from "@/hooks/useCMS";
 
 export default function ServicesSection() {
@@ -29,20 +29,20 @@ export default function ServicesSection() {
     },
   ];
 
-  const icons = [Smartphone, Cpu, Server, Globe, Cloud, Code];
+  const icons = [Smartphone, Cpu, Server, Globe];
 
   return (
-    <section id="services" className="py-24 bg-slate-50 dark:bg-[#07090C] text-slate-900 dark:text-white relative border-t border-slate-200 dark:border-white/5 transition-colors duration-300">
+    <section id="services" className="relative bg-[#F5F1E8] dark:bg-[#0A0A0A] text-[#0A0A0A] dark:text-[#F5F1E8] py-24 sm:py-32 transition-colors duration-400">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center max-w-3xl mx-auto mb-16 space-y-4">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full glass-panel-red text-xs font-mono text-brand-red font-semibold uppercase tracking-wider">
-            SERVICES & SOLUTIONS
+        <div className="max-w-3xl mb-16 space-y-4">
+          <div className="font-mono text-xs text-[#D9A648] font-bold uppercase tracking-widest">
+            [ 004 // PRACTICE &amp; SOLUTIONS ]
           </div>
-          <h2 className="font-display text-4xl sm:text-5xl font-extrabold text-slate-900 dark:text-white tracking-tight">
-            Engineering <span className="text-gradient-red">Capabilities</span>
+          <h2 className="font-display font-black text-5xl sm:text-7xl tracking-tighter lowercase leading-tight">
+            capabilities
           </h2>
-          <p className="text-base text-slate-600 dark:text-slate-400 leading-relaxed font-sans">
-            Specialized engineering services offering end-to-end mobile applications, hardware microcontroller firmware, and scalable web architectures.
+          <p className="text-sm font-sans opacity-80 leading-relaxed max-w-xl">
+            Specialized technical disciplines offering end-to-end native Android apps, embedded hardware firmware, and scalable microservices architectures.
           </p>
         </div>
 
@@ -56,34 +56,34 @@ export default function ServicesSection() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: idx * 0.1 }}
-                className="glass-panel p-8 rounded-3xl space-y-5 hover:border-brand-red/40 transition-all flex flex-col justify-between"
+                className="p-8 sm:p-10 rounded-[32px] bg-[#FFFFFF] dark:bg-[#141414] border border-[#0A0A0A]/10 dark:border-[#F5F1E8]/10 shadow-card space-y-6 flex flex-col justify-between hover:border-[#D9A648] transition-colors"
               >
                 <div className="space-y-4">
                   <div className="flex items-center justify-between">
-                    <div className="w-12 h-12 rounded-2xl bg-brand-red/10 border border-brand-red/30 text-brand-red flex items-center justify-center">
-                      <IconComponent className="w-6 h-6" />
-                    </div>
-                    <span className="text-xs font-mono font-bold text-brand-red uppercase">
-                      SERVICE 0{idx + 1}
+                    <span className="text-xs font-mono font-bold text-[#D9A648] uppercase tracking-widest">
+                      /SERVICE 0{idx + 1}
                     </span>
+                    <div className="w-10 h-10 rounded-full bg-[#F5F1E8] dark:bg-[#202020] flex items-center justify-center">
+                      <IconComponent className="w-5 h-5 text-[#D9A648]" />
+                    </div>
                   </div>
 
-                  <h3 className="font-display text-2xl font-bold text-slate-900 dark:text-white">
+                  <h3 className="font-display font-black text-2xl sm:text-3xl text-[#0A0A0A] dark:text-[#F5F1E8] tracking-tight">
                     {svc.title}
                   </h3>
 
-                  <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed font-mono">
+                  <p className="text-xs font-sans opacity-80 leading-relaxed">
                     {svc.description}
                   </p>
                 </div>
 
-                <div className="space-y-2 pt-4 border-t border-slate-200 dark:border-white/10">
-                  <div className="text-[10px] font-mono text-slate-500 dark:text-slate-400 uppercase font-bold mb-2">
+                <div className="space-y-2.5 pt-6 border-t border-[#0A0A0A]/5 dark:border-[#F5F1E8]/10">
+                  <div className="text-[10px] font-mono text-[#D9A648] uppercase font-bold tracking-wider mb-2">
                     Key Deliverables:
                   </div>
                   {svc.deliverables?.map((d, dIdx) => (
-                    <div key={dIdx} className="flex items-center gap-2 text-xs font-mono text-slate-700 dark:text-slate-300">
-                      <CheckCircle2 className="w-3.5 h-3.5 text-emerald-500 shrink-0" />
+                    <div key={dIdx} className="flex items-center gap-2.5 text-xs font-mono text-[#0A0A0A] dark:text-[#F5F1E8]">
+                      <span className="w-1.5 h-1.5 rounded-full bg-[#D9A648]" />
                       <span>{d}</span>
                     </div>
                   ))}

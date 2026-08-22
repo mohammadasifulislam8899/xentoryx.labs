@@ -4,198 +4,177 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
-import { motion, AnimatePresence } from "framer-motion";
-import {
-  Search,
-  Bot,
-  Menu,
-  X,
-  Terminal,
-  Sparkles,
-} from "lucide-react";
-import ThemeToggle from "./ThemeToggle";
+import { Menu, X } from "lucide-react";
+import CommandPalette from "./CommandPalette";
+import AiAssistantModal from "@/components/ui/AiAssistantModal";
+import EngineeringConsoleModal from "./EngineeringConsoleModal";
 
 interface NavbarProps {
-  onOpenCmdk: () => void;
-  onOpenAi: () => void;
+  onOpenCmdk?: () => void;
+  onOpenAi?: () => void;
   onTriggerConsole?: () => void;
 }
 
 export default function Navbar({ onOpenCmdk, onOpenAi, onTriggerConsole }: NavbarProps) {
-  const [scrolled, setScrolled] = useState(false);
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [logoClickCount, setLogoClickCount] = useState(0);
   const pathname = usePathname();
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [commandPaletteOpen, setCommandPaletteOpen] = useState(false);
+  const [aiAssistantOpen, setAiAssistantOpen] = useState(false);
+  const [consoleOpen, setConsoleOpen] = useState(false);
+  const [logoClicks, setLogoClicks] = useState(0);
 
   useEffect(() => {
     const handleScroll = () => {
-      setScrolled(window.scrollY > 20);
+      setIsScrolled(window.scrollY > 20);
     };
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   const handleLogoClick = () => {
-    const newCount = logoClickCount + 1;
-    setLogoClickCount(newCount);
+    const newCount = logoClicks + 1;
+    setLogoClicks(newCount);
     if (newCount >= 5) {
-      if (onTriggerConsole) onTriggerConsole();
-      setLogoClickCount(0);
+      if (onTriggerConsole) {
+        onTriggerConsole();
+      } else {
+        setConsoleOpen(true);
+      }
+      setLogoClicks(0);
     }
   };
 
   const navLinks = [
     { label: "Home", href: "/" },
-    { label: "Projects", href: "/projects" },
-    { label: "Labs", href: "/labs" },
-    { label: "Console", href: "/labs/console", badge: "DEV" },
-    { label: "Founder", href: "/founder", badge: "ASIF" },
+    { label: "About", href: "/founder" },
+    { label: "Portfolio", href: "/projects" },
+    { label: "Exhibitions", href: "/labs" },
     { label: "Contact", href: "/#contact" },
   ];
 
   return (
-    <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled
-          ? "bg-slate-50/90 dark:bg-[#07090C]/90 backdrop-blur-xl border-b border-slate-200 dark:border-white/10 shadow-lg py-3"
-          : "bg-transparent py-4 sm:py-5"
-      }`}
-    >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between gap-2">
-          {/* Brand Logo */}
-          <Link
-            href="/"
-            onClick={handleLogoClick}
-            className="flex items-center gap-2 group focus:outline-none shrink-0"
-            title="Click 5 times for Developer Console"
-          >
-            <div className="relative h-8 sm:h-10 w-36 sm:w-48 transition-transform group-hover:scale-105">
-              <Image
-                src="/assets/logo-dark.png"
-                alt="Xentoryx Labs Logo Dark"
-                fill
-                className="object-contain hidden dark:block"
-                priority
-              />
-              <Image
-                src="/assets/logo-light.png"
-                alt="Xentoryx Labs Logo Light"
-                fill
-                className="object-contain block dark:hidden"
-                priority
-              />
-            </div>
-          </Link>
+    <>
+      <header className="fixed top-4 left-0 right-0 z-50 flex justify-center px-4 sm:px-6 pointer-events-none">
+        <nav
+          className={`pointer-events-auto flex items-center justify-between w-full max-w-5xl px-6 py-2.5 rounded-full transition-all duration-300 ${
+            isScrolled
+              ? "bg-[#FFFFFF]/95 dark:bg-[#141414]/95 backdrop-blur-md shadow-card border border-[#0A0A0A]/10"
+              : "bg-[#FFFFFF] dark:bg-[#141414] shadow-card border border-[#0A0A0A]/8"
+          }`}
+        >
+          {/* Far Left: Minimal Logo */}
+          <div className="flex items-center gap-2">
+            <Link
+              href="/"
+              onClick={handleLogoClick}
+              className="flex items-center gap-2 group cursor-pointer"
+            >
+              <div className="relative h-6 w-24 sm:w-28">
+                <Image
+                  src="/assets/logo-light.png"
+                  alt="Xentoryx Logo Light"
+                  fill
+                  className="object-contain block dark:hidden"
+                  priority
+                />
+                <Image
+                  src="/assets/logo-dark.png"
+                  alt="Xentoryx Logo Dark"
+                  fill
+                  className="object-contain hidden dark:block"
+                  priority
+                />
+              </div>
+            </Link>
+          </div>
 
-          {/* Desktop Nav Links */}
-          <nav className="hidden md:flex items-center gap-6 text-xs font-mono font-bold">
-            {navLinks.map((link) => {
-              const isActive =
-                pathname === link.href ||
-                (link.href !== "/" && pathname?.startsWith(link.href));
+          {/* Center: Nav Links */}
+          <div className="hidden md:flex items-center gap-7 text-[13px] font-sans font-medium text-[#0A0A0A] dark:text-[#F5F1E8]">
+            {navLinks.map((item) => {
+              const isActive = pathname === item.href;
               return (
                 <Link
-                  key={link.label}
-                  href={link.href}
-                  className={`transition-colors flex items-center gap-1.5 ${
-                    isActive
-                      ? "text-brand-red font-bold"
-                      : "text-slate-600 hover:text-slate-900 dark:text-slate-300 dark:hover:text-white"
+                  key={item.label}
+                  href={item.href}
+                  className={`transition-colors py-1 hover:text-[#0A0A0A] ${
+                    isActive ? "font-bold text-[#0A0A0A] dark:text-[#F5F1E8]" : "opacity-75 hover:opacity-100"
                   }`}
                 >
-                  {link.label === "Console" && (
-                    <Terminal className="w-3.5 h-3.5 text-cyan-600 dark:text-cyan-400" />
-                  )}
-                  <span>{link.label}</span>
-                  {link.badge && (
-                    <span className="px-1.5 py-0.2 rounded text-[9px] font-mono bg-brand-red/20 text-brand-red border border-brand-red/40">
-                      {link.badge}
-                    </span>
-                  )}
+                  {item.label}
                 </Link>
               );
             })}
-          </nav>
-
-          {/* Actions & Buttons */}
-          <div className="flex items-center gap-1.5 sm:gap-2.5">
-            <ThemeToggle />
-
-            {/* Search Trigger */}
-            <button
-              onClick={onOpenCmdk}
-              className="p-2 sm:px-3 sm:py-1.5 rounded-xl glass-panel text-xs font-mono text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white flex items-center gap-2"
-              title="Press Ctrl+K to open search"
-            >
-              <Search className="w-3.5 h-3.5 text-brand-red" />
-              <span className="hidden sm:inline">Search</span>
-              <kbd className="hidden sm:inline-block px-1.5 py-0.5 rounded bg-slate-100 dark:bg-surface border border-slate-300 dark:border-white/10 text-[10px] font-mono text-slate-600 dark:text-gray-400">
-                ⌘K
-              </kbd>
-            </button>
-
-            {/* XenAI Button */}
-            <button
-              onClick={onOpenAi}
-              className="px-2.5 py-1.5 sm:px-3 sm:py-1.5 rounded-full bg-brand-red/10 border border-brand-red/30 text-[10px] sm:text-[11px] font-mono font-bold text-brand-red hover:bg-brand-red hover:text-white transition-all flex items-center gap-1 sm:gap-1.5"
-            >
-              <Bot className="w-3.5 h-3.5" />
-              <span>XenAI</span>
-            </button>
-
-            {/* Mobile Hamburger Menu Toggle Button */}
-            <button
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="md:hidden p-2 rounded-xl glass-panel text-slate-900 dark:text-white hover:text-brand-red transition-colors shrink-0"
-              aria-label="Toggle menu"
-            >
-              {mobileMenuOpen ? (
-                <X className="w-5 h-5 text-brand-red" />
-              ) : (
-                <Menu className="w-5 h-5" />
-              )}
-            </button>
           </div>
-        </div>
-      </div>
 
-      {/* Mobile Drawer Menu */}
-      <AnimatePresence>
-        {mobileMenuOpen && (
-          <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: "auto" }}
-            exit={{ opacity: 0, height: 0 }}
-            className="md:hidden glass-panel border-b border-slate-200 dark:border-white/10 bg-white/98 dark:bg-[#07090C]/98 backdrop-blur-2xl overflow-hidden shadow-2xl mt-2"
-          >
-            <div className="px-6 py-6 space-y-4">
-              <div className="flex flex-col space-y-3">
-                {navLinks.map((link) => (
-                  <Link
-                    key={link.label}
-                    href={link.href}
-                    onClick={() => setMobileMenuOpen(false)}
-                    className="text-sm font-mono font-bold text-slate-900 dark:text-white hover:text-brand-red dark:hover:text-brand-red transition-colors flex items-center justify-between py-1.5 border-b border-slate-100 dark:border-white/5"
-                  >
-                    <span className="flex items-center gap-2">
-                      {link.label === "Console" && (
-                        <Terminal className="w-4 h-4 text-cyan-600 dark:text-cyan-400" />
-                      )}
-                      {link.label}
-                    </span>
-                    {link.badge && (
-                      <span className="text-[10px] font-mono px-2 py-0.5 bg-brand-red/20 text-brand-red rounded-full border border-brand-red/40 font-bold">
-                        {link.badge}
-                      </span>
-                    )}
-                  </Link>
-                ))}
+          {/* Far Right: Clean Profile / Status Chip */}
+          <div className="flex items-center gap-3">
+            <div className="flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#F5F1E8] dark:bg-[#202020] text-[12px] font-sans text-[#0A0A0A] dark:text-[#F5F1E8] border border-[#0A0A0A]/5">
+              <span className="w-2 h-2 rounded-full bg-[#D9A648]" />
+              <span className="font-medium text-[#0A0A0A]/80 dark:text-[#F5F1E8]/90">Sala Canal, 22 Nov 23</span>
+              <div className="relative w-4 h-4 rounded-full overflow-hidden ml-0.5">
+                <Image
+                  src="/assets/founder-asif.jpg"
+                  alt="Avatar"
+                  fill
+                  className="object-cover"
+                />
               </div>
             </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </header>
+
+            {/* Mobile Menu Toggle */}
+            <button
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              className="md:hidden p-1.5 rounded-full text-[#0A0A0A] dark:text-[#F5F1E8]"
+              aria-label="Toggle Menu"
+            >
+              {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+            </button>
+          </div>
+        </nav>
+      </header>
+
+      {/* Mobile Drawer */}
+      {mobileMenuOpen && (
+        <div className="fixed inset-0 z-40 bg-[#0A0A0A]/90 backdrop-blur-md md:hidden pt-24 px-6 pb-12 flex flex-col justify-between">
+          <div className="space-y-4">
+            {navLinks.map((item) => (
+              <Link
+                key={item.label}
+                href={item.href}
+                onClick={() => setMobileMenuOpen(false)}
+                className="block text-2xl font-display font-black text-[#F5F1E8] hover:text-[#D9A648] py-2 border-b border-[#F5F1E8]/10"
+              >
+                {item.label}
+              </Link>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* Background Modals preserved */}
+      {!onOpenCmdk && (
+        <CommandPalette
+          isOpen={commandPaletteOpen}
+          onClose={() => setCommandPaletteOpen(false)}
+          onOpenAi={() => setAiAssistantOpen(true)}
+          onOpenConsole={() => setConsoleOpen(true)}
+        />
+      )}
+
+      {!onOpenAi && (
+        <AiAssistantModal
+          isOpen={aiAssistantOpen}
+          onClose={() => setAiAssistantOpen(false)}
+        />
+      )}
+
+      {!onTriggerConsole && (
+        <EngineeringConsoleModal
+          isOpen={consoleOpen}
+          onClose={() => setConsoleOpen(false)}
+        />
+      )}
+    </>
   );
 }

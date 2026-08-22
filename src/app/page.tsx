@@ -1,31 +1,31 @@
 "use client";
 
-import StudioHero from "@/components/hero/StudioHero";
-import CompanySection from "@/components/sections/CompanySection";
-import ServicesSection from "@/components/sections/ServicesSection";
-import FeaturedProjectsSection from "@/components/sections/FeaturedProjectsSection";
-import TechWallSection from "@/components/sections/TechWallSection";
+import HeroSection from "@/components/founder/HeroSection";
+import MarqueeSection from "@/components/founder/MarqueeSection";
+import AboutSection from "@/components/founder/AboutSection";
+import ServicesSection from "@/components/founder/ServicesSection";
+import ProjectsSection from "@/components/founder/ProjectsSection";
 import ContactSection from "@/components/sections/ContactSection";
 
 export default function Home() {
   return (
-    <main className="min-h-screen bg-[var(--bg-primary)] text-[var(--text-primary)] selection:bg-brand-red selection:text-white transition-colors duration-300">
-      {/* 1. Xentoryx Labs Studio Hero */}
-      <StudioHero />
+    <main className="main-wrapper w-full bg-[#0C0C0C] text-[#D7E2EA] overflow-x-clip">
+      {/* 1. Hero Section */}
+      <HeroSection />
 
-      {/* 2. Studio Vision & R&D Principles */}
-      <CompanySection />
+      {/* 2. Marquee Section */}
+      <MarqueeSection />
 
-      {/* 3. Client Services & Engineering Solutions */}
+      {/* 3. About Section */}
+      <AboutSection />
+
+      {/* 4. Services Section */}
       <ServicesSection />
 
-      {/* 4. Featured Studio Projects */}
-      <FeaturedProjectsSection />
+      {/* 5. Projects Section (Sticky Stacking Cards) */}
+      <ProjectsSection />
 
-      {/* 5. Core Technology Stack Wall */}
-      <TechWallSection />
-
-      {/* 6. Studio Contact & Scope Selector */}
+      {/* Contact Section Anchor */}
       <ContactSection />
     </main>
   );

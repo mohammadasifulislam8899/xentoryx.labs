@@ -13,12 +13,12 @@ export default function ThreeGalaxyCanvas() {
     // 1. Scene & Camera
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(
-      60,
+      55,
       window.innerWidth / window.innerHeight,
       0.1,
       1000
     );
-    camera.position.z = 35;
+    camera.position.z = 32;
 
     // 2. WebGL Renderer
     const renderer = new THREE.WebGLRenderer({
@@ -30,105 +30,105 @@ export default function ThreeGalaxyCanvas() {
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     container.appendChild(renderer.domElement);
 
-    // 3. Create 3D Holographic Quantum Tech Core Rings Group
-    const techCoreGroup = new THREE.Group();
-    scene.add(techCoreGroup);
+    // 3. Create 3D Editorial Sculpture Group
+    const sculptureGroup = new THREE.Group();
+    scene.add(sculptureGroup);
 
-    // Ring 1: Primary Xentoryx Red Outer Core Ring
-    const geoRing1 = new THREE.TorusGeometry(12, 0.08, 16, 120);
+    // Ring 1: Primary Fine Vermilion Archival Torus
+    const geoRing1 = new THREE.TorusGeometry(11, 0.04, 16, 120);
     const matRing1 = new THREE.MeshBasicMaterial({
       color: new THREE.Color("#DB4338"),
       wireframe: true,
       transparent: true,
-      opacity: 0.2,
+      opacity: 0.16,
     });
     const ring1 = new THREE.Mesh(geoRing1, matRing1);
     ring1.rotation.x = Math.PI / 4;
-    techCoreGroup.add(ring1);
+    sculptureGroup.add(ring1);
 
-    // Ring 2: Secondary Cyan Inner Orbital Ring
-    const geoRing2 = new THREE.TorusGeometry(8.5, 0.06, 16, 100);
+    // Ring 2: Secondary Minimal Monochromatic Inner Orbital Ring
+    const geoRing2 = new THREE.TorusGeometry(8, 0.03, 16, 100);
     const matRing2 = new THREE.MeshBasicMaterial({
-      color: new THREE.Color("#00F2FE"),
+      color: new THREE.Color("#888888"),
       wireframe: true,
       transparent: true,
-      opacity: 0.22,
+      opacity: 0.14,
     });
     const ring2 = new THREE.Mesh(geoRing2, matRing2);
     ring2.rotation.y = Math.PI / 3;
-    techCoreGroup.add(ring2);
+    sculptureGroup.add(ring2);
 
-    // Ring 3: Concentric Tech Inner Core
-    const geoRing3 = new THREE.RingGeometry(5, 5.15, 64);
+    // Ring 3: Concentric Delicate Ring
+    const geoRing3 = new THREE.RingGeometry(4.5, 4.58, 64);
     const matRing3 = new THREE.MeshBasicMaterial({
-      color: new THREE.Color("#FF5E50"),
+      color: new THREE.Color("#D97706"),
       side: THREE.DoubleSide,
       transparent: true,
-      opacity: 0.15,
+      opacity: 0.1,
     });
     const ring3 = new THREE.Mesh(geoRing3, matRing3);
-    techCoreGroup.add(ring3);
+    sculptureGroup.add(ring3);
 
-    // Position the Holographic Core in the Far Right Background
-    techCoreGroup.position.set(22, -6, -15);
+    // Position subtly in background
+    sculptureGroup.position.set(18, -4, -12);
 
-    // 4. Create Floating 3D Quantum Data Cubes Group (Subtle floating tech elements)
+    // 4. Subtle Floating Editorial Data Cubes
     const cubesGroup = new THREE.Group();
     scene.add(cubesGroup);
 
-    const cubeCount = 45;
+    const cubeCount = 28;
     const cubeMeshes: THREE.Mesh[] = [];
-    const geoCube = new THREE.BoxGeometry(0.8, 0.8, 0.8);
+    const geoCube = new THREE.BoxGeometry(0.6, 0.6, 0.6);
     const matCubeRed = new THREE.MeshBasicMaterial({
       color: new THREE.Color("#DB4338"),
       wireframe: true,
       transparent: true,
-      opacity: 0.25,
+      opacity: 0.15,
     });
-    const matCubeCyan = new THREE.MeshBasicMaterial({
-      color: new THREE.Color("#00F2FE"),
+    const matCubeMuted = new THREE.MeshBasicMaterial({
+      color: new THREE.Color("#777777"),
       wireframe: true,
       transparent: true,
-      opacity: 0.25,
+      opacity: 0.12,
     });
 
     for (let i = 0; i < cubeCount; i++) {
       const mesh = new THREE.Mesh(
         geoCube,
-        i % 2 === 0 ? matCubeRed : matCubeCyan
+        i % 2 === 0 ? matCubeRed : matCubeMuted
       );
       mesh.position.set(
-        (Math.random() - 0.5) * 70,
-        (Math.random() - 0.5) * 45,
-        -10 + (Math.random() - 0.5) * 20
+        (Math.random() - 0.5) * 65,
+        (Math.random() - 0.5) * 40,
+        -10 + (Math.random() - 0.5) * 18
       );
       mesh.rotation.set(
         Math.random() * Math.PI,
         Math.random() * Math.PI,
         Math.random() * Math.PI
       );
-      mesh.scale.setScalar(Math.random() * 0.8 + 0.4);
+      mesh.scale.setScalar(Math.random() * 0.6 + 0.3);
       cubesGroup.add(mesh);
       cubeMeshes.push(mesh);
     }
 
-    // 5. Ambient Quantum Floating Energy Particles
-    const particleCount = 200;
+    // 5. Ambient Atmospheric Dust Particles
+    const particleCount = 140;
     const particleGeo = new THREE.BufferGeometry();
     const particlePos = new Float32Array(particleCount * 3);
     const particleColors = new Float32Array(particleCount * 3);
 
     const cRed = new THREE.Color("#DB4338");
-    const cCyan = new THREE.Color("#00F2FE");
-    const cWhite = new THREE.Color("#FFFFFF");
+    const cAmber = new THREE.Color("#D97706");
+    const cMuted = new THREE.Color("#AAAAAA");
 
     for (let i = 0; i < particleCount; i++) {
       const i3 = i * 3;
-      particlePos[i3] = (Math.random() - 0.5) * 80;
-      particlePos[i3 + 1] = (Math.random() - 0.5) * 55;
-      particlePos[i3 + 2] = -10 + (Math.random() - 0.5) * 25;
+      particlePos[i3] = (Math.random() - 0.5) * 75;
+      particlePos[i3 + 1] = (Math.random() - 0.5) * 50;
+      particlePos[i3 + 2] = -10 + (Math.random() - 0.5) * 20;
 
-      const randColor = i % 3 === 0 ? cRed : i % 3 === 1 ? cCyan : cWhite;
+      const randColor = i % 3 === 0 ? cRed : i % 3 === 1 ? cAmber : cMuted;
       particleColors[i3] = randColor.r;
       particleColors[i3 + 1] = randColor.g;
       particleColors[i3 + 2] = randColor.b;
@@ -144,17 +144,17 @@ export default function ThreeGalaxyCanvas() {
     );
 
     const particleMat = new THREE.PointsMaterial({
-      size: 0.25,
+      size: 0.18,
       vertexColors: true,
       transparent: true,
-      opacity: 0.6,
+      opacity: 0.45,
       blending: THREE.AdditiveBlending,
     });
 
     const particles = new THREE.Points(particleGeo, particleMat);
     scene.add(particles);
 
-    // 6. Interactive Mouse Parallax
+    // 6. Parallax Motion
     let mouseX = 0;
     let mouseY = 0;
     let targetMouseX = 0;
@@ -181,38 +181,36 @@ export default function ThreeGalaxyCanvas() {
     const animate = () => {
       const elapsedTime = clock.getElapsedTime();
 
-      // Continuous 3D Hologram Rotation
-      ring1.rotation.x = elapsedTime * 0.12;
-      ring1.rotation.y = elapsedTime * 0.15;
+      // Atmospheric rotation
+      ring1.rotation.x = elapsedTime * 0.08;
+      ring1.rotation.y = elapsedTime * 0.1;
 
-      ring2.rotation.y = -elapsedTime * 0.18;
-      ring2.rotation.z = elapsedTime * 0.1;
+      ring2.rotation.y = -elapsedTime * 0.12;
+      ring2.rotation.z = elapsedTime * 0.06;
 
-      ring3.rotation.z = elapsedTime * 0.08;
+      ring3.rotation.z = elapsedTime * 0.05;
 
-      // Animate Quantum Floating Cubes
       cubeMeshes.forEach((cube, idx) => {
-        cube.rotation.x += 0.005 * (idx % 2 === 0 ? 1 : -1);
-        cube.rotation.y += 0.008 * (idx % 3 === 0 ? 1 : -1);
-        cube.position.y += Math.sin(elapsedTime + idx) * 0.008;
+        cube.rotation.x += 0.003 * (idx % 2 === 0 ? 1 : -1);
+        cube.rotation.y += 0.005 * (idx % 3 === 0 ? 1 : -1);
+        cube.position.y += Math.sin(elapsedTime * 0.8 + idx) * 0.004;
       });
 
-      // Slowly Drift Energy Particles Upwards
       const posArr = particleGeo.attributes.position.array as Float32Array;
       for (let i = 0; i < particleCount; i++) {
         const i3 = i * 3;
-        posArr[i3 + 1] += 0.015; // float upwards
-        if (posArr[i3 + 1] > 28) posArr[i3 + 1] = -28; // reset loop
+        posArr[i3 + 1] += 0.008;
+        if (posArr[i3 + 1] > 25) posArr[i3 + 1] = -25;
       }
       particleGeo.attributes.position.needsUpdate = true;
 
-      // Smooth Mouse Parallax
-      mouseX += (targetMouseX - mouseX) * 0.04;
-      mouseY += (targetMouseY - mouseY) * 0.04;
+      // Mouse Parallax
+      mouseX += (targetMouseX - mouseX) * 0.03;
+      mouseY += (targetMouseY - mouseY) * 0.03;
 
-      camera.position.x = mouseX * 2.5;
-      camera.position.y = -mouseY * 2.5;
-      camera.lookAt(0, 0, -10);
+      camera.position.x = mouseX * 1.8;
+      camera.position.y = -mouseY * 1.8;
+      camera.lookAt(0, 0, -8);
 
       renderer.render(scene, camera);
       animationFrameId = requestAnimationFrame(animate);
@@ -220,7 +218,6 @@ export default function ThreeGalaxyCanvas() {
 
     animate();
 
-    // 8. Cleanup
     return () => {
       window.removeEventListener("mousemove", handleMouseMove);
       window.removeEventListener("resize", handleResize);
@@ -236,7 +233,7 @@ export default function ThreeGalaxyCanvas() {
       matRing3.dispose();
       geoCube.dispose();
       matCubeRed.dispose();
-      matCubeCyan.dispose();
+      matCubeMuted.dispose();
       particleGeo.dispose();
       particleMat.dispose();
       renderer.dispose();
@@ -246,7 +243,7 @@ export default function ThreeGalaxyCanvas() {
   return (
     <div
       ref={containerRef}
-      className="fixed inset-0 pointer-events-none -z-10 opacity-40 dark:opacity-65 transition-opacity duration-500"
+      className="fixed inset-0 pointer-events-none -z-10 opacity-30 dark:opacity-50 transition-opacity duration-500"
     />
   );
 }

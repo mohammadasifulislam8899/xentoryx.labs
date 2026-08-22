@@ -1,46 +1,31 @@
 import type { Metadata } from "next";
-import { Inter, Space_Grotesk } from "next/font/google";
+import { Kanit } from "next/font/google";
 import "./globals.css";
 import ClientLayoutWrapper from "./ClientLayoutWrapper";
-import { ThemeProvider } from "@/components/layout/ThemeProvider";
 
-const inter = Inter({
+const kanit = Kanit({
+  weight: ["300", "400", "500", "600", "700", "800", "900"],
   subsets: ["latin"],
-  variable: "--font-inter",
-  display: "swap",
-});
-
-const spaceGrotesk = Space_Grotesk({
-  subsets: ["latin"],
-  variable: "--font-space",
+  variable: "--font-kanit",
   display: "swap",
 });
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.xentoryxlabs.site"),
-  title: "Xentoryx Labs | Founder Asif — Software & Hardware Engineering Studio",
+  title: "Asif -- Founder & IoT Engineer | Xentoryx Labs",
   description:
-    "Official website of Xentoryx Labs and Founder Asif. Building high-performance Android applications, embedded IoT systems, scalable backend architectures, and intelligent web experiences.",
+    "Founder building scalable software, intelligent IoT hardware, and modern web experiences at Xentoryx Labs.",
   keywords: [
-    "Xentoryx Labs",
-    "Xentoryx",
-    "XentoryxLabs",
-    "Xentoryx Studio",
-    "xentoryxlabs.site",
-    "www.xentoryxlabs.site",
-    "Asif Founder",
-    "Mohammad Asiful Islam",
-    "Mohammad Asiful Islam Xentoryx Labs",
-    "Xentoryx Labs R&D Hub",
-    "Expensey Android Asif",
-    "Dipannita IoT Asif",
-    "Android Developer",
+    "Asif",
+    "Founder",
     "IoT Engineer",
-    "ESP32 C++",
+    "Mohammad Asiful Islam",
+    "Xentoryx Labs",
+    "ESP32",
+    "Android Developer",
+    "Kotlin",
     "Jetpack Compose",
-    "Next.js 15",
-    "Dipannita IoT",
-    "Expensey",
+    "Next.js"
   ],
   authors: [{ name: "Asif", url: "https://www.xentoryxlabs.site" }],
   icons: {
@@ -50,24 +35,24 @@ export const metadata: Metadata = {
     ],
     shortcut: "/favicon.ico",
     apple: [
-      { url: "/apple-icon.png", sizes: "180x180", type: "image/png" },
+      { url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" },
     ],
   },
   alternates: {
     canonical: "https://www.xentoryxlabs.site",
   },
   openGraph: {
-    title: "Xentoryx Labs | Founder Asif",
+    title: "Asif -- Founder & IoT Engineer | Xentoryx Labs",
     description:
-      "Building Scalable Software, IoT Systems, and Intelligent Technologies.",
+      "Founder building scalable software, intelligent IoT hardware, and modern web experiences at Xentoryx Labs.",
     url: "https://www.xentoryxlabs.site",
     siteName: "Xentoryx Labs",
     images: [
       {
-        url: "/assets/logo-dark.png",
+        url: "/assets/founder-asif.jpg",
         width: 1200,
         height: 630,
-        alt: "Xentoryx Labs — Software & Hardware Studio",
+        alt: "Asif -- Founder & IoT Engineer | Xentoryx Labs",
       },
     ],
     locale: "en_US",
@@ -75,10 +60,10 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Xentoryx Labs | Founder Asif",
+    title: "Asif -- Founder & IoT Engineer | Xentoryx Labs",
     description:
-      "Building Scalable Software, IoT Systems, and Intelligent Technologies.",
-    images: ["/assets/logo-dark.png"],
+      "Founder building scalable software, intelligent IoT hardware, and modern web experiences at Xentoryx Labs.",
+    images: ["/assets/founder-asif.jpg"],
   },
 };
 
@@ -87,51 +72,12 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  // Google Structured Data Schema (JSON-LD)
-  const jsonLd = {
-    "@context": "https://schema.org",
-    "@graph": [
-      {
-        "@type": "Organization",
-        "@id": "https://www.xentoryxlabs.site/#organization",
-        name: "Xentoryx Labs",
-        url: "https://www.xentoryxlabs.site",
-        logo: "https://www.xentoryxlabs.site/assets/logo-dark.png",
-        description: "R&D Software & Hardware Engineering Studio building native Android apps, IoT telemetry infrastructure, and modern web platforms.",
-        founder: {
-          "@type": "Person",
-          name: "Asif",
-          jobTitle: "Founder & Lead Architect",
-          sameAs: [
-            "https://github.com/mohammadasifulislam8899",
-            "https://linkedin.com/in/mohammadasifulislam"
-          ]
-        }
-      },
-      {
-        "@type": "WebSite",
-        "@id": "https://www.xentoryxlabs.site/#website",
-        url: "https://www.xentoryxlabs.site",
-        name: "Xentoryx Labs",
-        description: "Building Scalable Software, IoT Systems and Intelligent Technologies"
-      }
-    ]
-  };
-
   return (
-    <html lang="en" suppressHydrationWarning>
-      <head>
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-        />
-      </head>
+    <html lang="en" className="dark scroll-smooth">
       <body
-        className={`${inter.variable} ${spaceGrotesk.variable} antialiased bg-[var(--bg-primary)] text-[var(--text-primary)] selection:bg-brand-red selection:text-white font-sans transition-colors duration-300`}
+        className={`${kanit.variable} font-sans antialiased bg-[#0C0C0C] text-[#D7E2EA] selection:bg-[#BBCCD7] selection:text-[#0C0C0C] overflow-x-hidden`}
       >
-        <ThemeProvider attribute="class" defaultTheme="dark" enableSystem={false}>
-          <ClientLayoutWrapper>{children}</ClientLayoutWrapper>
-        </ThemeProvider>
+        <ClientLayoutWrapper>{children}</ClientLayoutWrapper>
       </body>
     </html>
   );

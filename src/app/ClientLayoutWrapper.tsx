@@ -5,7 +5,6 @@ import { usePathname } from "next/navigation";
 import SmoothScroll from "@/components/layout/SmoothScroll";
 import CustomCursor from "@/components/layout/CustomCursor";
 import ScrollProgress from "@/components/ui/ScrollProgress";
-import ParticleGridCanvas from "@/components/canvas/ParticleGridCanvas";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import CommandPalette from "@/components/layout/CommandPalette";
@@ -16,6 +15,7 @@ import { Bot } from "lucide-react";
 export default function ClientLayoutWrapper({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   const isAdminRoute = pathname?.startsWith("/admin");
+  const isHomeRoute = pathname === "/";
 
   const [cmdkOpen, setCmdkOpen] = useState(false);
   const [consoleOpen, setConsoleOpen] = useState(false);
@@ -37,10 +37,9 @@ export default function ClientLayoutWrapper({ children }: { children: React.Reac
     };
   }, []);
 
-  // Completely isolated Admin Page without any client/visitor navbar, footer, cursor, or canvas
   if (isAdminRoute) {
     return (
-      <div className="min-h-screen bg-[var(--bg-primary)] text-[var(--text-primary)] selection:bg-brand-red selection:text-white transition-colors duration-300">
+      <div className="min-h-screen bg-[#0C0C0C] text-[#D7E2EA] transition-colors duration-300">
         {children}
       </div>
     );
@@ -50,13 +49,14 @@ export default function ClientLayoutWrapper({ children }: { children: React.Reac
     <SmoothScroll>
       <ScrollProgress />
       <CustomCursor />
-      <ParticleGridCanvas />
 
-      <Navbar
-        onOpenCmdk={() => setCmdkOpen(true)}
-        onOpenAi={() => setAiOpen(true)}
-        onTriggerConsole={() => setConsoleOpen(true)}
-      />
+      {!isHomeRoute && (
+        <Navbar
+          onOpenCmdk={() => setCmdkOpen(true)}
+          onOpenAi={() => setAiOpen(true)}
+          onTriggerConsole={() => setConsoleOpen(true)}
+        />
+      )}
 
       {children}
 
@@ -65,7 +65,13 @@ export default function ClientLayoutWrapper({ children }: { children: React.Reac
       {/* Floating XenAI Assistant Button Badge */}
       <button
         onClick={() => setAiOpen(true)}
-        className="fixed bottom-6 right-6 z-30 px-4 py-2.5 rounded-full bg-gradient-to-r from-brand-red to-[#FF5E50] text-white text-xs font-mono font-bold flex items-center gap-2 shadow-glow-red hover:shadow-glow-red-lg hover:scale-105 transition-all group"
+        style={{
+          background: "linear-gradient(123deg, #18011F 7%, #B600A8 37%, #7621B0 72%, #BE4C00 100%)",
+          boxShadow: "0px 4px 4px rgba(181, 1, 167, 0.25), 4px 4px 12px #7721B1 inset",
+          outline: "2px solid white",
+          outlineOffset: "-3px",
+        }}
+        className="fixed bottom-6 right-6 z-30 px-4 py-2.5 rounded-full text-white text-xs font-mono font-bold flex items-center gap-2 hover:scale-105 transition-all group shadow-2xl cursor-pointer"
       >
         <Bot className="w-4 h-4 animate-bounce" />
         <span>XenAI</span>

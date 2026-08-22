@@ -20,71 +20,80 @@ export default function CompanySection() {
   };
 
   return (
-    <section id="company" className="py-24 bg-slate-50 dark:bg-[#0F1115] text-slate-900 dark:text-white relative overflow-hidden transition-colors duration-300">
-      {/* Red ambient core */}
-      <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-brand-red/10 rounded-full blur-3xl pointer-events-none" />
-
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="text-center max-w-4xl mx-auto space-y-6 mb-20">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full glass-panel-red text-xs font-mono text-brand-red font-semibold uppercase tracking-wider">
-            ABOUT {companyName.toUpperCase()}
+    <section id="company" className="relative bg-[#F5F1E8] dark:bg-[#0A0A0A] text-[#0A0A0A] dark:text-[#F5F1E8] py-24 sm:py-32 transition-colors duration-400">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-4xl space-y-4 mb-16">
+          <div className="font-mono text-xs text-[#D9A648] font-bold uppercase tracking-widest">
+            [ 006 // ORGANIZATION &amp; ETHOS ]
           </div>
-
-          <h2 className="font-display text-4xl sm:text-6xl font-extrabold text-slate-900 dark:text-white tracking-tight leading-tight">
-            {compData.headline}
+          <h2 className="font-display font-black text-5xl sm:text-7xl tracking-tighter lowercase leading-tight">
+            mission &amp; vision
           </h2>
-
-          <p className="text-base sm:text-lg text-slate-600 dark:text-slate-400 leading-relaxed max-w-2xl mx-auto font-sans">
+          <p className="text-base sm:text-lg opacity-85 leading-relaxed font-sans max-w-2xl">
             {compData.description}
           </p>
         </div>
 
-        {/* Mission & Vision Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
-          <motion.div
-            initial={{ opacity: 0, x: -30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            className="glass-panel-red p-8 sm:p-10 rounded-3xl border border-brand-red/30 space-y-4"
-          >
-            <div className="w-12 h-12 rounded-2xl bg-brand-red/20 border border-brand-red/40 flex items-center justify-center text-brand-red">
-              <Target className="w-6 h-6" />
+        {/* Double Card Spread */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
+          {/* Mission */}
+          <div className="p-8 sm:p-12 rounded-[36px] bg-[#FFFFFF] dark:bg-[#141414] border border-[#0A0A0A]/10 dark:border-[#F5F1E8]/10 shadow-card space-y-6 flex flex-col justify-between">
+            <div className="space-y-4">
+              <div className="flex items-center justify-between">
+                <span className="text-xs font-mono font-bold text-[#D9A648] uppercase tracking-widest">
+                  MANIFESTO 01
+                </span>
+                <Target className="w-5 h-5 text-[#D9A648]" />
+              </div>
+              <h3 className="font-display font-black text-3xl text-[#0A0A0A] dark:text-[#F5F1E8]">
+                Our Mission
+              </h3>
+              <p className="text-sm font-sans opacity-85 leading-relaxed">
+                {compData.mission}
+              </p>
             </div>
-            <h3 className="font-display text-2xl font-bold text-slate-900 dark:text-white">Our Mission</h3>
-            <p className="text-xs font-mono text-slate-700 dark:text-slate-300 leading-relaxed">
-              {compData.mission}
-            </p>
-          </motion.div>
+            <div className="text-[10px] font-mono opacity-50 uppercase tracking-widest pt-4 border-t border-[#0A0A0A]/5 dark:border-[#F5F1E8]/5">
+              XENTORYX LABS &bull; HARDWARE &amp; SOFTWARE BRIDGE
+            </div>
+          </div>
 
-          <motion.div
-            initial={{ opacity: 0, x: 30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            className="glass-panel p-8 sm:p-10 rounded-3xl border border-slate-200 dark:border-white/10 space-y-4"
-          >
-            <div className="w-12 h-12 rounded-2xl bg-slate-100 dark:bg-surface border border-slate-200 dark:border-white/10 flex items-center justify-center text-cyan-600 dark:text-cyan-400">
-              <Compass className="w-6 h-6" />
+          {/* Vision */}
+          <div className="p-8 sm:p-12 rounded-[36px] bg-[#D9A648] text-[#0A0A0A] shadow-mustard space-y-6 flex flex-col justify-between">
+            <div className="space-y-4">
+              <div className="flex items-center justify-between">
+                <span className="text-xs font-mono font-bold text-[#0A0A0A] uppercase tracking-widest">
+                  MANIFESTO 02
+                </span>
+                <Compass className="w-5 h-5 text-[#0A0A0A]" />
+              </div>
+              <h3 className="font-display font-black text-3xl text-[#0A0A0A]">
+                Our Vision
+              </h3>
+              <p className="text-sm font-sans text-[#0A0A0A]/90 leading-relaxed font-medium">
+                {compData.vision}
+              </p>
             </div>
-            <h3 className="font-display text-2xl font-bold text-slate-900 dark:text-white">Our Vision</h3>
-            <p className="text-xs font-mono text-slate-700 dark:text-slate-300 leading-relaxed">
-              {compData.vision}
-            </p>
-          </motion.div>
+            <div className="text-[10px] font-mono text-[#0A0A0A]/60 uppercase tracking-widest pt-4 border-t border-[#0A0A0A]/10">
+              GLOBAL R&amp;D LAB &bull; LONG-TERM HORIZON
+            </div>
+          </div>
         </div>
 
-        {/* Core Values Row */}
+        {/* Core Values */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {compData.values.map((val, idx) => {
-            const icons = [ShieldCheck, Zap, Compass];
-            const IconComp = icons[idx % icons.length];
-            return (
-              <div key={val.title} className="glass-panel p-6 rounded-2xl border border-slate-200 dark:border-white/10 space-y-3">
-                <IconComp className="w-5 h-5 text-brand-red" />
-                <h4 className="font-display text-lg font-bold text-slate-900 dark:text-white">{val.title}</h4>
-                <p className="text-xs font-mono text-slate-600 dark:text-slate-400 leading-relaxed">{val.description}</p>
+          {compData.values.map((val, idx) => (
+            <div
+              key={val.title}
+              className="p-6 sm:p-8 rounded-[28px] bg-[#FFFFFF] dark:bg-[#141414] border border-[#0A0A0A]/10 dark:border-[#F5F1E8]/10 shadow-sm space-y-3"
+            >
+              <div className="flex items-center justify-between">
+                <span className="text-xs font-mono font-bold text-[#D9A648]">0{idx + 1}</span>
+                <ShieldCheck className="w-4 h-4 text-[#D9A648]" />
               </div>
-            );
-          })}
+              <h4 className="font-display font-bold text-lg text-[#0A0A0A] dark:text-[#F5F1E8]">{val.title}</h4>
+              <p className="text-xs font-sans opacity-75 leading-relaxed">{val.description}</p>
+            </div>
+          ))}
         </div>
       </div>
     </section>

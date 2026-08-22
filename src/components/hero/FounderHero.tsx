@@ -1,153 +1,128 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import dynamic from "next/dynamic";
 import Image from "next/image";
 import Link from "next/link";
-import { motion } from "framer-motion";
-import { ArrowUpRight, Terminal, Sparkles, Cpu, Layers, Radio, Activity } from "lucide-react";
+import { ArrowUpRight, Globe, Camera, Cpu } from "lucide-react";
 import { useCMS } from "@/hooks/useCMS";
-
-// Lazy load 3D R3F Canvas for 95+ Lighthouse Performance
-const Hero3DCanvas = dynamic(() => import("./Hero3DCanvas"), {
-  ssr: false,
-  loading: () => <div className="absolute inset-0 pointer-events-none" />,
-});
 
 export default function FounderHero() {
   const { founderName, tagline, settings } = useCMS();
   const heroConfig = settings?.hero || {
-    statusPill: "FOUNDER & PRINCIPAL ENGINEER",
-    headline: "ASIF",
-    roles: ["Android Developer", "IoT Systems Engineer", "Backend Architect", "Modern Web Specialist"],
-    description: "Building scalable software products, intelligent IoT hardware systems, high-throughput backend architectures, and modern web experiences through Xentoryx Labs.",
-    yearsMetric: "4+",
-    techNodesMetric: "15+",
-    uptimeMetric: "99.9%",
-    telemetryCardText: "Active // 12ms Ping",
+    headline: "asif\nfounder",
+    description: "Building scalable native Android applications, embedded IoT microcontrollers, high-throughput backend microservices, and modern web architectures through Xentoryx Labs.",
+    yearsMetric: "+250k",
+    yearsCaption: "Lines of typed code across production architectures",
+    uptimeMetric: "+800k",
+    uptimeCaption: "IoT telemetry packets delivered with real-time accuracy",
   };
 
-  const [roleIndex, setRoleIndex] = useState(0);
-  const roles = heroConfig.roles && heroConfig.roles.length > 0 ? heroConfig.roles : ["Software Engineer", "Founder"];
-
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setRoleIndex((prev) => (prev + 1) % roles.length);
-    }, 2800);
-    return () => clearInterval(timer);
-  }, [roles.length]);
+  const socialPills = [
+    { label: "gh", href: "https://github.com/mohammadasifulislam8899", title: "GitHub" },
+    { label: "li", href: "https://linkedin.com/in/mohammadasifulislam", title: "LinkedIn" },
+    { label: "fb", href: "https://facebook.com", title: "Facebook" },
+    { label: "x", href: "https://twitter.com", title: "Twitter / X" },
+  ];
 
   return (
-    <section className="relative min-h-[90vh] flex items-center justify-center pt-28 pb-20 sm:pt-36 sm:pb-28 overflow-hidden bg-[var(--bg-primary)] text-[var(--text-primary)] transition-colors duration-300">
-      {/* Lazy-Loaded R3F 3D Scene Background */}
-      <Hero3DCanvas />
-
-      {/* Red ambient core glow */}
-      <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[550px] h-[550px] bg-brand-red/12 rounded-full blur-[140px] pointer-events-none" />
-
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
+    <section className="relative min-h-[90vh] flex items-center justify-center pt-28 pb-16 sm:pt-36 sm:pb-24 bg-[#F5F1E8] dark:bg-[#0A0A0A] text-[#0A0A0A] dark:text-[#F5F1E8] transition-colors duration-400">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 sm:gap-16 items-center">
-          {/* Left Column: Headline & Pitch */}
-          <div className="lg:col-span-7 space-y-7 text-left">
-            {/* Status Badge */}
-            <div className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full glass-panel-red border border-brand-red/30">
-              <span className="w-2 h-2 rounded-full bg-brand-red animate-ping" />
-              <span className="text-xs font-mono font-bold text-brand-red uppercase tracking-wider">
-                {heroConfig.statusPill}
-              </span>
-            </div>
-
-            {/* Main Title */}
-            <div className="space-y-3">
-              <h1 className="font-display text-5xl sm:text-6xl md:text-7xl font-black tracking-tight dark:text-white text-gray-900 leading-[1.05]">
-                {heroConfig.headline || founderName.toUpperCase()}
+          
+          {/* LEFT COLUMN: Ultra-Bold Headline & Stats */}
+          <div className="lg:col-span-6 space-y-8 text-left">
+            <div className="space-y-1">
+              <h1 className="font-display font-black text-6xl sm:text-7xl md:text-8xl lg:text-[7rem] tracking-tighter leading-[0.88] text-[#0A0A0A] dark:text-[#F5F1E8] lowercase">
+                founder<br />monograph
               </h1>
-              <div className="h-10 flex items-center text-xl sm:text-2xl font-mono text-brand-red font-bold">
-                <span className="mr-2">&gt;</span>
-                <motion.span
-                  key={roleIndex}
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -10 }}
-                  transition={{ duration: 0.3 }}
-                >
-                  {roles[roleIndex]}
-                </motion.span>
-              </div>
             </div>
 
-            {/* Description Pitch */}
-            <p className="text-base sm:text-lg dark:text-slate-300 text-slate-700 max-w-2xl leading-relaxed font-sans font-normal">
+            <p className="text-xs sm:text-sm font-sans opacity-80 max-w-md leading-relaxed">
               {heroConfig.description || tagline}
             </p>
 
-            {/* Action Buttons */}
-            <div className="flex flex-wrap items-center gap-4 pt-2">
-              <Link
-                href="/projects"
-                className="px-6 py-3.5 rounded-2xl bg-gradient-to-r from-brand-red to-[#FF5E50] text-white text-xs font-mono font-bold uppercase tracking-wider flex items-center gap-2 shadow-glow-red hover:shadow-glow-red-lg transition-all"
-              >
-                <span>Explore Projects</span>
-                <ArrowUpRight className="w-4 h-4" />
-              </Link>
-
-              <Link
-                href="/#contact"
-                className="px-6 py-3.5 rounded-2xl glass-panel text-slate-900 dark:text-white text-xs font-mono font-bold uppercase tracking-wider flex items-center gap-2 transition-all"
-              >
-                <span>Initiate Contact</span>
-              </Link>
+            {/* Social link pills */}
+            <div className="flex items-center gap-2 pt-1">
+              {socialPills.map((pill) => (
+                <a
+                  key={pill.label}
+                  href={pill.href}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="w-8 h-8 rounded-full border border-[#0A0A0A]/30 dark:border-[#F5F1E8]/30 flex items-center justify-center text-[10px] font-mono font-bold lowercase text-[#0A0A0A] dark:text-[#F5F1E8] hover:bg-[#D9A648] hover:border-[#D9A648] hover:text-[#0A0A0A] transition-all"
+                  title={pill.title}
+                >
+                  {pill.label}
+                </a>
+              ))}
             </div>
 
-            {/* Minimal Metrics Row */}
-            <div className="grid grid-cols-3 gap-4 pt-6 border-t border-slate-200 dark:border-white/10 max-w-md">
-              <div>
-                <div className="text-2xl font-display font-bold text-slate-900 dark:text-white">{heroConfig.yearsMetric}</div>
-                <div className="text-[10px] font-mono text-slate-500 dark:text-slate-400 uppercase font-bold">Experience</div>
+            {/* Stat Blocks */}
+            <div className="grid grid-cols-2 gap-6 pt-4 max-w-lg border-t border-[#0A0A0A]/10 dark:border-[#F5F1E8]/10">
+              <div className="space-y-1">
+                <div className="font-display font-black text-3xl sm:text-4xl tracking-tight">
+                  {heroConfig.yearsMetric || "4+ Years"}
+                </div>
+                <div className="text-[11px] font-sans opacity-70 leading-snug">
+                  {(heroConfig as any).yearsCaption || "Engineering Experience"}
+                </div>
               </div>
-              <div>
-                <div className="text-2xl font-display font-bold text-slate-900 dark:text-white">{heroConfig.techNodesMetric}</div>
-                <div className="text-[10px] font-mono text-slate-500 dark:text-slate-400 uppercase font-bold">Tech Stack Nodes</div>
-              </div>
-              <div>
-                <div className="text-2xl font-display font-bold text-slate-900 dark:text-white">{heroConfig.uptimeMetric}</div>
-                <div className="text-[10px] font-mono text-slate-500 dark:text-slate-400 uppercase font-bold">Uptime Target</div>
+
+              <div className="space-y-1">
+                <div className="font-display font-black text-3xl sm:text-4xl tracking-tight">
+                  {heroConfig.uptimeMetric || "99.9%"}
+                </div>
+                <div className="text-[11px] font-sans opacity-70 leading-snug">
+                  {(heroConfig as any).uptimeCaption || "Production Uptime Target"}
+                </div>
               </div>
             </div>
           </div>
 
-          {/* Right Column: 2.5D Founder Avatar & Minimal Live Telemetry Widget */}
-          <div className="lg:col-span-5 flex justify-center relative">
-            <div className="relative w-72 h-72 sm:w-80 sm:h-80 md:w-96 md:h-96">
-              {/* Outer Energy Ring */}
-              <div className="absolute inset-0 rounded-full border border-brand-red/40 animate-spin-slow" />
-              <div className="absolute -inset-4 rounded-full border border-brand-red/20 blur-sm" />
+          {/* RIGHT COLUMN: Rounded Mustard Card with Founder Visual */}
+          <div className="lg:col-span-6 flex justify-center lg:justify-end">
+            <div className="relative w-full max-w-[440px] h-[480px] sm:h-[520px] rounded-[36px] bg-[#D9A648] p-6 shadow-mustard flex flex-col justify-between overflow-hidden group">
+              <div className="flex items-start justify-between z-20">
+                <div className="font-serif italic text-2xl sm:text-3xl text-white/90 font-light select-none tracking-wide">
+                  Asif
+                </div>
 
-              {/* Founder Avatar Image Container */}
-              <div className="relative w-full h-full rounded-full overflow-hidden border-2 border-brand-red/60 shadow-2xl p-1 bg-[#0A0C10]">
+                <Link
+                  href="/projects"
+                  className="w-10 h-10 rounded-full bg-[#0A0A0A] text-[#F5F1E8] flex items-center justify-center hover:scale-110 transition-transform shadow-md"
+                  title="Explore Project Archive"
+                >
+                  <Globe className="w-5 h-5" />
+                </Link>
+              </div>
+
+              <div className="absolute inset-x-6 bottom-0 top-12 rounded-t-[28px] overflow-hidden">
                 <Image
                   src="/assets/founder-asif.jpg"
-                  alt="Founder Asif"
+                  alt="Founder Asif — Xentoryx Labs"
                   fill
                   priority
-                  className="object-cover rounded-full filter grayscale hover:grayscale-0 transition-all duration-700"
+                  className="object-cover object-center filter grayscale contrast-115 group-hover:scale-105 transition-transform duration-700"
                 />
               </div>
 
-              {/* Minimal Telemetry Status Badge */}
-              <motion.div
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ delay: 0.5 }}
-                className="absolute -bottom-4 left-1/2 -translate-x-1/2 px-4 py-2 rounded-2xl glass-panel-red border border-brand-red/40 flex items-center gap-2 shadow-2xl z-20 whitespace-nowrap"
-              >
-                <Activity className="w-4 h-4 text-brand-red animate-pulse" />
-                <span className="text-xs font-mono text-white font-bold">
-                  {heroConfig.telemetryCardText}
-                </span>
-              </motion.div>
+              <div className="absolute left-6 bottom-6 z-20 flex flex-col gap-2">
+                <div className="w-8 h-8 rounded-full bg-white/90 border border-white p-0.5 shadow-sm flex items-center justify-center">
+                  <Camera className="w-4 h-4 text-[#0A0A0A]" />
+                </div>
+                <div className="w-8 h-8 rounded-full bg-white/90 border border-white p-0.5 shadow-sm flex items-center justify-center">
+                  <Cpu className="w-4 h-4 text-[#0A0A0A]" />
+                </div>
+                <Link
+                  href="/#contact"
+                  className="w-9 h-9 rounded-full bg-[#0A0A0A] text-[#F5F1E8] flex items-center justify-center hover:bg-white hover:text-[#0A0A0A] transition-colors shadow-md"
+                  title="Contact Founder"
+                >
+                  <ArrowUpRight className="w-4 h-4" />
+                </Link>
+              </div>
             </div>
           </div>
+
         </div>
       </div>
     </section>

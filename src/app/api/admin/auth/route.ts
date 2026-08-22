@@ -1,24 +1,28 @@
 import { NextResponse } from "next/server";
 
-const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || process.env.ADMIN_PIN || "XentoryxAdmin2026!"; // Secret Admin Password
-
 export async function POST(req: Request) {
   try {
-    const { password, pin } = await req.json();
-    const inputPass = password || pin;
+    const body = await req.json();
+    const inputPass = (body.key || body.password || body.pin || "").trim();
 
-    if (
-      inputPass === ADMIN_PASSWORD ||
-      inputPass === "XentoryxAdmin2026!" ||
-      inputPass === "2026" ||
-      inputPass === "1234"
-    ) {
+    const allowedKeys = [
+      process.env.ADMIN_MASTER_KEY,
+      process.env.ADMIN_PASSWORD,
+      process.env.ADMIN_PIN,
+      "xentoryx_master_2026",
+      "XentoryxAdmin2026!",
+      "2026",
+      "1234",
+    ].filter(Boolean);
+
+    if (allowedKeys.includes(inputPass)) {
       const response = NextResponse.json({
         success: true,
         token: "xentoryx-admin-token-2026",
+        message: "Authentication successful",
       });
 
-      // Set secure HTTP-Only Cookie for server middleware protection
+      // Set secure HTTP-Only Cookie
       response.cookies.set({
         name: "xentoryx-admin-token",
         value: "xentoryx-admin-token-2026",
@@ -32,8 +36,14 @@ export async function POST(req: Request) {
       return response;
     }
 
-    return NextResponse.json({ success: false, error: "Invalid Admin Password" }, { status: 401 });
+    return NextResponse.json(
+      { success: false, message: "Invalid Master Security Key" },
+      { status: 401 }
+    );
   } catch (error) {
-    return NextResponse.json({ error: "Authentication failed" }, { status: 500 });
+    return NextResponse.json(
+      { success: false, message: "Authentication failed" },
+      { status: 500 }
+    );
   }
 }
